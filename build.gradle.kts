@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "net.siegemc"
-version = "1.0-SNAPSHOT"
+version = "0.0.1"
 
 configure<JavaPluginExtension> {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -26,11 +26,19 @@ repositories {
     maven(url = "https://repo.aikar.co/content/groups/aikar/")
     maven(url = "https://repo.codemc.org/repository/maven-public/" )
     maven(url = "https://papermc.io/repo/repository/maven-public/")
+    maven(url = "https://mvn.lumine.io/repository/maven-public/")
+    maven(url = "https://jitpack.io")
+    maven (
+        url = "https://dl.bintray.com/ichbinjoe/public/"
+    )
 }
 
 dependencies {
     testCompile("junit:junit:4.12")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.3-R0.1-SNAPSHOT")
+    compileOnly("io.lumine.xikage:MythicMobs:4.9.1") // MythicMobs API
+    compileOnly("com.vexsoftware:nuvotifier-universal:2.6.0") // NuVotifier API
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7") // Vault API
     compile("co.aikar:acf-paper:0.5.0-SNAPSHOT")
     compile("com.github.stefvanschie.inventoryframework:IF:0.5.19")
     implementation("net.kyori:adventure-text-minimessage:3.0.0-SNAPSHOT")

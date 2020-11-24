@@ -1,6 +1,5 @@
-name: Core
-version: @version@
+name: SiegeMC
+version: 0.0.1
 main: net.siegemc.core.Core
 api-version: 1.16
-prefix: Core
-authors: [Wrys, Ghqst]
+authors: [Wrys, DeltaRays, Ghqst]
