@@ -28,6 +28,7 @@ repositories {
     maven(url = "https://papermc.io/repo/repository/maven-public/")
     maven(url = "https://mvn.lumine.io/repository/maven-public/")
     maven(url = "https://jitpack.io")
+    maven(url="https://repo.dmulloy2.net/nexus/repository/public/")
     maven (
         url = "https://dl.bintray.com/ichbinjoe/public/"
     )
@@ -36,11 +37,12 @@ repositories {
 dependencies {
     testCompile("junit:junit:4.12")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.3-R0.1-SNAPSHOT")
+    compileOnly("com.comphenix.protocol:ProtocolLib:4.5.0")
     compileOnly("io.lumine.xikage:MythicMobs:4.9.1") // MythicMobs API
     compileOnly("com.vexsoftware:nuvotifier-universal:2.6.0") // NuVotifier API
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") // Vault API
     compile("co.aikar:acf-paper:0.5.0-SNAPSHOT")
-    compile("com.github.stefvanschie.inventoryframework:IF:0.5.19")
+    compile("com.github.stefvanschie.inventoryframework:IF:0.8.0")
     implementation("net.kyori:adventure-text-minimessage:3.0.0-SNAPSHOT")
     implementation("net.kyori:adventure-platform-bukkit:4.0.0-SNAPSHOT")
     //compile(fileTree(include(["*.jar"]), dir("libs")))
