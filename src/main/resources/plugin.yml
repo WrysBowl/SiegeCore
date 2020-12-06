@@ -10,6 +10,3 @@ authors: [ Wrys, DeltaRays, Ghqst ]
 commands:
   profile:
     description: Get or modify your profile
-  eval:
-    description: Evaluate code
-    permission: epic_pog_developer
