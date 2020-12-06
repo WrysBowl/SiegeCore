@@ -43,8 +43,6 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") // Vault API
     compile("co.aikar:acf-paper:0.5.0-SNAPSHOT")
     compile("com.github.stefvanschie.inventoryframework:IF:0.8.0")
-    implementation("net.kyori:adventure-text-minimessage:3.0.0-SNAPSHOT")
-    implementation("net.kyori:adventure-platform-bukkit:4.0.0-SNAPSHOT")
     //compile(fileTree(include(["*.jar"]), dir("libs")))
 }
 tasks {
@@ -54,11 +52,6 @@ tasks {
         relocate("com.github.stefvanschie.inventoryframework", "net.siegemc.core.inventoryframework")
         doFirst {
             exclude("fonts/*.csv")
-        }
-        sequenceOf("net.kyori.adventure", "net.kyori.examination").forEach {
-            relocate(it, "net.kyori.adventure.test.paper.ext.$it") {
-                exclude("net.kyori.adventure.test.*")
-            }
         }
         dependencies {
             exclude(dependency("com.google.code.gson:.*"))

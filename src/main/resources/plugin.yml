@@ -2,4 +2,14 @@ name: SiegeMC
 version: 0.0.1
 main: net.siegemc.core.Core
 api-version: 1.16
-authors: [Wrys, DeltaRays, Ghqst]
+description: The main Siege plugin
+prefix: Siege
+depend: [ Vault, ProtocolLib, Votifier, MythicMobs ]
+load: STARTUP
+authors: [ Wrys, DeltaRays, Ghqst ]
+commands:
+  profile:
+    description: Get or modify your profile
+  eval:
+    description: Evaluate code
+    permission: epic_pog_developer

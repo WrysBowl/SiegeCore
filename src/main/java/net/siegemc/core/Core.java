@@ -1,20 +1,19 @@
 package net.siegemc.core;
 
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.siegemc.core.events.ChatListener;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public final class Core extends JavaPlugin {
-    public BukkitAudiences audiences;
-    @Override
-    public void onLoad() {
-        DatabaseManager.connectToDB();
-        audiences = BukkitAudiences.create(this);
-    }
-
     @Override
     public void onEnable() {
-        getLogger().info("Plugin has been enabled!");
+        getLogger().info("Plugin is enabling!");
+        (new VaultHook()).createHooks();
+        DatabaseManager.connectToDB();
+        Bukkit.getPluginManager().registerEvents(new ChatListener(), Core.plugin());
+        getCommand("profile").setExecutor(new Profile());
+        getLogger().info("Plugin has enabled!");
     }
 
     @Override
@@ -22,7 +21,7 @@ public final class Core extends JavaPlugin {
         getLogger().info("Plugin has been disabled!");
     }
 
-    public static Core plugin(){
+    public static Core plugin() {
         return Core.getPlugin(Core.class);
     }
 }
