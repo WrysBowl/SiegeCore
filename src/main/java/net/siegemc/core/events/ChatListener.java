@@ -1,6 +1,5 @@
 package net.siegemc.core.events;
 
-import net.siegemc.core.Profile;
 import net.siegemc.core.Utils;
 import net.siegemc.core.VaultHook;
 import org.bukkit.Bukkit;
@@ -15,6 +14,6 @@ public class ChatListener implements Listener {
         String group = VaultHook.perms.getPrimaryGroup(event.getPlayer().getWorld().getName(), event.getPlayer());
         event.setCancelled(true);
         boolean isOp = event.getPlayer().isOp();
-        Bukkit.broadcastMessage(Utils.tacc((String.format("&8[&6%s&8] &7%s &r%s &f%s &6\u00BB &7", Profile.getLevel(event.getPlayer(), null), Profile.getClan(event.getPlayer(), null), group, event.getPlayer().getDisplayName(), event.getMessage()))) + (isOp ? Utils.tacc(event.getMessage()) : event.getMessage()));
+        Bukkit.broadcastMessage(Utils.tacc((String.format("%s &f%s &6\u00BB &7",group, event.getPlayer().getDisplayName(), event.getMessage()))) + (isOp ? Utils.tacc(event.getMessage()) : event.getMessage()));
     }
 }
