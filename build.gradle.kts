@@ -24,13 +24,13 @@ repositories {
     mavenCentral()
     maven(url = "https://oss.sonatype.org/content/groups/public/")
     maven(url = "https://repo.aikar.co/content/groups/aikar/")
-    maven(url = "https://repo.codemc.org/repository/maven-public/" )
+    maven(url = "https://repo.codemc.org/repository/maven-public/")
     maven(url = "https://papermc.io/repo/repository/maven-public/")
     maven(url = "https://mvn.lumine.io/repository/maven-public/")
     maven(url = "https://jitpack.io")
-    maven(url="https://repo.dmulloy2.net/nexus/repository/public/")
-    maven (
-        url = "https://dl.bintray.com/ichbinjoe/public/"
+    maven(url = "https://repo.dmulloy2.net/nexus/repository/public/")
+    maven(
+            url = "https://dl.bintray.com/ichbinjoe/public/"
     )
 }
 
@@ -42,7 +42,7 @@ dependencies {
     compileOnly("com.vexsoftware:nuvotifier-universal:2.6.0") // NuVotifier API
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") // Vault API
     compile("co.aikar:acf-paper:0.5.0-SNAPSHOT")
-    compile("com.github.stefvanschie.inventoryframework:IF:0.8.0")
+    compile("com.github.stefvanschie.inventoryframework:IF:0.9.0")
     //compile(fileTree(include(["*.jar"]), dir("libs")))
 }
 tasks {

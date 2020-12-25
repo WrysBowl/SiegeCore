@@ -1,57 +1,72 @@
 package net.siegemc.core;
 
-
-import org.jetbrains.annotations.NotNull;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.concurrent.LinkedTransferQueue;
+
 
 public class DbManager {
 
-    private static final Queue<Connection> poolConnections = new PriorityQueue<>();
-    private static final Queue<Connection> usedConnections = new PriorityQueue<>();
+    private static final String url = "jdbc:mysql://paneldatabase.humbleservers.com:3306/s2684_data";
+    private static final String user = "u2684_ES9oodb7pa";
+    private static final String password = "WCPqgtF7K^8^q59DAHe.NWnx";
+    private final static Queue<Connection> connectionPool = new LinkedTransferQueue<>();
+    private final static Queue<Connection> usedConnections = new LinkedTransferQueue<>();
+    private static final int INITIAL_POOL_SIZE = 10;
+    private static final int MAX_TIMEOUT = 30 * 1000;
 
-    static {
+
+    public static void create() {
         try {
-            poolConnections.add(createConnection());
-        } catch (ClassNotFoundException | SQLException e) {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
+            connectionPool.add(createConnection());
+        }
     }
 
-    private static Connection createConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://paneldatabase.humbleservers.com:3306/s2684_data", "u2684_ES9oodb7pa", "UyS@YL4g!KnhUxt@yM0iV=og");
-    }
 
     public static Connection getConnection() {
-        if (poolConnections.size() < 1) {
-            try {
-                poolConnections.add(createConnection());
-            } catch (Exception e) {
-                Core.plugin().getLogger().warning("Could not create a new connection!");
-                return null;
+        try {
+            if (connectionPool.isEmpty())
+                connectionPool.add(createConnection());
+            Connection connection = connectionPool.poll();
+            if (connection == null || connection.isClosed() || !connection.isValid(MAX_TIMEOUT)) {
+                System.out.println(connection.isValid(MAX_TIMEOUT));
+                connection = createConnection();
             }
+
+            usedConnections.add(connection);
+            return connection;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        Connection con = poolConnections.peek();
-        usedConnections.add(con);
-        return con;
     }
 
-    @NotNull
-    public static boolean releaseConnection(Connection con) {
-        if (usedConnections.contains(con)) {
-            usedConnections.remove(con);
-            return poolConnections.add(con);
-        }
+    public static boolean releaseConnection(Connection connection) {
+        connectionPool.add(connection);
+        return usedConnections.remove(connection);
+    }
+
+    private static Connection createConnection() {
         try {
-            con.close();
-        } catch (Exception ignored) {
+            return DriverManager.getConnection(url, user, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return false;
+    }
+
+    public int getSize() {
+        return connectionPool.size() + usedConnections.size();
+    }
+
+    public Queue<Connection> getConnectionPool() {
+        return connectionPool;
     }
 
 }

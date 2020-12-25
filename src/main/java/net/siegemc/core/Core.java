@@ -10,6 +10,7 @@ public final class Core extends JavaPlugin {
     public void onEnable() {
         getLogger().info("Plugin is enabling!");
         (new VaultHook()).createHooks();
+        DbManager.create();
         Bukkit.getPluginManager().registerEvents(new ChatListener(), Core.plugin());
         getCommand("profile").setExecutor(new Profile());
         getLogger().info("Plugin has enabled!");
