@@ -7,6 +7,3 @@ prefix: Siege
 depend: [ Vault, ProtocolLib, Votifier, MythicMobs ]
 load: STARTUP
 authors: [ Wrys, DeltaRays, Ghqst ]
-commands:
-  profile:
-    description: Get or modify your profile
