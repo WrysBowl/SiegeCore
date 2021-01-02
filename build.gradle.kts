@@ -30,7 +30,7 @@ repositories {
     maven(url = "https://jitpack.io")
     maven(url = "https://repo.dmulloy2.net/nexus/repository/public/")
     maven(
-            url = "https://dl.bintray.com/ichbinjoe/public/"
+        url = "https://dl.bintray.com/ichbinjoe/public/"
     )
 }
 
@@ -38,7 +38,7 @@ dependencies {
     testCompile("junit:junit:4.12")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.3-R0.1-SNAPSHOT")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.5.0")
-    compileOnly("io.lumine.xikage:MythicMobs:4.11.0") // MythicMobs API
+    compileOnly("io.lumine.xikage:MythicMobs:4.11.0-BETA") // MythicMobs API
     compileOnly("com.vexsoftware:nuvotifier-universal:2.6.0") // NuVotifier API
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") // Vault API
     compile("co.aikar:acf-paper:0.5.0-SNAPSHOT")

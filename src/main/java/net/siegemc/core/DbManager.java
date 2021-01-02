@@ -35,7 +35,6 @@ public class DbManager {
                 connectionPool.add(createConnection());
             Connection connection = connectionPool.poll();
             if (connection == null || connection.isClosed() || !connection.isValid(MAX_TIMEOUT)) {
-                System.out.println(connection.isValid(MAX_TIMEOUT));
                 connection = createConnection();
             }
 
