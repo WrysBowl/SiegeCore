@@ -9,7 +9,7 @@ public final class Core extends JavaPlugin {
         getLogger().info("Plugin is enabling!");
         (new VaultHook()).createHooks();
         DbManager.create();
-        getLogger().info("Plugin is enabled!");
+        getLogger().info("Plugin has enabled!");
     }
 
     @Override
