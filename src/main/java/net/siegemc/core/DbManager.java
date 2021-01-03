@@ -1,5 +1,7 @@
 package net.siegemc.core;
 
+import org.bukkit.scheduler.BukkitRunnable;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Queue;
@@ -23,13 +25,18 @@ public class DbManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
-            connectionPool.add(createConnection());
-        }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
+                    connectionPool.add(createConnection());
+                }
+            }
+        }.runTaskAsynchronously(Core.plugin());
     }
 
 
-    public static Connection getConnection() {
+    public static synchronized Connection getConnection() {
         try {
             if (connectionPool.isEmpty())
                 connectionPool.add(createConnection());
@@ -46,12 +53,12 @@ public class DbManager {
         }
     }
 
-    public static boolean releaseConnection(Connection connection) {
+    public static synchronized boolean releaseConnection(Connection connection) {
         connectionPool.add(connection);
         return usedConnections.remove(connection);
     }
 
-    private static Connection createConnection() {
+    private static synchronized Connection createConnection() {
         try {
             return DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
