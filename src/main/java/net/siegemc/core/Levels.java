@@ -8,6 +8,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Levels {
+    public static void levelCalculate(OfflinePlayer player) {
+        try {
+            short level = getLevel(player);
+            while (((level + 3) ^ 3) <= getExp(player)) { //Loops until required exp is greater than current exp
+                setExp(player, getExp(player) - ((level + 3) ^ 3)); //Removes required exp of the level from current exp
+                level += 1;
+            }
+            setLevel(player, level); //When while loop is finished, set the temp level variable to player's level
+        } catch (Exception e) {
+            e.printStackTrace(); //I have no idea what I'm doing
+        }
+    }
+
     public static Short getLevel(OfflinePlayer player) {
         Connection connection = DbManager.getConnection();
         try {
@@ -86,6 +99,7 @@ public class Levels {
             statement.setString(2, player.getUniqueId().toString());
             int query = statement.executeUpdate();
             DbManager.releaseConnection(connection);
+            levelCalculate(player);
             return query > 0;
         } catch (SQLException e) {
             return false;
