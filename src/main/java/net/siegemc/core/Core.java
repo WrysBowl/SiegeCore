@@ -16,6 +16,7 @@ public final class Core extends JavaPlugin {
 
     @Override
     public void onDisable() {
+
         getLogger().info("Plugin has been disabled!");
     }
 
