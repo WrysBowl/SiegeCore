@@ -89,7 +89,6 @@ public class Levels {
             statement.setString(2, player.getUniqueId().toString());
             int query = statement.executeUpdate();
             DbManager.releaseConnection(connection);
-            levelCalculate(player);
             return query > 0;
         } catch (SQLException e) {
             return false;
