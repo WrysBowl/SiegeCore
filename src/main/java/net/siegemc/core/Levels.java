@@ -11,10 +11,12 @@ public class Levels {
     public static void levelCalculate(OfflinePlayer player) {
         try {
             short level = getLevel(player);
-            while (((level + 3) ^ 3) <= getExp(player)) { //Loops until required exp is greater than current exp
-                setExp(player, getExp(player) - ((level + 3) ^ 3)); //Removes required exp of the level from current exp
+            int exp = getExp(player);
+            while (((level + 3) ^ 3) <= exp) { //Loops until required exp is greater than current exp
+                exp -= (level + 3) ^ 3; //Removes required exp of the level from current exp
                 level += 1;
             }
+            setExp(player, exp); //When while loop is finished, set the temp exp variable to remaining exp
             setLevel(player, level); //When while loop is finished, set the temp level variable to player's level
         } catch (Exception e) {
             e.printStackTrace(); //I have no idea what I'm doing
