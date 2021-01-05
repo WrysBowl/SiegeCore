@@ -16,8 +16,10 @@ public class Levels {
                 exp -= (level + 3) ^ 3; //Removes required exp of the level from current exp
                 level += 1;
             }
-            setExp(player, exp); //When while loop is finished, set the temp exp variable to remaining exp
-            setLevel(player, level); //When while loop is finished, set the temp level variable to player's level
+            if (getLevel(player) != level) {
+                setExp(player, exp); //When while loop is finished, set the temp exp variable to remaining exp
+                setLevel(player, level); //When while loop is finished, set the temp level variable to player's level
+            }
         } catch (Exception e) {
             e.printStackTrace(); //I have no idea what I'm doing
         }
@@ -87,6 +89,7 @@ public class Levels {
             statement.setString(2, player.getUniqueId().toString());
             int query = statement.executeUpdate();
             DbManager.releaseConnection(connection);
+            levelCalculate(player);
             return query > 0;
         } catch (SQLException e) {
             return false;
