@@ -47,6 +47,7 @@ public class Levels {
             statement.setString(2, player.getUniqueId().toString());
             int query = statement.executeUpdate();
             DbManager.releaseConnection(connection);
+            player.getPlayer().setLevel(level);
             return query > 0;
         } catch (SQLException e) {
             return false;
@@ -61,6 +62,7 @@ public class Levels {
             statement.setString(2, player.getUniqueId().toString());
             int query = statement.executeUpdate();
             DbManager.releaseConnection(connection);
+            player.getPlayer().setLevel(level);
             return query > 0;
         } catch (SQLException e) {
             return false;
@@ -89,6 +91,7 @@ public class Levels {
             statement.setString(2, player.getUniqueId().toString());
             int query = statement.executeUpdate();
             DbManager.releaseConnection(connection);
+            player.getPlayer().setExp(exp/(getLevel(player) + 3) ^ 3);
             return query > 0;
         } catch (SQLException e) {
             return false;
@@ -104,6 +107,7 @@ public class Levels {
             int query = statement.executeUpdate();
             DbManager.releaseConnection(connection);
             levelCalculate(player);
+            player.getPlayer().setExp(exp/(getLevel(player) + 3) ^ 3);
             return query > 0;
         } catch (SQLException e) {
             return false;
