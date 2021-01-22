@@ -1,9 +1,11 @@
 package net.siegemc.core.events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,8 +16,14 @@ public class Test implements Listener, Cancellable {
 
     @EventHandler
     public void onMobSpawn(EntitySpawnEvent entity) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.sendMessage("Spawned Mob");
+        }
         if (MobLevel((entity.getLocation())) != 0){ //makes sure it is a spawning area
             //spawn the mob
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.sendMessage("It works!");
+            }
         }
         else {
             setCancelled(true);
