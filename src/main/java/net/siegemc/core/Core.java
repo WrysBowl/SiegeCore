@@ -1,6 +1,7 @@
 package net.siegemc.core;
 
 import net.siegemc.core.events.ConnectEvent;
+import net.siegemc.core.events.Test;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,6 +12,7 @@ public final class Core extends JavaPlugin {
         (new VaultHook()).createHooks(); // Add the hooks to the vault plugin
         DbManager.create(); // Create the initial connections
         Bukkit.getPluginManager().registerEvents(new ConnectEvent(), this); // Register the connection event
+        Bukkit.getPluginManager().registerEvents(new Test(), this);
         getLogger().info("Plugin has enabled!");
     }
 

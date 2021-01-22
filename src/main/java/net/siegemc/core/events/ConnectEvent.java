@@ -41,6 +41,5 @@ public class ConnectEvent implements Listener {
                 DbManager.releaseConnection(conn); // Release the connection so it can be used by others
             }
         }.runTaskAsynchronously(Core.plugin());
-
     }
 }
