@@ -6,4 +6,4 @@ description: The main Siege plugin
 prefix: Siege
 depend: [ Vault, ProtocolLib, Votifier, MythicMobs, AureliumSkills ]
 load: STARTUP
-authors: [ Wrys, DeltaRays, Ghqst ]
+authors: [ Wrys, DeltaRays, Ghqst, Bagelll ]
