@@ -32,6 +32,7 @@ repositories {
     maven(
         url = "https://dl.bintray.com/ichbinjoe/public/"
     )
+    maven ( url = "https://maven.enginehub.org/repo/" )
 }
 
 dependencies {
@@ -41,6 +42,7 @@ dependencies {
     compileOnly("io.lumine.xikage:MythicMobs:4.11.0-BETA") // MythicMobs API
     compileOnly("com.vexsoftware:nuvotifier-universal:2.6.0") // NuVotifier API
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") // Vault API
+    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.1-SNAPSHOT")
     compileOnly("com.github.Archy-x:AureliumSkills:Alpha1.6.0")
     compile("co.aikar:acf-paper:0.5.0-SNAPSHOT")
     compile("com.github.stefvanschie.inventoryframework:IF:0.9.0")
