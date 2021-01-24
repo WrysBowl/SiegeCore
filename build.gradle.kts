@@ -32,7 +32,9 @@ repositories {
     maven(
         url = "https://dl.bintray.com/ichbinjoe/public/"
     )
-    maven ( url = "https://maven.enginehub.org/repo/" )
+    maven(
+        url = "https://maven.enginehub.org/repo/"
+    )
 }
 
 dependencies {
