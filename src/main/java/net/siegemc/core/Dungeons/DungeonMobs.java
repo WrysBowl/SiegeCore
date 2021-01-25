@@ -8,7 +8,7 @@ import org.bukkit.entity.Entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DungeonMobs {
+public class DungeonMobs { //NOT IN USE ANYMORE. USING RANDOM MOB SPAWNING
     enum dungeonMythicMobInternalNames {
         Bandit, BanditArcher, Blob, ScorchingBlob, Goblin, Ogre, InfectedDigger, ZombifiedDigger
     }
