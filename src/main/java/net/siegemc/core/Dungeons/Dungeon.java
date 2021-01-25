@@ -14,8 +14,8 @@ public class Dungeon {
     public int dungeonLevel; //(stores dungeon level & reward multiplier, player input, = 1;)
     private String bossName;
 
-    public Dungeon(Player[] partyMembers, int level) {
-        this.dungeonPlayers = partyMembers;
+    public Dungeon(int level) {
+        //this.dungeonPlayers = partyMembers;
         this.dungeonLevel = level;
         this.bossName = DungeonBosses.dungeonBoss(level);
         //Code to figure out how to use the level to set dungeon tasks and boss variables (grab from a yaml plugin file?)
@@ -31,16 +31,19 @@ public class Dungeon {
     private Task[] getDungeonTasks() {
         return dungeonTasks;
     }
+    public String getBossName() {
+        return bossName;
+    }
     private int getDungeonLevel() {
         return dungeonLevel;
     }
-    public void spawnDungeonBoss() throws InvalidMobTypeException {
+    /*public void spawnDungeonBoss() throws InvalidMobTypeException {
         try {
             Entity spawnedMob = new BukkitAPIHelper().spawnMythicMob(bossName, dungeonLocation); //change Dungeon Location to the boss spawn location variable
         } catch (InvalidMobTypeException e) {
             throw new InvalidMobTypeException("MythicMob type " + bossName + " is invalid.");
         }
-    }
+    }*/
 
 
 }
