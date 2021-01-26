@@ -1,12 +1,12 @@
 package net.siegemc.core;
 
 import net.siegemc.core.Dungeons.Dungeon;
+import net.siegemc.core.Dungeons.DungeonBosses;
 import org.junit.Test;
 
-public class ExampleClass {
+public class Testing {
     @Test
     public static void main(String[] args){
-        String d = new Dungeon(1).getBossName();
-        System.out.println(d);
+        System.out.println(DungeonBosses.dungeonBoss(1));
     }
 }
