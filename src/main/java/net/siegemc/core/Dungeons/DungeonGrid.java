@@ -1,30 +1,63 @@
 package net.siegemc.core.Dungeons;
 
+import java.util.Map.Entry;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import java.util.ArrayList;
 
-public class DungeonGrid { //How to delete schematics?
+import java.util.HashMap;
 
-    static ArrayList<Location> dungeonGrid = new ArrayList<Location>(); //Dungeon grid of locations
+public class DungeonGrid {
+    private static HashMap<Location, Dungeon> dungeonGrid = new HashMap<Location, Dungeon>(); // Dungeon grid of locations
 
-
-    public static void dungeonAddLoc(){ //add schematic and coordinate of the next available grid point to the array list
-
+    // Call when updating the tasks or other for the dungeon Object.
+    public void setDungeonEntry(Location location, Dungeon dungeon) { // Sets an existing entry dungeon object to something new. Used for updating tasks etc.
+        if (!dungeonGrid.keySet().contains(location)) return;
+        dungeonGrid.replace(location, dungeon); // Not 100% sure if this overwrites properly. PLEASE CHECK
+        // Alternative dungeonGrid.replace(location, olddungeon, newdungeon);
     }
-    public static void dungeonDelLoc(){ //deletes the grid point at the index of the parameter of the array list
 
+    // Call when needing to create a dungeon.
+    public void dungeonCreate(Dungeon dungeon){ //add schematic and coordinate of the next available grid point to the array list
+        int Index = dungeonGrid.isEmpty() ? 1 : dungeonGrid.size();
+        int locationX = (Index / 4) * 500;
+        int locationY = 120;
+        int locationZ = (Index % 4) * 500;
+        Location location = new Location(Bukkit.getServer().getWorld("Dungeons"), locationX, locationY, locationZ); // "Dungeons" is a placeholder for the world name.
+        dungeonGrid.put(location, dungeon);
+        //SchematicPaster.pasteSchematic("", location, "",true); // FILL THE PARAMS HERE!!! <<< Don't forget to uncomment this.
+        //This information for the schematic needs to be filled.
     }
-    public static void dungeonDelGrid(){ //deletes all dungeons and stored grid points
+
+    // Call once a dungeon has been completed.
+    public void dungeonDelete(Location location){ //deletes the grid point via the location object#
+        if (dungeonGrid.isEmpty()) return;
+        if (!dungeonGrid.keySet().contains(location)) return;
+        dungeonGrid.remove(location);
+    }
+    // Call when you feel like being a meanie and deleting everyone's dungeon data.
+    public void dungeonDeleteEntireGrid(){ //deletes all dungeons and stored grid points
         dungeonGrid.clear();
     }
-    public static void dungeonViewLoc(){ //returns the location of the grid point in the array
 
+    // Call if you need the dungeon location (For NPC location etc) Returns an Object not a Location.
+    public Object getDungeonEntry(int Index){ //returns the location via the Index (Not recommended, if even possible at all)
+        if (dungeonGrid.isEmpty()) { return null; }
+        if (dungeonGrid.size() < Index) { return null; }
+        Object requestedLocation = dungeonGrid.keySet().toArray();
+        return requestedLocation; // Unsure of this, may not work. PLEASE CHECK
     }
-    public static void dungeonViewNextLoc(){ //returns the location of the grid point in the array
+    public Location getDungeonEntry(Dungeon dungeon){ //returns the location via the dungeon object
+        if (dungeonGrid.isEmpty()) { return null; }
+        for (Entry<Location, Dungeon> singleEntry : dungeonGrid.entrySet()) {
+            if (singleEntry.getValue().equals(dungeon)) { return singleEntry.getKey(); }
+        }
+        return null;
+    }
 
+    // Call for the amount of active dungeons, just for fun. All methods depend on the grid being not empty.
+    public int getDungeonGrid(){ //returns the amount of active dungeons from the grid (All dungeons from 1 to Index are active currently).
+        if (dungeonGrid.isEmpty()) return 0;
+        int Index = dungeonGrid.keySet().size();
+        return Index;
     }
-    public ArrayList<Location> dungeonViewGrid(){ //returns all the grid points of active dungeons
-        return dungeonGrid;
-    }
-
 }
