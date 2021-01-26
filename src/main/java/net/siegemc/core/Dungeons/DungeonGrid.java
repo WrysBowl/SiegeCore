@@ -7,7 +7,7 @@ import org.bukkit.Location;
 import java.util.HashMap;
 
 public class DungeonGrid {
-    private static HashMap<Location, Dungeon> dungeonGrid = new HashMap<Location, Dungeon>(); // Dungeon grid of locations
+    private static HashMap<Location, Dungeon> dungeonGrid = new HashMap<>(); // Dungeon grid of locations
 
     // Call when updating the tasks or other for the dungeon Object.
     public void setDungeonEntry(Location location, Dungeon dungeon) { // Sets an existing entry dungeon object to something new. Used for updating tasks etc.
@@ -43,8 +43,7 @@ public class DungeonGrid {
     public Object getDungeonEntry(int Index){ //returns the location via the Index (Not recommended, if even possible at all)
         if (dungeonGrid.isEmpty()) { return null; }
         if (dungeonGrid.size() < Index) { return null; }
-        Object requestedLocation = dungeonGrid.keySet().toArray();
-        return requestedLocation; // Unsure of this, may not work. PLEASE CHECK
+        return dungeonGrid.keySet().toArray()[Index]; // Unsure of this, may not work. PLEASE CHECK
     }
     public Location getDungeonEntry(Dungeon dungeon){ //returns the location via the dungeon object
         if (dungeonGrid.isEmpty()) { return null; }
@@ -57,7 +56,6 @@ public class DungeonGrid {
     // Call for the amount of active dungeons, just for fun. All methods depend on the grid being not empty.
     public int getDungeonGrid(){ //returns the amount of active dungeons from the grid (All dungeons from 1 to Index are active currently).
         if (dungeonGrid.isEmpty()) return 0;
-        int Index = dungeonGrid.keySet().size();
-        return Index;
+        return dungeonGrid.keySet().size();
     }
 }
