@@ -1,23 +1,35 @@
 package net.siegemc.core;
 
 import org.bukkit.scheduler.BukkitRunnable;
+import org.yaml.snakeyaml.Yaml;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.LinkedTransferQueue;
 
 
 public class DbManager {
 
-    private static final String url = "jdbc:mysql://paneldatabase.humbleservers.com:3306/s2684_data";
-    private static final String user = "u2684_ES9oodb7pa";
-    private static final String password = "WCPqgtF7K^8^q59DAHe.NWnx";
+    private static final String url;
+    private static final String user;
+    private static final String password;
     private final static Queue<Connection> connectionPool = new LinkedTransferQueue<>();
     private final static Queue<Connection> usedConnections = new LinkedTransferQueue<>();
     private static final int INITIAL_POOL_SIZE = 10;
     private static final int MAX_TIMEOUT = 30 * 1000;
 
+    static {
+        Yaml yaml = new Yaml();
+        InputStream stream = Core.plugin().getResource("privKeys.yml");
+        Map<String, Object> obj = yaml.load(stream);
+        Map<String, String> dbObj = (Map<String, String>) obj.get("db");
+        url = String.format("jdbc:mysql://%s/%s", dbObj.get("endpoint"), dbObj.get("db name"));
+        user = dbObj.get("username");
+        password = dbObj.get("password");
+    }
 
     public static void create() {
         try {
