@@ -1,4 +1,4 @@
-package net.siegemc.core;
+package net.siegemc.core.Dungeons;
 
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.WorldEdit;
@@ -11,6 +11,7 @@ import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
 import com.sk89q.worldedit.function.operation.Operation;
 import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.session.ClipboardHolder;
+import net.siegemc.core.Core;
 import org.bukkit.Location;
 
 import java.io.File;
