@@ -7,3 +7,8 @@ prefix: Siege
 depend: [ Vault, ProtocolLib, Votifier, MythicMobs, AureliumSkills ]
 load: STARTUP
 authors: [ Wrys, DeltaRays, Ghqst, Bagelll ]
+
+commands:
+  party:
+    description: Create a party with friends
+    aliases: [ p ]
