@@ -16,7 +16,7 @@ public final class Core extends JavaPlugin {
         dataFolder = this.getDataFolder();
         PartySaving.FileExists();
         (new VaultHook()).createHooks(); // Add the hooks to the vault plugin
-        DbManager.create(); // Create the initial connections
+        //DbManager.create(); // Create the initial connections
         Bukkit.getPluginManager().registerEvents(new ConnectEvent(), this); // Register the connection event
         getCommand("party").setExecutor(new Party());
         getLogger().info("Plugin has enabled!");

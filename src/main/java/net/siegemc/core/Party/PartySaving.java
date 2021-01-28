@@ -11,7 +11,7 @@ public class PartySaving {
     public static FileConfiguration yaml = null;
     public static File PartyData;
     public static void FileExists() {
-        PartyData = new File(Core.dataFolder, "PartyData.yml");
+        PartyData = new File(Core.plugin().getDataFolder().getAbsolutePath(), "PartyData.yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(PartyData);
         if (!PartyData.exists()) {
             try {
