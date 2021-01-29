@@ -1,25 +1,20 @@
 package net.siegemc.core;
 
 import lombok.Getter;
+import net.siegemc.core.events.ConnectEvent;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartySaving;
-import net.siegemc.core.events.ConnectEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-
-
 public final class Core extends JavaPlugin {
-    @Getter private File dataFolder;
+    @Getter private final PartySaving partySaving = new PartySaving();
     
     @SuppressWarnings({"ResultOfMethodCallIgnored", "ConstantConditions"})
     @Override
     public void onEnable() {
-        dataFolder = getDataFolder();
-        
-        if (!dataFolder.exists()) dataFolder.mkdir();
-        PartySaving.FileExists();
+        if (!getDataFolder().exists()) getDataFolder().mkdir();
+        partySaving.FileExists();
         
         (new VaultHook()).createHooks(); // Add the hooks to the vault plugin
         //DbManager.create(); // Create the initial connections

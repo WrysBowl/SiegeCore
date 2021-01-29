@@ -9,14 +9,19 @@ import java.io.File;
 import java.io.IOException;
 
 public class PartySaving {
-    @Getter private static FileConfiguration configuration = null;
-    @Getter private static File PartyData;
+    @Getter private FileConfiguration configuration = null;
+    @Getter private File PartyData;
+    
+    public PartySaving() {}
     
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static void FileExists() {
-        PartyData = new File(Core.getDataFolder().getAbsolutePath(), "PartyData.yml");
-        configuration = YamlConfiguration.loadConfiguration(PartyData);\
-        if (!PartyData.exists()) PartyData.createNewFile();
+    public void FileExists() {
+        PartyData = new File(Core.plugin().getDataFolder().getAbsolutePath(), "PartyData.yml");
+        configuration = YamlConfiguration.loadConfiguration(PartyData);
+        if (!PartyData.exists()) {
+            try { PartyData.createNewFile(); }
+            catch (IOException e) { e.printStackTrace(); }
+        }
         
         configuration.createSection("Test");
         configuration.set("test", "hello");
@@ -24,7 +29,7 @@ public class PartySaving {
         save();
     }
     
-    public static void save() {
+    public void save() {
         try {
             configuration.save(PartyData);;
         } catch (IOException e) {

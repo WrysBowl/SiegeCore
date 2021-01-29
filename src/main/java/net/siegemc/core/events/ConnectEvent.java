@@ -16,6 +16,7 @@ public class ConnectEvent implements Listener {
     @EventHandler
     public void connectEvent(AsyncPlayerPreLoginEvent e) {
         new BukkitRunnable() { // We create a runnable to run asynchronously (on another thread, not the main one, so that the server won't lag if this one does)
+            @SuppressWarnings("ConstantConditions")
             @Override
             public void run() {
                 String ip = e.getAddress().getHostAddress();
