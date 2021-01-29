@@ -57,4 +57,18 @@ public class SchematicPaster {
         Operations.complete(operation);
         builder.close();
     }
+
+    public static void pasteSchematic(Clipboard board, Location pos, String schematicFormat /*MCEDIT or SPONGE*/, boolean ignoreAirBlocks) throws IOException, WorldEditException {
+        EditSession builder = WorldEdit.getInstance()
+                .newEditSession(BukkitAdapter.adapt(pos.getWorld()));
+        ClipboardFormat format = ClipboardFormats.findByAlias(schematicFormat);
+        if (format == null) return;
+        Operation operation = new ClipboardHolder(board)
+                .createPaste(builder)
+                .to(BukkitAdapter.asBlockVector(pos))
+                .ignoreAirBlocks(ignoreAirBlocks)
+                .build();
+        Operations.complete(operation);
+        builder.close();
+    }
 }

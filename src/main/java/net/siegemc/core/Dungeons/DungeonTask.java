@@ -1,4 +1,4 @@
 package net.siegemc.core.Dungeons;
 
-public class Task {
+public class DungeonTask {
 }

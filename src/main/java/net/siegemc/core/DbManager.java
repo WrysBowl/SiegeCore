@@ -24,6 +24,9 @@ public class DbManager {
     static {
         Yaml yaml = new Yaml();
         InputStream stream = Core.plugin().getResource("privKeys.yml");
+        if(stream == null){
+            Core.plugin().getLogger().severe("You need a privKeys.yml file for the plugin to work! Get the most updated values in the #dev-stuff discord channel!");
+        }
         Map<String, Object> obj = yaml.load(stream);
         Map<String, String> dbObj = (Map<String, String>) obj.get("db");
         url = String.format("jdbc:mysql://%s/%s", dbObj.get("endpoint"), dbObj.get("db name"));
