@@ -3,6 +3,7 @@ package net.siegemc.core.dungeons;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
+// Unfinished, the class containing an actual dungeon, not the dungeon type (in DungeonType.java)
 class Dungeon {
 
     public final DungeonType dungeonType;
@@ -13,10 +14,6 @@ class Dungeon {
         this.index = index;
     }
 
-    public void reloadSchematic() {
-        Location loc = new Location(Bukkit.getWorld("dungeons"), index * dungeonType.dungeonDistance, 128, 500 * index);
-
-    }
     /*public void spawnDungeonBoss() throws InvalidMobTypeException {
         try {
             Entity spawnedMob = new BukkitAPIHelper().spawnMythicMob(bossName, dungeonLocation); //change Dungeon Location to the boss spawn location variable

@@ -25,12 +25,12 @@ public enum DungeonType {
     public DungeonTask[] dungeonTasks;
     public Entity dungeonBoss;
 
-    DungeonType(String schemName, int dungeonLevel, short dungeonDistance /* Distance between each dungeon */, int x, int y, int z /*If you were to paste the dungeon at 0 0 0 then the location of the spawn would be the x, y and z*/, Entity dungeonBoss, DungeonTask[] dungeonTasks) {
+    DungeonType(String schemName /*The file path of the schematic, relative to the resources folder */, int dungeonLevel, short dungeonDistance /* Distance between each dungeon */, int x, int y, int z /*If you were to paste the dungeon at 0 0 0 then the location of the spawn would be the x, y and z*/, Entity dungeonBoss, DungeonTask[] dungeonTasks) {
         this.dungeonLevel = dungeonLevel;
         this.dungeonTasks = dungeonTasks;
         this.dungeonBoss = dungeonBoss;
         try {
-            schematic = SchematicPaster.loadSchematic(Core.plugin().getResource(schemName), ClipboardFormats.findByAlias("SPONGE"));
+            schematic = SchematicPaster.loadSchematic(Core.plugin().getResource(schemName), ClipboardFormats.findByAlias("SPONGE")); // Sponge schematics as they're the latest ones
         } catch (IOException e) {
             Core.plugin().getLogger().severe("The dungeon schematic file wasn't loadable!");
             e.printStackTrace();
@@ -38,7 +38,7 @@ public enum DungeonType {
         this.dungeonDistance = dungeonDistance;
         World world = Bukkit.getWorld("dungeons");
         if (world == null) {
-            WorldCreator creator = new WorldCreator(name());
+            WorldCreator creator = new WorldCreator(name()); // If the dungeons world is nonexistent it creates it and makes each new chunk generated empty
             creator.generateStructures(false).type(WorldType.FLAT).environment(World.Environment.NORMAL);
             creator.generator(new ChunkGenerator() {
                 @NotNull
@@ -50,15 +50,14 @@ public enum DungeonType {
                 @Override
                 public boolean isParallelCapable() {
                     return true;
-                }
+                } // Whether or not the generator can run parallel
             });
-            world = creator.createWorld();
+            world = creator.createWorld(); // Creates the world
         }
         spawnLocation = new Location(world, x, y, z);
-        //Code to figure out how to use the level to set dungeon tasks and boss variables (grab from a yaml plugin file?)
     }
 
-    public void teleportPlayer(Player p) {
+    public void teleportPlayer(Player p) { // Teleport a player to the most recent available dungeon (is going to be transferred to Dungeon.class in the future
         ConfigurationSection dungeons = Core.plugin().getConfig().getConfigurationSection("dungeons");
         if (dungeons == null) {
             dungeons = Core.plugin().getConfig().createSection("dungeons");

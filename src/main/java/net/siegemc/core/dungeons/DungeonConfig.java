@@ -13,7 +13,7 @@ public class DungeonConfig { //How to delete schematics?
     private File dungeonConfigFile;
     private FileConfiguration configuration;
 
-    public void createConfig() {
+    public void createConfig() { // Creates the dungeons.yml config for future use, should be ran when the plugin starts up
         dungeonConfigFile = new File(Core.plugin().getDataFolder(), "dungeons.yml");
         if (!dungeonConfigFile.exists()) {
             dungeonConfigFile.getParentFile().mkdirs();
@@ -30,7 +30,7 @@ public class DungeonConfig { //How to delete schematics?
     }
 
 
-    public void saveConfig() throws IOException {
+    public void saveConfig() throws IOException { // Saves the configuration to file
         configuration.save(dungeonConfigFile);
     }
 
@@ -38,13 +38,13 @@ public class DungeonConfig { //How to delete schematics?
         return this.configuration;
     }
 
-    public ConfigurationSection getDungeons(DungeonType dungeon) {
+    public ConfigurationSection getDungeons(DungeonType dungeon) { // Get the dungeons of a specific type from the file
         if (configuration.isConfigurationSection(dungeon.name()))
             return configuration.getConfigurationSection(dungeon.name());
         return configuration.createSection(dungeon.name());
     }
 
-    public void getDungeon(DungeonType dungeon, int index){
+    public void getDungeon(DungeonType dungeon, int index){ // Get the dungeon at number index of a specific dungeon, not done yet
 
     }
 
