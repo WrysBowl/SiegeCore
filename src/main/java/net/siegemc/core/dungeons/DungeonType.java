@@ -1,4 +1,4 @@
-package net.siegemc.core.Dungeons;
+package net.siegemc.core.dungeons;
 
 import com.sk89q.worldedit.WorldEditException;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.Random;
 
-public enum Dungeons {
+public enum DungeonType {
     //Example: SWAMP_HILLS("swamp_hills.schem", (short) 300, 0, 1, 0)
     ;
     public Clipboard schematic;
@@ -25,7 +25,7 @@ public enum Dungeons {
     public DungeonTask[] dungeonTasks;
     public Entity dungeonBoss;
 
-    Dungeons(String schemName, int dungeonLevel, short dungeonDistance /* Distance between each dungeon */, int x, int y, int z /*If you were to paste the dungeon at 0 0 0 then the location of the spawn would be the x, y and z*/, Entity dungeonBoss, DungeonTask[] dungeonTasks) {
+    DungeonType(String schemName, int dungeonLevel, short dungeonDistance /* Distance between each dungeon */, int x, int y, int z /*If you were to paste the dungeon at 0 0 0 then the location of the spawn would be the x, y and z*/, Entity dungeonBoss, DungeonTask[] dungeonTasks) {
         this.dungeonLevel = dungeonLevel;
         this.dungeonTasks = dungeonTasks;
         this.dungeonBoss = dungeonBoss;
@@ -102,14 +102,3 @@ public enum Dungeons {
     }
 }
 
-class Dungeon {
-
-
-    /*public void spawnDungeonBoss() throws InvalidMobTypeException {
-        try {
-            Entity spawnedMob = new BukkitAPIHelper().spawnMythicMob(bossName, dungeonLocation); //change Dungeon Location to the boss spawn location variable
-        } catch (InvalidMobTypeException e) {
-            throw new InvalidMobTypeException("MythicMob type " + bossName + " is invalid.");
-        }
-    }*/
-}

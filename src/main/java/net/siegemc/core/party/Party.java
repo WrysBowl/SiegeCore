@@ -1,4 +1,4 @@
-package net.siegemc.core.Party;
+package net.siegemc.core.party;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

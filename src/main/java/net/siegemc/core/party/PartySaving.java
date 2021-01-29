@@ -1,4 +1,4 @@
-package net.siegemc.core.Party;
+package net.siegemc.core.party;
 
 import net.siegemc.core.Core;
 import org.bukkit.configuration.file.FileConfiguration;

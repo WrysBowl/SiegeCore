@@ -1,6 +1,6 @@
 package net.siegemc.core;
 
-import net.siegemc.core.Dungeons.DungeonBosses;
+import net.siegemc.core.dungeons.DungeonBosses;
 import org.junit.Test;
 
 public class Testing {
