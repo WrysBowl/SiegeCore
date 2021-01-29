@@ -39,6 +39,7 @@ repositories {
 
 dependencies {
     testCompile("junit:junit:4.12")
+    compileOnly("org.projectlombok:lombok:1.18.16")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.3-R0.1-SNAPSHOT")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.5.0")
     compileOnly("io.lumine.xikage:MythicMobs:4.11.0-BETA") // MythicMobs API
@@ -48,6 +49,7 @@ dependencies {
     compileOnly("com.github.Archy-x:AureliumSkills:Alpha1.6.0")
     compile("co.aikar:acf-paper:0.5.0-SNAPSHOT")
     compile("com.github.stefvanschie.inventoryframework:IF:0.9.0")
+    annotationProcessor("org.projectlombok:lombok:1.18.16")
     //compile(fileTree(include(["*.jar"]), dir("libs")))
 }
 tasks {
