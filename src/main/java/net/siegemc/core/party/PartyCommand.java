@@ -6,10 +6,16 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class PartyCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class PartyCommand implements CommandExecutor, TabCompleter {
     
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String cmd, @NotNull String[] args) {
@@ -34,8 +40,8 @@ public class PartyCommand implements CommandExecutor {
                 return true;
             }
             player.sendMessage("§7All players in the party:");
-            player.sendMessage("§8- " + party.getLeader().getName() + " §7§o(Leader)");
-            for (OfflinePlayer member : party.getMembers()) player.sendMessage("§8- " + member.getName());
+            player.sendMessage("§8- §b" + party.getLeader().getName() + " §7§o(Leader)");
+            for (OfflinePlayer member : party.getMembers()) if (party.getLeader() != member) player.sendMessage("§8- §b" + member.getName());
         } else if (args[0].equalsIgnoreCase("invite")) {
             if (args.length < 2) {
                 player.sendMessage("§c/" + cmd + " " + args[0] + " <player>");
@@ -81,14 +87,15 @@ public class PartyCommand implements CommandExecutor {
                 player.sendMessage("§cThis player is not a member of the party!");
                 return true;
             }
-            if (party.getLeader() != kick) {
+            if (party.getLeader() == kick) {
                 player.sendMessage("§cYou can not kick yourself from the party!");
                 return true;
             }
             party.removeMember(kick.getUniqueId());
             party.send(kick.getName() + " was kicked from the party!");
             if (kick.isOnline()) ((Player) kick).sendMessage("§cYou were kicked from the party!");
-        } else if (args[0].equalsIgnoreCase("accept")) {
+        } else if (args[0].equalsIgnoreCase("accept")
+                || args[0].equalsIgnoreCase("join")) {
             if (args.length < 2) {
                 player.sendMessage("§c/" + cmd + " " + args[0] + " <player>");
                 return true;
@@ -141,6 +148,7 @@ public class PartyCommand implements CommandExecutor {
                 return true;
             }
             party.setLeader(promote.getUniqueId());
+            party.send(promote.getName()+" has been promoted to party leader!");
         } else if (args[0].equalsIgnoreCase("leave")
                 || args[0].equalsIgnoreCase("disband")) {
             if (party == null) {
@@ -158,4 +166,20 @@ public class PartyCommand implements CommandExecutor {
         return true;
     }
     
+    @SuppressWarnings("ConstantConditions")
+    @Nullable
+    @Override
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+        if (args.length < 2 || !(sender instanceof Player)) return Arrays.asList("help", "list", "invite", "accept", "kick", "promote", "leave");
+        Player player = (Player) sender;
+        String argument = args[0].toLowerCase();
+        List<String> complete = new ArrayList<>();
+        if (argument.equals("invite") || argument.equals("accept")) {
+            for (Player p : Bukkit.getOnlinePlayers()) complete.add(p.getDisplayName());
+        } else if (Core.getParty(player.getUniqueId()) != null && (argument.equals("kick") || argument.equals("promote"))) {
+            for (OfflinePlayer p : Core.getParty(player.getUniqueId()).getMembers()) complete.add(p.getName());
+        }
+        if (args.length > 2) complete.clear();
+        return complete;
+    }
 }

@@ -23,11 +23,14 @@ public final class Core extends JavaPlugin {
         if (!getDataFolder().exists()) getDataFolder().mkdir();
         partySaving.FileExists();
         
-        (new VaultHook()).createHooks(); // Add the hooks to the vault plugin
+//        (new VaultHook()).createHooks(); // Add the hooks to the vault plugin
         //DbManager.create(); // Create the initial connections
         
         Bukkit.getPluginManager().registerEvents(new ConnectEvent(), this); // Register the connection event
-        Bukkit.getPluginCommand("party").setExecutor(new PartyCommand());
+        
+        PartyCommand partyCommand = new PartyCommand();
+        Bukkit.getPluginCommand("party").setExecutor(partyCommand);
+        Bukkit.getPluginCommand("party").setTabCompleter(partyCommand);
     }
     
     @Override

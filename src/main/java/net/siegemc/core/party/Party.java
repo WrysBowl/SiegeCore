@@ -33,6 +33,7 @@ public class Party {
     
     public List<OfflinePlayer> getMembers() {
         List<OfflinePlayer> list = new ArrayList<>();
+        list.add(getLeader());
         for (UUID uuid : members) list.add(Bukkit.getOfflinePlayer(uuid));
         return list;
     }
@@ -44,6 +45,7 @@ public class Party {
         new BukkitRunnable() {
             @Override
             public void run() {
+                if (!isInvited(invitee)) return;
                 removeInvite(invitee);
                 send(invitee.getName()+" did not join the party!");
                 invitee.sendMessage("§cParty invite from "+getLeader().getName()+" has expired!");
@@ -58,8 +60,12 @@ public class Party {
     public boolean isInvited(Player invitee) { return invited.contains(invitee.getUniqueId()); }
     
     public void setLeader(UUID leader) {
-        if (this.leader != null) Core.getParties().remove(this.leader);
+        if (this.leader != null) {
+            Core.getParties().remove(this.leader);
+            this.addMember(this.leader);
+        }
         this.leader = leader;
+        this.removeMember(leader);
         Core.getParties().put(leader, this);
     }
     
@@ -78,8 +84,7 @@ public class Party {
     public void send(String message) {
         for(OfflinePlayer player : getMembers()) {
             if (player.isOnline()) {
-                Player p = (Player) player;
-                p.sendMessage("§b[PARTY] §7"+message);
+                ((Player) player).sendMessage("§b[PARTY] §7"+message);
             }
         }
     }
