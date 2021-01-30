@@ -1,7 +1,7 @@
 package net.siegemc.core.events;
 
 import net.siegemc.core.Core;
-import net.siegemc.core.DbManager;
+import net.siegemc.core.utils.DbManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
