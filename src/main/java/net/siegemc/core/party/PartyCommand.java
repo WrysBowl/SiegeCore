@@ -34,6 +34,10 @@ public class PartyCommand implements CommandExecutor, TabCompleter {
             player.sendMessage("§b/" + cmd + " kick <player>");
             player.sendMessage("§b/" + cmd + " promote <player>");
             player.sendMessage("§b/" + cmd + " leave");
+            if (player.hasPermission("parties.admin")) {
+                player.sendMessage("§c/" + cmd + " forceleader [player]");
+                player.sendMessage("§c/" + cmd + " forcejoin <player>");
+            }
         } else if (args[0].equalsIgnoreCase("list")) {
             if (party == null) {
                 player.sendMessage("§cYou are not in a party!");
@@ -50,6 +54,10 @@ public class PartyCommand implements CommandExecutor, TabCompleter {
             Player invitee = Bukkit.getPlayer(args[1]);
             if (invitee == null) {
                 player.sendMessage("§cUnable to find this player!");
+                return true;
+            }
+            if (invitee == player) {
+                player.sendMessage("§cYou can not invite yourself!");
                 return true;
             }
             if (Core.getParty(invitee.getUniqueId()) != null) {
@@ -152,7 +160,7 @@ public class PartyCommand implements CommandExecutor, TabCompleter {
         } else if (args[0].equalsIgnoreCase("leave")
                 || args[0].equalsIgnoreCase("disband")) {
             if (party == null) {
-                player.sendMessage("§cYou are currently in a party!");
+                player.sendMessage("§cYou are currently not in a party!");
                 return true;
             }
             if (args[0].equalsIgnoreCase("disband") && party.getLeader() != player) {
@@ -160,6 +168,52 @@ public class PartyCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
             party.leave(player);
+            player.sendMessage("§cYou have left the party!");
+            if (party.getMembers().size() == 1) {
+                party.send("The party was disbanded since there was only 1 person left!");
+                party.disband();
+            }
+        } else if (args[0].equalsIgnoreCase("forceleader")) {
+            if (!player.hasPermission("parties.admin")) return true;
+            if (party == null) {
+                player.sendMessage("§cYou are currently not in a party!");
+                return true;
+            }
+            if (args.length < 2) {
+                party.setLeader(player.getUniqueId());
+                player.sendMessage("§4[ADMIN] §7You made yourself the party leader!");
+            } else {
+                Player leader = Bukkit.getPlayer(args[1]);
+                if (leader == null) {
+                    player.sendMessage("§cUnknown player!");
+                    return true;
+                }
+                party.setLeader(leader.getUniqueId());
+                player.sendMessage("§4[ADMIN] §7You made " + leader.getName() + " the party leader!");
+            }
+        } else if (args[0].equalsIgnoreCase("forcejoin")) {
+            if (!player.hasPermission("parties.admin")) return true;
+            if (args.length < 2) {
+                player.sendMessage("§c/" + cmd + " " + args[0] + " <player>");
+                return true;
+            }
+            if (party != null) {
+                player.sendMessage("§cYou are currently in a party!");
+                return true;
+            }
+            Player invited = Bukkit.getPlayer(args[1]);
+            if (invited == null || Core.getParties().get(invited.getUniqueId()) == null) {
+                player.sendMessage("§cUnable to find this party! Make sure the player is online and is in a party.");
+                return true;
+            }
+            Party joining = Core.getParty(invited.getUniqueId());
+            if (joining == null) {
+                player.sendMessage("§c(Error) Well now, this was unexpected. Please contact a developer regarding this issue.");
+                return true;
+            }
+            joining.removeInvite(player);
+            joining.addMember(player.getUniqueId());
+            joining.send(player.getName() + " has broken into the party!");
         } else {
             player.sendMessage("§cInvalid argument! Try using \"/"+cmd+" help\" for help!");
         }
