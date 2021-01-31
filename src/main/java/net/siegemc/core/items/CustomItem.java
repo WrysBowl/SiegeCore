@@ -62,7 +62,7 @@ public class CustomItem {
         
         List<String> lore = new ArrayList<>();
         lore.add(color+this.getRarity().getID()+" §7"+perfectQuality+"%");
-        lore.add(" ");
+        if (stats.size() > 0) lore.add(" ");
         for (Stat stat : stats.keySet()) {
             double value = calculateStatValue(stats.get(stat), perfectQuality);
             String line = "§a+ ";
