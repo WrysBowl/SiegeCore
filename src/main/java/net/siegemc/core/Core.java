@@ -1,8 +1,8 @@
 package net.siegemc.core;
 
+import net.siegemc.core.events.ConnectEvent;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartySaving;
-import net.siegemc.core.events.ConnectEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

@@ -1,8 +1,5 @@
 package net.siegemc.core.dungeons;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-
 // Unfinished, the class containing an actual dungeon, not the dungeon type (in DungeonType.java)
 class Dungeon {
 
