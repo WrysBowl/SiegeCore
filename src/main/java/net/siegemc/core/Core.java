@@ -1,23 +1,25 @@
 package net.siegemc.core;
 
-import net.siegemc.core.events.ConnectEvent;
+import net.siegemc.core.dungeons.DungeonConfig;
+import net.siegemc.core.events.JoinEvents;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartySaving;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 
 
 public final class Core extends JavaPlugin {
-    public static File dataFolder ;
+    public static Location spawnLocation;
+
     @Override
     public void onEnable() {
-        dataFolder = this.getDataFolder();
+        spawnLocation = new Location(Bukkit.getWorld("SiegeHub"), 70.5, 71, 3.5, 90, 0);
         PartySaving.FileExists();
+        DungeonConfig.createConfig();
         (new VaultHook()).createHooks(); // Add the hooks to the vault plugin
-        //DbManager.create(); // Create the initial connections
-        Bukkit.getPluginManager().registerEvents(new ConnectEvent(), this); // Register the connection event
+        DbManager.create(); // Create the initial connections
+        Bukkit.getPluginManager().registerEvents(new JoinEvents(), this); // Register the connection event
         getCommand("party").setExecutor(new Party());
         getLogger().info("Plugin has enabled!");
     }
