@@ -20,6 +20,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class SchematicPaster {
+    /**
+     * Load a schematic from an {@link InputStream}
+     * @param resource {@link InputStream}
+     * @param clipboardFormat The format of the clipboard
+     * @return Returns a {@link Clipboard}
+     * @throws IOException Thrown when the resource can't be read.
+     */
     public static Clipboard loadSchematic(InputStream resource, ClipboardFormat clipboardFormat) throws IOException {
         Clipboard clipboard = null;
         ClipboardReader reader = clipboardFormat.getReader(resource);
@@ -28,12 +35,22 @@ public class SchematicPaster {
     }
 
     // USE THIS FOR FILES IN THE PLUGIN's RESOURCES FOLDER
-    public static void pasteSchematic(String resourceName, Location pos, String schematicFormat /*MCEDIT or SPONGE*/, boolean ignoreAirBlocks) throws IOException, WorldEditException {
+
+    /**
+     * Paste the schematic from a resource in the plugins' resources folder
+     * @param resourcePath The path of the resource (relative to the plugins' resources folder)
+     * @param pos The position to paste the schematic in
+     * @param schematicFormat The format of the schematic, either "MCEDIT" or "SPONGE" for the moment.
+     * @param ignoreAirBlocks Whether or not air blocks are skipped while pasting
+     * @throws IOException Thrown when the resource can't be read
+     * @throws WorldEditException Thrown when the schematic wasn't able to be pasted
+     */
+    public static void pasteSchematic(String resourcePath, Location pos, String schematicFormat /*MCEDIT or SPONGE*/, boolean ignoreAirBlocks) throws IOException, WorldEditException {
         EditSession builder = WorldEdit.getInstance()
                 .newEditSession(BukkitAdapter.adapt(pos.getWorld()));
         ClipboardFormat format = ClipboardFormats.findByAlias(schematicFormat);
         if (format == null) return;
-        Operation operation = new ClipboardHolder(loadSchematic(Core.plugin().getResource(resourceName), format))
+        Operation operation = new ClipboardHolder(loadSchematic(Core.plugin().getResource(resourcePath), format))
                 .createPaste(builder)
                 .to(BukkitAdapter.asBlockVector(pos))
                 .ignoreAirBlocks(ignoreAirBlocks)
@@ -44,6 +61,15 @@ public class SchematicPaster {
 
 
     // USE THIS FOR FILES NOT IN THE PLUGIN's RESOURCES FOLDER
+    /**
+     * Paste the schematic from a file (not necessarily in the plugins' resources folder)
+     * @param file The schematic's file
+     * @param pos The position to paste the schematic in
+     * @param schematicFormat The format of the schematic, either "MCEDIT" or "SPONGE" for the moment.
+     * @param ignoreAirBlocks Whether or not air blocks are skipped while pasting
+     * @throws IOException Thrown when the resource can't be read
+     * @throws WorldEditException Thrown when the schematic wasn't able to be pasted
+     */
     public static void pasteSchematic(File file, Location pos, String schematicFormat /*MCEDIT or SPONGE*/, boolean ignoreAirBlocks) throws IOException, WorldEditException {
         EditSession builder = WorldEdit.getInstance()
                 .newEditSession(BukkitAdapter.adapt(pos.getWorld()));
@@ -58,6 +84,15 @@ public class SchematicPaster {
         builder.close();
     }
 
+    /**
+     * Paste the contents of a clipboard.
+     * @param board The clipboard containing the schematic
+     * @param pos The position to paste the schematic in
+     * @param schematicFormat The format of the schematic, either "MCEDIT" or "SPONGE" for the moment.
+     * @param ignoreAirBlocks Whether or not air blocks are skipped while pasting
+     * @throws IOException Thrown when the resource can't be read
+     * @throws WorldEditException Thrown when the schematic wasn't able to be pasted
+     */
     public static void pasteSchematic(Clipboard board, Location pos, String schematicFormat /*MCEDIT or SPONGE*/, boolean ignoreAirBlocks) throws IOException, WorldEditException {
         EditSession builder = WorldEdit.getInstance()
                 .newEditSession(BukkitAdapter.adapt(pos.getWorld()));

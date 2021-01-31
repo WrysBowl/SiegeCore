@@ -1,14 +1,10 @@
 package net.siegemc.core.dungeons;
 
-import com.sk89q.worldedit.WorldEditException;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
 import net.siegemc.core.Core;
-import net.siegemc.core.utils.Utils;
 import org.bukkit.*;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,6 +23,17 @@ public enum DungeonType {
     public Entity dungeonBoss;
     public ArrayList<Dungeon> dungeons;
 
+    /**
+     * Creates a new dungeon
+     * @param schemName The path to the schematic file (in the resources folder of the plugin)
+     * @param dungeonLevel The level of the dungeon
+     * @param dungeonDistance The distance between each dungeon of the same type
+     * @param x The x offset from the dungeon schematic copy position and the location of the spawn point.
+     * @param y The y offset from the dungeon schematic copy position and the location of the player
+     * @param z The z offset from the dungeon schematic copy position and the location of the player
+     * @param dungeonBoss Not going to lie idk, it was something Wrys was doing
+     * @param dungeonTasks Not going to lie idk, it was something Wrys was doing
+     */
     DungeonType(String schemName /*The file path of the schematic, relative to the resources folder */, int dungeonLevel, short dungeonDistance /* Distance between each dungeon */, int x, int y, int z /*If you were to paste the dungeon at 0 0 0 then the location of the spawn would be the x, y and z*/, Entity dungeonBoss, DungeonTask[] dungeonTasks) {
         this.dungeonLevel = dungeonLevel;
         this.dungeonTasks = dungeonTasks;
@@ -59,49 +66,6 @@ public enum DungeonType {
         spawnLocation = new Location(world, x, y, z);
     }
 
-    public void teleportPlayer(Player p) { // Teleport a player to the most recent available dungeon (is going to be transferred to Dungeon.class in the future
-        ConfigurationSection dungeons = Core.plugin().getConfig().getConfigurationSection("dungeons");
-        if (dungeons == null) {
-            dungeons = Core.plugin().getConfig().createSection("dungeons");
-        }
-        ConfigurationSection section = dungeons.getConfigurationSection(name());
-        if (section == null) {
-            section = dungeons.createSection(name());
-        }
-        int currentKey = 0;
-        for (String key : section.getKeys(false)) {
-            currentKey = Integer.parseInt(key);
-            ConfigurationSection sec = section.getConfigurationSection(key);
-            if (sec.getBoolean("free", false)) {
-                currentKey--;
-                break;
-            }
-            ;
-        }
-        currentKey++;
-        ConfigurationSection sec = section.getConfigurationSection(String.valueOf(currentKey));
-        Location schemLocation = new Location(Bukkit.getWorld(name()), dungeonDistance * currentKey /*This is for each dungeon's distance*/, 128, 500 * ordinal() /* This is for each dungeon type's distance */);
-        try {
-            SchematicPaster.pasteSchematic(this.schematic, schemLocation, "SPONGE", false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            SchematicPaster.pasteSchematic(schematic, schemLocation, "SPONGE", true);
-        } catch (IOException e) {
-            p.sendMessage(Utils.tacc("&cAn error was encountered while loading the dungeon!"));
-            Core.plugin().getLogger().severe("The dungeon schematic file wasn't loadable!");
-            e.printStackTrace();
-        } catch (WorldEditException e) {
-            p.sendMessage(Utils.tacc("&cAn error was encountered while restarting the dungeon"));
-            Core.plugin().getLogger().severe("The dungeon schematic file wasn't able to get pasted!");
-            e.printStackTrace();
-        }
-        sec.set("free", false);
-        sec.set("players", new String[]{p.getUniqueId().toString()});
-        p.teleport(schemLocation.add(spawnLocation));
-    }
-
     /**
      * Removes all dungeons of the type
      */
@@ -119,6 +83,11 @@ public enum DungeonType {
         }
     }
 
+    /**
+     * Finds the next avaliable dungeon and returns it
+     *
+     * @return Dungeon The next available dungeon
+     */
     public Dungeon nextAvailableDungeon() {
         Dungeon available = null;
         int dungeonLength = dungeons.size();

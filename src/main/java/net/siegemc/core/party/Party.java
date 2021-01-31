@@ -8,68 +8,104 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
 public class Party {
-    @Getter private UUID partyID = UUID.randomUUID();
-    @Getter private final List<UUID> invited = new ArrayList<>();
-    private List<UUID> members = new ArrayList<>();
+    @Getter
+    private UUID partyID = UUID.randomUUID();
+    @Getter
+    private final List<UUID> invited = new ArrayList<>();
+    private HashSet<UUID> members = new HashSet<>();
     private UUID leader = null;
-    
+
+    /**
+     * Create a new party
+     *
+     * @param leader The leader of the party
+     */
     public Party(Player leader) {
         this.setLeader(leader.getUniqueId());
         save();
     }
-    
-    public Party(UUID partyID) {
-        String leader = Core.getPartyConfig().getString("party."+partyID.toString()+".leader");
-        List<String> members = Core.getPartyConfig().getStringList("party."+partyID.toString()+".members");
-        if (leader == null) {
-            Core.plugin().getLogger().warning("Failed to fetch data for party ID "+partyID.toString());
-            return;
-        }
-        
-        UUID partyLeader = UUID.fromString(leader);
-        List<UUID> membersConverted = new ArrayList<>();
-        members.forEach((String u) -> membersConverted.add(UUID.fromString(u)));
-        
-        this.partyID = partyID;
-        this.setLeader(partyLeader);
-        for (UUID uuid : membersConverted) addMember(uuid);
+
+    /**
+     * Create a new party
+     *
+     * @param partyID The uuid of the party, used to retrieve the party from the config.
+     */
+
+
+    /**
+     * Get the leader of the party
+     *
+     * @return OfflinePlayer, the leader
+     */
+    public OfflinePlayer getLeader() {
+        return Bukkit.getOfflinePlayer(leader);
     }
-    
-    public OfflinePlayer getLeader() { return Bukkit.getOfflinePlayer(leader); }
-    
+
+    /**
+     * Add a member to the party
+     *
+     * @param memberUUID The uuid of the player
+     */
     public void addMember(UUID memberUUID) {
         members.add(memberUUID);
         save();
     }
-    
+
+    /**
+     * Remove a member from the party
+     *
+     * @param memberUUID The uuid of the player
+     */
     public void removeMember(UUID memberUUID) {
         members.remove(memberUUID);
         save();
     }
-    
-    public List<OfflinePlayer> getMembers() {
-        List<OfflinePlayer> list = new ArrayList<>();
+
+    /**
+     * Get the members of the party
+     *
+     * @return The members AND the leader
+     */
+    public ArrayList<OfflinePlayer> getMembers() {
+        ArrayList<OfflinePlayer> list = new ArrayList<>();
         list.add(getLeader());
         for (UUID uuid : members) list.add(Bukkit.getOfflinePlayer(uuid));
         return list;
     }
-    
+
+    /**
+     * Get the uuids of the members of the party
+     *
+     * @return The uuids of the members AND the leader
+     */
     public List<UUID> getMembersRaw() {
         List<UUID> list = new ArrayList<>();
         list.add(leader);
         list.addAll(members);
         return list;
     }
-    
+
+    /**
+     * See whether or not an UUID is apart of the members
+     *
+     * @param playerUUID
+     * @return
+     */
     public boolean isMember(UUID playerUUID) {
         boolean isIn = getMembersRaw().contains(playerUUID);
         return isIn;
     }
-    
+
+    /**
+     * Add a player to the list of pending invitees (and automatically remove them after 1200 ticks if they haven't joined)
+     *
+     * @param invitee
+     */
     public void addInvite(Player invitee) {
         invited.add(invitee.getUniqueId());
         new BukkitRunnable() {
@@ -77,8 +113,8 @@ public class Party {
             public void run() {
                 if (!isInvited(invitee)) return;
                 removeInvite(invitee);
-                send(invitee.getName()+" did not join the party!");
-                invitee.sendMessage("§cParty invite from "+getLeader().getName()+" has expired!");
+                send(invitee.getName() + " did not join the party!");
+                invitee.sendMessage("§cParty invite from " + getLeader().getName() + " has expired!");
                 if (members.size() == 0) {
                     send("The party was disbanded since there was only 1 person left!");
                     disband();
@@ -86,13 +122,31 @@ public class Party {
             }
         }.runTaskLaterAsynchronously(Core.plugin(), 1200);
     }
-    
+
+    /**
+     * Remove the invitee from the invitees
+     *
+     * @param invitee
+     */
     public void removeInvite(Player invitee) {
         invited.remove(invitee.getUniqueId());
     }
-    
-    public boolean isInvited(Player invitee) { return invited.contains(invitee.getUniqueId()); }
-    
+
+    /**
+     * Check whether a player is invited
+     *
+     * @param invitee
+     * @return
+     */
+    public boolean isInvited(Player invitee) {
+        return invited.contains(invitee.getUniqueId());
+    }
+
+    /**
+     * Change the leader of the party
+     *
+     * @param leader
+     */
     public void setLeader(UUID leader) {
         if (this.leader != null) {
             Core.getParties().remove(this.leader);
@@ -103,38 +157,59 @@ public class Party {
         Core.getParties().put(leader, this);
         save();
     }
-    
+
+    /**
+     * Disband the party
+     */
     public void disband() {
         Core.getParties().remove(leader);
         this.members.clear();
         this.invited.clear();
-        Core.getPartyConfig().set("party."+partyID.toString(), null);
+        Core.getPartyConfig().set("party." + partyID.toString(), null);
         Core.plugin().savePartyData();
     }
-    
+
+    /**
+     * Leave the party
+     *
+     * @param player
+     */
     public void leave(Player player) {
         if (isMember(player.getUniqueId())) removeMember(player.getUniqueId());
         if (getLeader() == player) disband();
-        send(player.getName()+" left the party!");
+        send(player.getName() + " left the party!");
     }
-    
+
+    /**
+     * Send a message to all party members
+     *
+     * @param message
+     */
     public void send(String message) {
-        for(OfflinePlayer player : getMembers()) {
+        for (OfflinePlayer player : getMembers()) {
             if (player.isOnline()) {
-                ((Player) player).sendMessage("§b[PARTY] §7"+message);
+                ((Player) player).sendMessage("§b[PARTY] §7" + message);
             }
         }
     }
-    
+
+    /**
+     * Save all members to the config
+     *
+     * @param save Whether to save the config or keep it in memory only
+     */
     public void save(boolean save) {
         List<String> membersString = new ArrayList<>();
         members.forEach((UUID u) -> membersString.add(u.toString()));
-        Core.getPartyConfig().set("party."+partyID.toString()+".id", getPartyID().toString());
-        Core.getPartyConfig().set("party."+partyID.toString()+".leader", leader.toString());
-        Core.getPartyConfig().set("party."+partyID.toString()+".members", membersString);
+        Core.getPartyConfig().set("party." + partyID.toString() + ".id", getPartyID().toString());
+        Core.getPartyConfig().set("party." + partyID.toString() + ".leader", leader.toString());
+        Core.getPartyConfig().set("party." + partyID.toString() + ".members", membersString);
         if (save) Core.plugin().savePartyData();
     }
-    
+
+    /**
+     * Save all members to the config (in memory)
+     */
     public void save() {
         save(false);
     }

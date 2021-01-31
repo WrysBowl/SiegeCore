@@ -33,7 +33,7 @@ public final class Core extends JavaPlugin {
         spawnLocation = new Location(Bukkit.getWorld("SiegeHub"), 70.5, 71, 3.5, 90, 0);
 
         if (!getDataFolder().exists()) getDataFolder().mkdir();
-        partyFile = new File(Core.plugin().getDataFolder().getAbsolutePath(), "PartyData.yml");
+        partyFile = new File(Core.plugin().getDataFolder().getAbsolutePath(), "parties.yml");
         partyConfig = YamlConfiguration.loadConfiguration(partyFile);
         if (!partyFile.exists()) {
             try { partyFile.createNewFile(); }
