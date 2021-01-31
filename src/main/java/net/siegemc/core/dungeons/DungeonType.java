@@ -4,7 +4,7 @@ import com.sk89q.worldedit.WorldEditException;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
 import net.siegemc.core.Core;
-import net.siegemc.core.Utils;
+import net.siegemc.core.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;

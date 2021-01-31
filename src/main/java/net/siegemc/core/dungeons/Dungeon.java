@@ -2,7 +2,7 @@ package net.siegemc.core.dungeons;
 
 import com.sk89q.worldedit.WorldEditException;
 import net.siegemc.core.Core;
-import net.siegemc.core.Utils;
+import net.siegemc.core.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
