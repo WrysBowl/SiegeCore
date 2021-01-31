@@ -13,6 +13,7 @@ import org.bukkit.generator.ChunkGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public enum DungeonType {
@@ -24,6 +25,7 @@ public enum DungeonType {
     public int dungeonLevel;
     public DungeonTask[] dungeonTasks;
     public Entity dungeonBoss;
+    public ArrayList<Dungeon> dungeons;
 
     DungeonType(String schemName /*The file path of the schematic, relative to the resources folder */, int dungeonLevel, short dungeonDistance /* Distance between each dungeon */, int x, int y, int z /*If you were to paste the dungeon at 0 0 0 then the location of the spawn would be the x, y and z*/, Entity dungeonBoss, DungeonTask[] dungeonTasks) {
         this.dungeonLevel = dungeonLevel;
@@ -98,6 +100,39 @@ public enum DungeonType {
         sec.set("free", false);
         sec.set("players", new String[]{p.getUniqueId().toString()});
         p.teleport(schemLocation.add(spawnLocation));
+    }
+
+    /**
+     * Removes all dungeons of the type
+     */
+    public void clear() {
+        for (Dungeon dungeon : dungeons)
+            dungeon.delete();
+    }
+
+    /**
+     * Removes ALL the dungeons in the world.
+     */
+    public static void removeAll() {
+        for (DungeonType dungeonType : DungeonType.values()) {
+            dungeonType.clear();
+        }
+    }
+
+    public Dungeon nextAvailableDungeon() {
+        Dungeon available = null;
+        int dungeonLength = dungeons.size();
+        for (Dungeon dungeon : dungeons) {
+            if (dungeon.listPlayers().size() < 1) {
+                dungeon.reset();
+                available = dungeon;
+            }
+        }
+        if (available == null) {
+            available = new Dungeon(this, dungeonLength + 1);
+            available.reset();
+        }
+        return available;
     }
 }
 
