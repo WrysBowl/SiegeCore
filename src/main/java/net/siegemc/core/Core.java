@@ -2,9 +2,9 @@ package net.siegemc.core;
 
 import lombok.Getter;
 import net.siegemc.core.dungeons.DungeonConfig;
-import net.siegemc.core.items.SpawnItemCommand;
 import net.siegemc.core.items.CustomItem;
-import net.siegemc.core.items.items.*;
+import net.siegemc.core.items.ItemConfig;
+import net.siegemc.core.items.SpawnItemCommand;
 import net.siegemc.core.listeners.CustomItemListener;
 import net.siegemc.core.listeners.DamageIndicators;
 import net.siegemc.core.listeners.JoinEvents;
@@ -31,9 +31,17 @@ public final class Core extends JavaPlugin {
     public void onEnable() {
         // Initialize
         spawnLocation = new Location(Bukkit.getWorld("SiegeHub"), 70.5, 71, 3.5, 90, 0);
+        
+        // Create Configs
         if (!getDataFolder().exists()) getDataFolder().mkdir();
         PartyConfig.createConfig();
         DungeonConfig.createConfig();
+        ItemConfig.createConfigs();
+        
+        // Fetch items from config
+        ItemConfig.fetchItems();
+        
+        // Create Hooks / Connections
         (new VaultHook()).createHooks(); // Add the hooks to the vault plugin
         //DbManager.create(); // Create the initial connections
 
@@ -43,9 +51,6 @@ public final class Core extends JavaPlugin {
             Party newParty = new Party(UUID.fromString(party));
             getParties().put(newParty.getLeader().getUniqueId(), newParty);
         }
-        
-        // Register hardcoded items
-        registerItems();
 
         // Register Events
         Bukkit.getPluginManager().registerEvents(new JoinEvents(), this);
@@ -67,15 +72,6 @@ public final class Core extends JavaPlugin {
     
     public static Core plugin() {
         return Core.getPlugin(Core.class); // Method to get the plugin from other classes, so you can use Core.plugin() in other classes to get the plugin
-    }
-    
-    private void registerItems() {
-        new TestStick();
-        new TestBow();
-        new TestHelmet();
-        new TestWand();
-        new TestAxe();
-        new TestFood();
     }
     
     public static Party getParty(UUID playerUUID) {

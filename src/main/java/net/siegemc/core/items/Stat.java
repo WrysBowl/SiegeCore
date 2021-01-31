@@ -16,6 +16,13 @@ public enum Stat {
         this.id = id;
     }
     
+    public static Stat getFromID(String id) {
+        for (Stat stat : values()) {
+            if (stat.getID().equalsIgnoreCase(id)) return stat;
+        }
+        return null;
+    }
+    
     public StatType getType() {
         return this.type;
     }

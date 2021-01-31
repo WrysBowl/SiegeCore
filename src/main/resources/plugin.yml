@@ -14,5 +14,5 @@ commands:
     aliases: [ p ]
   spawnitem:
     permission: item.spawn
-    aliases: [ si ]
+    aliases: [ si, items, item, i ]
     description: Spawns in a item through a gui menu

@@ -14,7 +14,6 @@ public class TestWand extends WandItem {
     public TestWand() {
         super("Test Wand", new ItemStack(Material.STICK));
         this.setManaRequired(10);
-        this.setParticle(Particle.COMPOSTER);
         this.setDamage(10000);
         this.setDamageRadius(5.5);
         this.setRange(120);

@@ -5,16 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 import net.siegemc.core.Core;
 import net.siegemc.core.utils.NBT;
+import org.bukkit.Material;
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class CustomItem {
     @Getter @Setter private ItemStack rawItem;
@@ -22,7 +22,8 @@ public class CustomItem {
     @Getter @Setter private Rarity rarity = Rarity.COMMON;
     @Getter @Setter private int levelRequirement = 0;
     @Getter private final HashMap<Stat, Integer> stats = new HashMap<>();
-    @Getter final String itemName;
+    @Getter private final String itemName;
+    @Getter private final String type = "Unknown";
     
     /**
      * @param itemName The name of the item
@@ -79,7 +80,8 @@ public class CustomItem {
         // Handle NBT
         NBT.addString(meta, "item", itemName);
         NBT.addInt(meta, "perfectQuality", perfectQuality);
-    
+        
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         item.setItemMeta(meta);
         return item;
     }
@@ -125,9 +127,48 @@ public class CustomItem {
             double strength = weapon.getStats().getOrDefault(Stat.STRENGTH, 0);
             strength += AureliumAPI.getStatLevel(player, com.archyx.aureliumskills.stats.Stat.STRENGTH);
             double add = CustomItem.calculateStatValue((int) Math.floor(strength), perfectQuality) * 0.25;
-            return weapon.getDamage() + add + victim.getHealth() * 0.1;
+            return weapon.getDamage() + add + victim.getHealth() * 0.01;
         }
         return 0;
+    }
+    
+    /**
+     * Sterilizes the custom data into a hashmap
+     *
+     * @return A hashmap with the path as the key and object as the value
+     */
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+    public HashMap<String, Object> serialize() {
+        HashMap<String, Object> r = new HashMap<>();
+        HashMap<String, Integer> serializedStats = new HashMap<>();
+        for (Stat stat : getStats().keySet()) serializedStats.put(stat.getID(), getStats().get(stat));
+        r.put("base.name", getItemName());
+        r.put("base.item", getRawItem().getType().toString());
+        r.put("base.description", getDescription());
+        r.put("base.rarity", getRarity().getID());
+        r.put("base.levelRequirement", getLevelRequirement());
+        r.put("base.stats", serializedStats);
+        return r;
+    }
+    
+    /**
+     * Creates an item from a configuration section (deserialize)
+     *
+     * @param data Data from configurationSection
+     */
+    @SuppressWarnings("unchecked")
+    public CustomItem(Map<String, Object> data) {
+        this.itemName = (String) data.get("base.name");
+        setRawItem(new ItemStack(Material.valueOf((String) data.get("base.item"))));
+        setDescription((List<String>) data.get("base.description"));
+        setRarity(Rarity.getFromInt((String) data.get("base.rarity")));
+        setLevelRequirement((int) data.get("base.levelRequirement"));
+        MemorySection fetchedStats = (MemorySection) data.get("base.stats");
+        for (String key : fetchedStats.getKeys(false)) {
+            Integer val = (Integer) fetchedStats.get(key);
+            getStats().put(Stat.getFromID(key), val);
+        }
+        Core.getItems().put((String) data.get("base.name"), this);
     }
 }
 

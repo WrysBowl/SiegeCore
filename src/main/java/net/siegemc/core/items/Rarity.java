@@ -2,7 +2,7 @@ package net.siegemc.core.items;
 
 public enum Rarity {
     COMMON("Common", "7"),
-    UNCOMMON("Uncommon", "8"),
+    UNCOMMON("Uncommon", "a"),
     RARE("Rare", "9"),
     EPIC("Epic", "5"),
     LEGENDARY("Legendary", "6"),
@@ -22,5 +22,12 @@ public enum Rarity {
     
     public String getID() {
         return this.id;
+    }
+    
+    public static Rarity getFromInt(String id) {
+        for (Rarity rarity : values()) {
+            if (rarity.getID().equalsIgnoreCase(id)) return rarity;
+        }
+        return Rarity.COMMON;
     }
 }
