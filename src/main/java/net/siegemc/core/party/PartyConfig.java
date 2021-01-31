@@ -14,9 +14,7 @@ public class PartyConfig {
     @Getter
     private static File configFile;
 
-    /**
-     * Creates the parties config
-     */
+
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void createConfig() {
         configFile = new File(Core.plugin().getDataFolder().getAbsolutePath(), "parties.yml");
@@ -31,21 +29,10 @@ public class PartyConfig {
 
     }
 
-    /**
-     * Resets the party configuration, deleting ALL party data.
-     * Beware as this can't be rolled back!
-     */
-    public static void reset() {
-        configFile.delete();
-        createConfig();
-    }
-
-    /**
-     * Saves the party configuration to disk.
-     */
     public static void save() {
         try {
             configuration.save(configFile);
+            ;
         } catch (IOException e) {
             e.printStackTrace();
         }

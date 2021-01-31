@@ -109,31 +109,6 @@ public class Dungeon {
             e.printStackTrace();
         }
     }
-
-    /**
-     * TODO methods to save a dungeon's data to a configurationSection (serialize) and retrieve it (deserialize)
-     * @param section
-     * @param index
-     */
-    protected static void deserialize(ConfigurationSection section, int index) {
-
-    }
-
-    protected static ConfigurationSection serialize() {
-        return null;
-    }
-
-}
-
-
-
-
-
-
-
-
-
-
     /* Wrys code
 
     public void spawnDungeonBoss() throws InvalidMobTypeException {
@@ -143,3 +118,4 @@ public class Dungeon {
             throw new InvalidMobTypeException("MythicMob type " + bossName + " is invalid.");
         }
     }*/
+}
