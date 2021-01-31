@@ -1,15 +1,11 @@
-package net.siegemc.core.events;
+package net.siegemc.core.listeners;
 
 import net.siegemc.core.Core;
-<<<<<<< HEAD:src/main/java/net/siegemc/core/events/JoinEvents.java
-import net.siegemc.core.DbManager;
-import net.siegemc.core.Utils;
 import net.siegemc.core.dungeons.Dungeon;
 import net.siegemc.core.dungeons.DungeonType;
-import org.bukkit.entity.Player;
-=======
 import net.siegemc.core.utils.DbManager;
->>>>>>> master:src/main/java/net/siegemc/core/events/ConnectEvent.java
+import net.siegemc.core.utils.Utils;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
