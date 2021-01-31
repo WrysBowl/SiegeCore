@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.siegemc.core.Core;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -35,7 +36,23 @@ public class Party {
      *
      * @param partyID The uuid of the party, used to retrieve the party from the config.
      */
+    public Party(UUID partyID) {
+        FileConfiguration config = PartyConfig.getConfiguration();
+        String leader = config.getString("party." + partyID.toString() + ".leader");
+        List<String> members = config.getStringList("party." + partyID.toString() + ".members");
+        if (leader == null) {
+            Core.plugin().getLogger().warning("Failed to fetch data for party ID " + partyID.toString());
+            return;
+        }
 
+        UUID partyLeader = UUID.fromString(leader);
+        List<UUID> membersConverted = new ArrayList<>();
+        members.forEach((String u) -> membersConverted.add(UUID.fromString(u)));
+
+        this.partyID = partyID;
+        this.setLeader(partyLeader);
+        for (UUID uuid : membersConverted) addMember(uuid);
+    }
 
     /**
      * Get the leader of the party
@@ -165,8 +182,7 @@ public class Party {
         Core.getParties().remove(leader);
         this.members.clear();
         this.invited.clear();
-        Core.getPartyConfig().set("party." + partyID.toString(), null);
-        Core.plugin().savePartyData();
+        PartyConfig.getConfiguration().set("party." + partyID.toString(), null);
     }
 
     /**
@@ -200,11 +216,12 @@ public class Party {
      */
     public void save(boolean save) {
         List<String> membersString = new ArrayList<>();
+        FileConfiguration config = PartyConfig.getConfiguration();
         members.forEach((UUID u) -> membersString.add(u.toString()));
-        Core.getPartyConfig().set("party." + partyID.toString() + ".id", getPartyID().toString());
-        Core.getPartyConfig().set("party." + partyID.toString() + ".leader", leader.toString());
-        Core.getPartyConfig().set("party." + partyID.toString() + ".members", membersString);
-        if (save) Core.plugin().savePartyData();
+        config.set("party." + partyID.toString() + ".id", getPartyID().toString());
+        config.set("party." + partyID.toString() + ".leader", leader.toString());
+        config.set("party." + partyID.toString() + ".members", membersString);
+        if (save) PartyConfig.save();
     }
 
     /**

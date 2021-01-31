@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class DungeonConfig { //How to delete schematics?
-    private static File dungeonConfigFile;
+    private static File configFile;
     private static FileConfiguration configuration;
 
 
@@ -18,15 +18,16 @@ public class DungeonConfig { //How to delete schematics?
      * Creates the dungeons.yml config
      */
     public static void createConfig() {
-        dungeonConfigFile = new File(Core.plugin().getDataFolder().getAbsolutePath(), "dungeons.yml");
-        if (!dungeonConfigFile.exists()) {
-            dungeonConfigFile.getParentFile().mkdirs();
+        configFile = new File(Core.plugin().getDataFolder().getAbsolutePath(), "dungeons.yml");
+        if (!configFile.exists()) {
+            configFile.getParentFile().mkdirs();
         }
         configuration = new YamlConfiguration();
         try {
-            dungeonConfigFile.createNewFile();
-            configuration.load(dungeonConfigFile);
-        } catch (IOException ignored) {
+            configFile.createNewFile();
+            configuration.load(configFile);
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (InvalidConfigurationException e) {
             Core.plugin().getLogger().severe("The dungeons.yml file contains invalid data!");
             e.printStackTrace();
@@ -40,7 +41,7 @@ public class DungeonConfig { //How to delete schematics?
      */
     public static void save() { // Saves the configuration to file
         try {
-            configuration.save(dungeonConfigFile);
+            configuration.save(configFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,7 +56,7 @@ public class DungeonConfig { //How to delete schematics?
      * Beware as this can't be rolled back!
      */
     public static void reset() {
-        dungeonConfigFile.delete();
+        configFile.delete();
         createConfig();
     }
 
