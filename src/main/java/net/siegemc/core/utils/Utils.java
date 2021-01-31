@@ -1,5 +1,6 @@
-package net.siegemc.core;
+package net.siegemc.core.utils;
 
+import net.siegemc.core.Core;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 

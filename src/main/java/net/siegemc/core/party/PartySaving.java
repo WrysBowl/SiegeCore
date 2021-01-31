@@ -1,5 +1,6 @@
 package net.siegemc.core.party;
 
+import lombok.Getter;
 import net.siegemc.core.Core;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -8,27 +9,33 @@ import java.io.File;
 import java.io.IOException;
 
 public class PartySaving {
-    public static FileConfiguration yaml = null;
-    public static File PartyData;
-
-    public static void FileExists() {
-        PartyData = new File(Core.plugin().getDataFolder().getAbsolutePath(), "parties.yml");
-        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(PartyData);
+    @Getter private FileConfiguration configuration = null;
+    @Getter private File PartyData;
+    
+    public PartySaving() {}
+    
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public void FileExists() {
+        PartyData = new File(Core.plugin().getDataFolder().getAbsolutePath(), "PartyData.yml");
+        configuration = YamlConfiguration.loadConfiguration(PartyData);
         if (!PartyData.exists()) {
-            try {
-                PartyData.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            try { PartyData.createNewFile(); }
+            catch (IOException e) { e.printStackTrace(); }
         }
-        yaml.createSection("Test");
-        yaml.set("test", "hello");
+        
+        configuration.createSection("Test");
+        configuration.set("test", "hello");
+        
+        save();
+    }
+    
+    public void save() {
         try {
-            yaml.save(PartyData);
-            ;
+
+            configuration.save(PartyData);;
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+    
 }

@@ -1,5 +1,6 @@
-package net.siegemc.core;
+package net.siegemc.core.utils;
 
+import net.siegemc.core.utils.DbManager;
 import org.bukkit.OfflinePlayer;
 
 import java.sql.Connection;

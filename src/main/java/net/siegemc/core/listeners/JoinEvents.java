@@ -1,11 +1,15 @@
 package net.siegemc.core.events;
 
 import net.siegemc.core.Core;
+<<<<<<< HEAD:src/main/java/net/siegemc/core/events/JoinEvents.java
 import net.siegemc.core.DbManager;
 import net.siegemc.core.Utils;
 import net.siegemc.core.dungeons.Dungeon;
 import net.siegemc.core.dungeons.DungeonType;
 import org.bukkit.entity.Player;
+=======
+import net.siegemc.core.utils.DbManager;
+>>>>>>> master:src/main/java/net/siegemc/core/events/ConnectEvent.java
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -23,6 +27,7 @@ public class JoinEvents implements Listener {
     @EventHandler
     public void connectEvent(AsyncPlayerPreLoginEvent e) {
         new BukkitRunnable() { // We create a runnable to run asynchronously (on another thread, not the main one, so that the server won't lag if this one does)
+            @SuppressWarnings("ConstantConditions")
             @Override
             public void run() {
                 String ip = e.getAddress().getHostAddress();
