@@ -4,7 +4,10 @@ import com.archyx.aureliumskills.api.AureliumAPI;
 import net.siegemc.core.Core;
 import net.siegemc.core.items.*;
 import net.siegemc.core.utils.NBT;
-import org.bukkit.*;
+import org.bukkit.Color;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -25,7 +28,6 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @SuppressWarnings("ConstantConditions")
 public class CustomItemListener implements Listener {
@@ -85,6 +87,11 @@ public class CustomItemListener implements Listener {
         if (!event.getAction().equals(Action.LEFT_CLICK_BLOCK)
                 && !event.getAction().equals(Action.LEFT_CLICK_AIR)) return;
         doAxeCooldown(event.getPlayer());
+    }
+    
+    @EventHandler
+    public void onOffhandSwap(PlayerSwapHandItemsEvent event) {
+        updateHealth(event.getPlayer());
     }
     
     private void doAxeCooldown(Player player) {
@@ -198,17 +205,11 @@ public class CustomItemListener implements Listener {
             @Override
             public void run() {
                 double cHealth = player.getHealth();
-                double health = 0;
-    
-    
+                double health = getAllStats(player, Stat.HEALTH, 0);
+                
                 player.setMaxHealth(20);
-                health += getStat(player.getInventory().getItemInMainHand(), Stat.HEALTH);
-                health += getStat(player.getInventory().getHelmet(), Stat.HEALTH);
-                health += getStat(player.getInventory().getChestplate(), Stat.HEALTH);
-                health += getStat(player.getInventory().getLeggings(), Stat.HEALTH);
-                health += getStat(player.getInventory().getBoots(), Stat.HEALTH);
-    
                 player.setMaxHealth(health+20);
+                
                 if (cHealth > health+20) cHealth = health+20;
                 player.setHealth(cHealth);
             }
@@ -233,6 +234,17 @@ public class CustomItemListener implements Listener {
         return CustomItem.calculateStatValue(health, perfectQuality) * 2.5;
     }
     
+    public double getAllStats(Player player, Stat stat, int def) {
+        double res = 0;
+        res += getStat(player.getInventory().getItemInMainHand(), stat);
+        res += getStat(player.getInventory().getHelmet(), stat);
+        res += getStat(player.getInventory().getChestplate(), stat);
+        res += getStat(player.getInventory().getLeggings(), stat);
+        res += getStat(player.getInventory().getBoots(), stat);
+        res += getStat(player.getInventory().getItemInOffHand(), stat);
+        return res == 0 ? def : res;
+    }
+    
     @EventHandler
     public void onConsume(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
@@ -249,17 +261,11 @@ public class CustomItemListener implements Listener {
     @EventHandler
     public void onRegen(EntityRegainHealthEvent event) {
         if (!(event.getEntity() instanceof Player)) return;
-        if (event.getRegainReason().equals(EntityRegainHealthEvent.RegainReason.EATING)) event.setCancelled(true);double health = 0;
+        if (event.getRegainReason().equals(EntityRegainHealthEvent.RegainReason.EATING)) event.setCancelled(true);
         
         Player player = (Player) event.getEntity();
-        double regen = 0;
-    
-        regen += getStat(player.getInventory().getItemInMainHand(), Stat.REGENERATION, 1);
-        regen += getStat(player.getInventory().getHelmet(), Stat.REGENERATION, 1);
-        regen += getStat(player.getInventory().getChestplate(), Stat.REGENERATION, 1);
-        regen += getStat(player.getInventory().getLeggings(), Stat.REGENERATION, 1);
-        regen += getStat(player.getInventory().getBoots(), Stat.REGENERATION, 1);
         
+        double regen = getAllStats(player, Stat.REGENERATION, 1);
         regen += AureliumAPI.getStatLevel(player, com.archyx.aureliumskills.stats.Stat.REGENERATION);
     
         if (event.getRegainReason().equals(EntityRegainHealthEvent.RegainReason.SATIATED)) { regen = regen * 0.14; }
@@ -272,14 +278,9 @@ public class CustomItemListener implements Listener {
     public void onDeathDrops(EntityDeathEvent event) {
         if (event.isCancelled() || event.getDrops().size() == 0 || !(event.getEntity().getKiller() instanceof Player)) return;
         Player player = event.getEntity().getKiller();
-        double dropChance = 0;
         
-        dropChance += getStat(player.getInventory().getItemInMainHand(), Stat.LUCK);
-        dropChance += getStat(player.getInventory().getHelmet(), Stat.LUCK);
-        dropChance += getStat(player.getInventory().getChestplate(), Stat.LUCK);
-        dropChance += getStat(player.getInventory().getLeggings(), Stat.LUCK);
-        dropChance += getStat(player.getInventory().getBoots(), Stat.LUCK);
-        
+        double dropChance = getAllStats(player, Stat.LUCK, 0);
+    
         dropChance += AureliumAPI.getStatLevel(player, com.archyx.aureliumskills.stats.Stat.LUCK);
         dropChance = dropChance * 0.5;
         
