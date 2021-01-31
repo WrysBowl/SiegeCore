@@ -43,6 +43,9 @@ public final class Core extends JavaPlugin {
             Party newParty = new Party(UUID.fromString(party));
             getParties().put(newParty.getLeader().getUniqueId(), newParty);
         }
+        
+        // Register hardcoded items
+        registerItems();
 
         // Register Events
         Bukkit.getPluginManager().registerEvents(new JoinEvents(), this);
