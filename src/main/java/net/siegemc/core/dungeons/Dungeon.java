@@ -14,6 +14,24 @@ import org.bukkit.persistence.PersistentDataType;
 import java.io.IOException;
 import java.util.HashSet;
 
+/* The dungeons.yml file
+   dungeons:
+     exampleType: # type of dungeon
+       0: # index of the dungeon
+         players: [] #the list of players, mapped by uuis
+       1: # index of the dungeon
+         players: []
+
+ */
+
+/* The player's persistentdatacontainer
+
+    dungeon:
+        type: exampleType # type of dungeon the player is currently in
+        index: 0 # index of the dungeon the player is currently in
+
+ */
+
 /**
  * The Dungeon class.
  * It represents a single dungeon of a specific type, can be used to add players to it, remove players from, reset, etc.
