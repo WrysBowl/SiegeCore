@@ -10,10 +10,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class DungeonConfig { //How to delete schematics?
-    private File dungeonConfigFile;
-    private FileConfiguration configuration;
+    private static File dungeonConfigFile;
+    private static FileConfiguration configuration;
 
-    public void createConfig() { // Creates the dungeons.yml config for future use, should be ran when the plugin starts up
+
+    /**
+     * Creates the dungeons.yml config
+     */
+    public static void createConfig() {
         dungeonConfigFile = new File(Core.plugin().getDataFolder(), "dungeons.yml");
         if (!dungeonConfigFile.exists()) {
             dungeonConfigFile.getParentFile().mkdirs();
@@ -29,23 +33,52 @@ public class DungeonConfig { //How to delete schematics?
         }
     }
 
-
-    public void saveConfig() throws IOException { // Saves the configuration to file
-        configuration.save(dungeonConfigFile);
+    /**
+     * Saves the configuration to a file
+     *
+     * @throws IOException when the file can't be written to
+     */
+    public static void save() { // Saves the configuration to file
+        try {
+            configuration.save(dungeonConfigFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public FileConfiguration getConfig() {
-        return this.configuration;
+    public static FileConfiguration getConfiguration() {
+        return configuration;
     }
 
-    public ConfigurationSection getDungeons(DungeonType dungeon) { // Get the dungeons of a specific type from the file
-        if (configuration.isConfigurationSection(dungeon.name()))
-            return configuration.getConfigurationSection(dungeon.name());
-        return configuration.createSection(dungeon.name());
+    /**
+     * Resets the dungeon configuration, deleting ALL dungeon data.
+     * Beware as this can't be rolled back!
+     */
+    public static void reset() {
+        dungeonConfigFile.delete();
+        createConfig();
     }
 
-    public void getDungeon(DungeonType dungeon, int index){ // Get the dungeon at number index of a specific dungeon, not done yet
+    /**
+     * @param dungeonType The type of the dungeon
+     * @return ConfigurationSection The config's data on the list of dungeons of that type
+     */
+    public static ConfigurationSection getDungeons(DungeonType dungeonType) { // Get the dungeons of a specific type from the file
+        if (configuration.isConfigurationSection(dungeonType.name()))
+            return configuration.getConfigurationSection(dungeonType.name());
+        return configuration.createSection(dungeonType.name());
+    }
 
+    /**
+     * @param dungeonType The type of the dungeon
+     * @param index       The index the dungeon is at.
+     * @return The config's data on the dungeon
+     */
+    public static ConfigurationSection getDungeon(DungeonType dungeonType, int index) { // Get the dungeon at number index of a specific dungeon, not done yet
+        ConfigurationSection dungeons = getDungeons(dungeonType);
+        if (dungeons.isConfigurationSection(String.valueOf(index)))
+            return dungeons.getConfigurationSection(String.valueOf(index));
+        return dungeons.createSection(String.valueOf(index));
     }
 
 }
