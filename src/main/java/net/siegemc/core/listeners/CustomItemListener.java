@@ -29,7 +29,7 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "deprecation"})
 public class CustomItemListener implements Listener {
 
 //    Yes, I know this class is very ugly
@@ -245,6 +245,7 @@ public class CustomItemListener implements Listener {
         return res == 0 ? def : res;
     }
     
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onConsume(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
@@ -255,7 +256,9 @@ public class CustomItemListener implements Listener {
         event.setCancelled(true);
         player.getInventory().getItemInMainHand().setAmount(item.getAmount()-1);
         player.setFoodLevel(player.getFoodLevel()+foodItem.getFeed());
-        player.setHealth(player.getHealth()+foodItem.getHeal());
+        double health = player.getHealth()+foodItem.getHeal();
+        if (health > player.getMaxHealth()) health = player.getMaxHealth();
+        player.setHealth(health);
     }
     
     @EventHandler
