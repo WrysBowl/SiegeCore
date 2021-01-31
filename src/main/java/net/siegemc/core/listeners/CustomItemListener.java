@@ -59,7 +59,7 @@ public class CustomItemListener implements Listener {
             if (meta instanceof Damageable) {
                 if (((Damageable) meta).getDamage() != 0) event.setCancelled(true);
             }
-            double damage = CustomItem.getDamage(attacker, event.getEntity(), item);
+            double damage = CustomItem.getDamage(attacker, (LivingEntity) event.getEntity(), item);
             
             if(damage != 0) event.setDamage(damage);
             doAxeCooldown(attacker);
