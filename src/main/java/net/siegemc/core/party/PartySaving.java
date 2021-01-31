@@ -31,6 +31,7 @@ public class PartySaving {
     
     public void save() {
         try {
+
             configuration.save(PartyData);;
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,31 +1,37 @@
 package net.siegemc.core;
 
+import net.siegemc.core.listeners.JoinEvents;
+import net.siegemc.core.party.Party;
+import net.siegemc.core.party.PartySaving;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import lombok.Getter;
-import net.siegemc.core.events.ConnectEvent;
 import net.siegemc.core.listeners.WorldProtection;
 import net.siegemc.core.party.*;
 import net.siegemc.core.utils.VaultHook;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
+
 public final class Core extends JavaPlugin {
     @Getter private final PartySaving partySaving = new PartySaving();
     @Getter private static final HashMap<UUID, Party> parties = new HashMap<>();
     @Getter private static FileConfiguration partyConfig;
     private static File partyFile;
+    public static Location spawnLocation;
     
     @SuppressWarnings({"ResultOfMethodCallIgnored", "ConstantConditions"})
     @Override
     public void onEnable() {
+        spawnLocation = new Location(Bukkit.getWorld("SiegeHub"), 70.5, 71, 3.5, 90, 0);
+
         if (!getDataFolder().exists()) getDataFolder().mkdir();
         partyFile = new File(Core.plugin().getDataFolder().getAbsolutePath(), "PartyData.yml");
         partyConfig = YamlConfiguration.loadConfiguration(partyFile);
@@ -45,7 +51,7 @@ public final class Core extends JavaPlugin {
         }
         
         // Register Events
-        Bukkit.getPluginManager().registerEvents(new ConnectEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new JoinEvents(), this);
         Bukkit.getPluginManager().registerEvents(new WorldProtection(), this);
         
         // Register Commands

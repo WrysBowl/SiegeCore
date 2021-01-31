@@ -8,39 +8,37 @@ buildscript {
 }
 
 plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
     id("com.github.johnrengelman.shadow") version "5.2.0"
-    java
 }
 
-group = "net.siegemc"
-version = "0.0.1"
+group 'net.siegemc'
+version '0.0.2'
 
-configure<JavaPluginExtension> {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
 
 repositories {
     mavenCentral()
-    maven(url = "https://oss.sonatype.org/content/groups/public/")
-    maven(url = "https://repo.aikar.co/content/groups/aikar/")
-    maven(url = "https://repo.codemc.org/repository/maven-public/")
-    maven(url = "https://papermc.io/repo/repository/maven-public/")
-    maven(url = "https://mvn.lumine.io/repository/maven-public/")
-    maven(url = "https://jitpack.io")
-    maven(url = "https://repo.dmulloy2.net/nexus/repository/public/")
-    maven(
+    maven { url = "https://oss.sonatype.org/content/groups/public/" }
+    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url = "https://repo.codemc.org/repository/maven-public/" }
+    maven { url = "https://papermc.io/repo/repository/maven-public/" }
+    maven { url = "https://mvn.lumine.io/repository/maven-public/" }
+    maven { url = "https://jitpack.io" }
+    maven { url = "https://repo.dmulloy2.net/nexus/repository/public/" }
+    maven {
         url = "https://dl.bintray.com/ichbinjoe/public/"
-    )
-    maven(
+    }
+    maven {
         url = "https://maven.enginehub.org/repo/"
-    )
+    }
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
     testCompile("junit:junit:4.12")
     compileOnly("org.projectlombok:lombok:1.18.16")
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.3-R0.1-SNAPSHOT")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.5.0")
     compileOnly("io.lumine.xikage:MythicMobs:4.11.0-BETA") // MythicMobs API
     compileOnly("com.vexsoftware:nuvotifier-universal:2.6.0") // NuVotifier API
@@ -52,6 +50,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.16")
     //compile(fileTree(include(["*.jar"]), dir("libs")))
 }
+
 tasks {
     shadowJar {
         relocate("co.aikar.commands", "net.siegemc.core.acf")

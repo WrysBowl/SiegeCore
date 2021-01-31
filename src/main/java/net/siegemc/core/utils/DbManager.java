@@ -21,18 +21,18 @@ public class DbManager {
     private final static Queue<Connection> usedConnections = new LinkedTransferQueue<>();
     private static final int INITIAL_POOL_SIZE = 10;
     private static final int MAX_TIMEOUT = 30 * 1000;
-
     static {
         Yaml yaml = new Yaml();
         InputStream stream = Core.plugin().getResource("privKeys.yml");
-        if(stream == null){
+        if (stream == null) {
             Core.plugin().getLogger().severe("You need a privKeys.yml file for the plugin to work! Get the most updated values in the #dev-stuff discord channel!");
         }
         Map<String, Object> obj = yaml.load(stream);
-        Map<String, String> dbObj = (Map<String, String>) obj.get("db");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> dbObj = (Map<String, Object>) obj.get("db");
         url = String.format("jdbc:mysql://%s/%s", dbObj.get("endpoint"), dbObj.get("db name"));
-        user = dbObj.get("username");
-        password = dbObj.get("password");
+        user = String.valueOf(dbObj.get("username"));
+        password = String.valueOf(dbObj.get("password"));
     }
 
     public static void create() {
@@ -69,9 +69,9 @@ public class DbManager {
         }
     }
 
-    public static synchronized boolean releaseConnection(Connection connection) {
+    public static synchronized void releaseConnection(Connection connection) {
         connectionPool.add(connection);
-        return usedConnections.remove(connection);
+        usedConnections.remove(connection);
     }
 
     private static synchronized Connection createConnection() {
