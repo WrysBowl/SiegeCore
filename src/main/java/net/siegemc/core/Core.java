@@ -62,7 +62,6 @@ public final class Core extends JavaPlugin {
     
     @Override
     public void onDisable() {
-        PartyConfig.reset();
         for (Party party : getParties().values()) party.save(true);
     }
     
@@ -76,6 +75,7 @@ public final class Core extends JavaPlugin {
         new TestHelmet();
         new TestWand();
         new TestAxe();
+        new TestFood();
     }
     
     public static Party getParty(UUID playerUUID) {

@@ -16,10 +16,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemDamageEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -236,6 +233,18 @@ public class CustomItemListener implements Listener {
         return CustomItem.calculateStatValue(health, perfectQuality) * 2.5;
     }
     
+    @EventHandler
+    public void onConsume(PlayerItemConsumeEvent event) {
+        Player player = event.getPlayer();
+        ItemStack item = event.getItem();
+        
+        if (!(CustomItem.getType(item) instanceof FoodItem)) return;
+        FoodItem foodItem = (FoodItem) CustomItem.getType(item);
+        event.setCancelled(true);
+        player.getInventory().getItemInMainHand().setAmount(item.getAmount()-1);
+        player.setFoodLevel(player.getFoodLevel()+foodItem.getFeed());
+        player.setHealth(player.getHealth()+foodItem.getHeal());
+    }
     
     @EventHandler
     public void onRegen(EntityRegainHealthEvent event) {
