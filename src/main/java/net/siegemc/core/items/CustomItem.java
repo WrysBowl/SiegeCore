@@ -49,7 +49,7 @@ public class CustomItem {
     }
     
     public ItemStack get() {
-        return get((int) Math.round(Math.random() * 100 + 1));
+        return get((int) Math.round(Math.random() * 99) + 1);
     }
     
     public ItemStack get(int perfectQuality) {
