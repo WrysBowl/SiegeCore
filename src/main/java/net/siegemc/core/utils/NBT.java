@@ -30,6 +30,7 @@ public class NBT {
         return holder.getPersistentDataContainer().getOrDefault(generateKey(key), PersistentDataType.DOUBLE, 0D);
     }
     
+    @SuppressWarnings("ConstantConditions")
     public static String getString(PersistentDataHolder holder, String key) {
         return holder.getPersistentDataContainer().getOrDefault(generateKey(key), PersistentDataType.STRING, null);
     }
