@@ -18,13 +18,13 @@ public class DungeonConfig { //How to delete schematics?
      * Creates the dungeons.yml config
      */
     public static void createConfig() {
-        dungeonConfigFile = new File(Core.plugin().getDataFolder(), "dungeons.yml");
+        dungeonConfigFile = new File(Core.plugin().getDataFolder().getAbsolutePath(), "dungeons.yml");
         if (!dungeonConfigFile.exists()) {
             dungeonConfigFile.getParentFile().mkdirs();
-            Core.plugin().saveResource("dungeons.yml", false);
         }
         configuration = new YamlConfiguration();
         try {
+            dungeonConfigFile.createNewFile();
             configuration.load(dungeonConfigFile);
         } catch (IOException ignored) {
         } catch (InvalidConfigurationException e) {

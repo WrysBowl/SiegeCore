@@ -10,8 +10,9 @@ import java.io.IOException;
 public class PartySaving {
     public static FileConfiguration yaml = null;
     public static File PartyData;
+
     public static void FileExists() {
-        PartyData = new File(Core.plugin().getDataFolder().getAbsolutePath(), "PartyData.yml");
+        PartyData = new File(Core.plugin().getDataFolder().getAbsolutePath(), "parties.yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(PartyData);
         if (!PartyData.exists()) {
             try {
@@ -23,7 +24,8 @@ public class PartySaving {
         yaml.createSection("Test");
         yaml.set("test", "hello");
         try {
-            yaml.save(PartyData);;
+            yaml.save(PartyData);
+            ;
         } catch (IOException e) {
             e.printStackTrace();
         }

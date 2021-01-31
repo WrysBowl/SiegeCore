@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Invites {
     private static HashMap<String, List<UUID>> invites = new HashMap<>();
 
-    public static void addInvitee(String party, Player player){
+    public static void addInvitee(String party, Player player) {
         List<UUID> list = invites.getOrDefault(party, new ArrayList<>());
         list.add(player.getUniqueId());
         invites.put(party, list);
