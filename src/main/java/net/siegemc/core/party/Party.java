@@ -14,10 +14,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class Party {
-    @Getter
-    private UUID partyID = UUID.randomUUID();
-    @Getter
-    private final List<UUID> invited = new ArrayList<>();
+    @Getter private UUID partyID = UUID.randomUUID();
+    @Getter private final List<UUID> invited = new ArrayList<>();
     private HashSet<UUID> members = new HashSet<>();
     private UUID leader = null;
 
@@ -30,7 +28,7 @@ public class Party {
         this.setLeader(leader.getUniqueId());
         save();
     }
-
+    
     /**
      * Create a new party
      *

@@ -109,22 +109,20 @@ public class CustomItemListener implements Listener {
                 int i = 0;
                 @Override
                 public void run() {
-                    try {
-                        i++;
-                        double section = (double) item.getType().getMaxDurability() / (double) axeItem.getCooldown();
-                        int progress = (int) Math.ceil(section * i);
-                        if (section > item.getType().getMaxDurability()) progress = item.getType().getMaxDurability();
-                        damageable.setDamage(item.getType().getMaxDurability() - progress);
+                    i++;
+                    double section = (double) item.getType().getMaxDurability() / (double) axeItem.getCooldown();
+                    int progress = (int) Math.ceil(section * i);
+                    if (section > item.getType().getMaxDurability()) progress = item.getType().getMaxDurability();
+                    damageable.setDamage(item.getType().getMaxDurability() - progress);
+                    item.setItemMeta((ItemMeta) damageable);
+                    player.getInventory().setItem(slot, item);
+                    if (i > axeItem.getCooldown()) {
+                        damageable.setDamage(0);
                         item.setItemMeta((ItemMeta) damageable);
-                        player.getInventory().setItem(slot, item);
-                        if (i > axeItem.getCooldown()) {
-                            damageable.setDamage(0);
-                            item.setItemMeta((ItemMeta) damageable);
-                            this.cancel();
-                        }
-                    } catch(NullPointerException ignored) {} // Sometimes it glitches out, not too sure why, if you do know why feel free to fix, the error itself doesnt break anything sooo.
+                        this.cancel();
+                    }
                 }
-            }.runTaskTimerAsynchronously(Core.plugin(), 0, 1);
+            }.runTaskTimer(Core.plugin(), 0, 1);
         }
     }
     

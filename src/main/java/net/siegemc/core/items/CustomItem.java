@@ -113,6 +113,7 @@ public class CustomItem {
      * @return The value that needs to be dealt or 0 if the item is not a custom item.
      */
     public static double getDamage(Player player, LivingEntity victim, ItemStack item) {
+        if (victim.isDead()) return 0;
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return 0;
     
