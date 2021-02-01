@@ -1,8 +1,8 @@
 package net.siegemc.core.listeners;
 
 import net.siegemc.core.Core;
-import net.siegemc.core.dungeons.Dungeon;
-import net.siegemc.core.dungeons.DungeonType;
+import net.siegemc.core.Dungeons.Dungeon;
+import net.siegemc.core.Dungeons.DungeonType;
 import net.siegemc.core.utils.DbManager;
 import net.siegemc.core.utils.Utils;
 import org.bukkit.Bukkit;
@@ -93,12 +93,12 @@ public class JoinEvents implements Listener {
             Footer.add("");
             Footer.add(ChatColor.translateAlternateColorCodes('&', "&6Discord: &7/discord"));
             Footer.add(ChatColor.translateAlternateColorCodes('&', "&6Website: &7website"));
-            Footer.add(ChatColor.translateAlternateColorCodes('&', "&7There are &6&n " + Bukkit.getOnlinePlayers().size() + " &7 players online"));
+            Footer.add(ChatColor.translateAlternateColorCodes('&', "&7There are &6&n" + Bukkit.getOnlinePlayers().size() + "&7 players online"));
             Footer.add("");
             Footer.add("");
             Footer.add("");
-            p.setPlayerListHeader(Header.toString());
-            p.setPlayerListFooter(Footer.toString());
+            p.setPlayerListHeader(String.join("\n", Header));
+            p.setPlayerListFooter(String.join("\n", Footer));
         }
 
     }

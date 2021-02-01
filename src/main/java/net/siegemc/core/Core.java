@@ -1,7 +1,7 @@
 package net.siegemc.core;
 
 import lombok.Getter;
-import net.siegemc.core.dungeons.DungeonConfig;
+import net.siegemc.core.Dungeons.DungeonConfig;
 import net.siegemc.core.items.CustomItem;
 import net.siegemc.core.items.ItemConfig;
 import net.siegemc.core.items.SpawnItemCommand;
