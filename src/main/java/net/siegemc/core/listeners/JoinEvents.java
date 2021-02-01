@@ -81,24 +81,21 @@ public class JoinEvents implements Listener {
             }
         }
         for (Player p : Bukkit.getOnlinePlayers()) {
-            List<String> Header = new ArrayList<String>();
 
-            Header.add(ChatColor.translateAlternateColorCodes('&', "&6&lSiege"));
-            Header.add("");
-            Header.add(ChatColor.translateAlternateColorCodes('&', "&6&oplay.SiegeRPG.net&7"));
-            Header.add("");
-
-            List<String> Footer = new ArrayList<String>();
-            Footer.add("");
-            Footer.add("");
-            Footer.add(ChatColor.translateAlternateColorCodes('&', "&6Discord: &7/discord"));
-            Footer.add(ChatColor.translateAlternateColorCodes('&', "&6Website: &7website"));
-            Footer.add(ChatColor.translateAlternateColorCodes('&', "&7There are &6&n" + Bukkit.getOnlinePlayers().size() + "&7 players online"));
-            Footer.add("");
-            Footer.add("");
-            Footer.add("");
-            p.setPlayerListHeader(String.join("\n", Header));
-            p.setPlayerListFooter(String.join("\n", Footer));
+            String header = Utils.tacc("\n" +
+                    "&6&lSiegeRPG\n" +
+                    "&6&oplay.SiegeRPG.net" +
+                    "&f\n" +
+                    "");
+            
+            String footer = Utils.tacc("\n" +
+                    "&6Discord: &7/discord\n" +
+                    "&6Website: &7/website\n" +
+                    "&7There are &6&n"+Bukkit.getOnlinePlayers().size()+"&7 players online!\n" +
+                    "");
+            
+            p.setPlayerListHeader(header);
+            p.setPlayerListFooter(footer);
         }
 
     }
