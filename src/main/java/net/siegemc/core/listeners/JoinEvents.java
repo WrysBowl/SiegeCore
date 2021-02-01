@@ -1,9 +1,5 @@
 package net.siegemc.core.listeners;
 
-import com.comphenix.protocol.Packets;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.events.PacketListener;
-import com.sun.xml.internal.ws.api.message.Packet;
 import net.siegemc.core.Core;
 import net.siegemc.core.dungeons.Dungeon;
 import net.siegemc.core.dungeons.DungeonType;
@@ -84,7 +80,7 @@ public class JoinEvents implements Listener {
                 }
             }
         }
-        for (Player p : Bukkit.getOnlinePlayers()){
+        for (Player p : Bukkit.getOnlinePlayers()) {
             List<String> Header = new ArrayList<String>();
 
             Header.add(ChatColor.translateAlternateColorCodes('&', "&6&lSiege"));
@@ -104,9 +100,9 @@ public class JoinEvents implements Listener {
             p.setPlayerListHeader(Header.toString());
             p.setPlayerListFooter(Footer.toString());
         }
-        };
 
     }
+}
 
 
 
