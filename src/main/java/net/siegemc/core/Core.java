@@ -5,10 +5,7 @@ import net.siegemc.core.dungeons.DungeonConfig;
 import net.siegemc.core.items.CustomItem;
 import net.siegemc.core.items.ItemConfig;
 import net.siegemc.core.items.SpawnItemCommand;
-import net.siegemc.core.listeners.CustomItemListener;
-import net.siegemc.core.listeners.DamageIndicators;
-import net.siegemc.core.listeners.JoinEvents;
-import net.siegemc.core.listeners.WorldProtection;
+import net.siegemc.core.listeners.*;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartyCommand;
 import net.siegemc.core.party.PartyConfig;
@@ -57,6 +54,7 @@ public final class Core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new WorldProtection(), this);
         Bukkit.getPluginManager().registerEvents(new CustomItemListener(), this);
         Bukkit.getPluginManager().registerEvents(new DamageIndicators(), this);
+        Bukkit.getPluginManager().registerEvents(new CustomDrops(), this);
     
         // Register Commands
         PartyCommand partyCommand = new PartyCommand();

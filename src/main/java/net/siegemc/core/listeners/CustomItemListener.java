@@ -321,6 +321,7 @@ public class CustomItemListener implements Listener {
             for (LivingEntity e : loc.getNearbyLivingEntities(wand.getDamageRadius())) {
                 if (e instanceof Player || e instanceof ArmorStand) continue;
                 e.damage(CustomItem.getDamage(player, e, item));
+                
                 DamageIndicators.showIndicator(e, (int) Math.round(CustomItem.getDamage(player, e, item)), false);
             }
             AureliumAPI.setMana(player, AureliumAPI.getMana(player) - wand.getManaRequired());
