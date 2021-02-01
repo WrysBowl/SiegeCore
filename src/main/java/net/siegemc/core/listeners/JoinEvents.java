@@ -1,10 +1,16 @@
 package net.siegemc.core.listeners;
 
+import com.comphenix.protocol.Packets;
+import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.events.PacketListener;
+import com.sun.xml.internal.ws.api.message.Packet;
 import net.siegemc.core.Core;
 import net.siegemc.core.dungeons.Dungeon;
 import net.siegemc.core.dungeons.DungeonType;
 import net.siegemc.core.utils.DbManager;
 import net.siegemc.core.utils.Utils;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,10 +20,15 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JoinEvents implements Listener {
     @EventHandler
@@ -73,6 +84,30 @@ public class JoinEvents implements Listener {
                 }
             }
         }
+        for (Player p : Bukkit.getOnlinePlayers()){
+            List<String> Header = new ArrayList<String>();
+
+            Header.add(ChatColor.translateAlternateColorCodes('&', "&6&lSiege"));
+            Header.add("");
+            Header.add(ChatColor.translateAlternateColorCodes('&', "&6&oplay.SiegeRPG.net&7"));
+            Header.add("");
+
+            List<String> Footer = new ArrayList<String>();
+            Footer.add("");
+            Footer.add("");
+            Footer.add(ChatColor.translateAlternateColorCodes('&', "&6Discord: &7/discord"));
+            Footer.add(ChatColor.translateAlternateColorCodes('&', "&6Website: &7website"));
+            Footer.add(ChatColor.translateAlternateColorCodes('&', "&7There are &6&n " + Bukkit.getOnlinePlayers().size() + " &7 players online"));
+            Footer.add("");
+            Footer.add("");
+            Footer.add("");
+            p.setPlayerListHeader(Header.toString());
+            p.setPlayerListFooter(Footer.toString());
+        }
+        };
+
     }
-}
+
+
+
 
