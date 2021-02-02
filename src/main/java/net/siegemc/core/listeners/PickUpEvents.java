@@ -18,7 +18,7 @@ public class PickUpEvents implements Listener{
         ItemStack eGetItem = e.getItem().getItemStack();
         if ((e.getEntity() instanceof Player) && (eGetItem.getItemMeta().getDisplayName().equals("&eGold Coin")) && (eGetItem.getType().equals(Material.SUNFLOWER))) {
             int goldAmount = e.getItem().getItemStack().getAmount();
-            EconomyResponse r = econ.depositPlayer((OfflinePlayer) e.getEntity(), goldAmount);
+            econ.depositPlayer((OfflinePlayer) e.getEntity(), goldAmount);
         }
     }
 }
