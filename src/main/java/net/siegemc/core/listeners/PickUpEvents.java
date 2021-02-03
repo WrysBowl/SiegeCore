@@ -1,5 +1,6 @@
 package net.siegemc.core.listeners;
 
+import net.siegemc.core.utils.Scoreboard;
 import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Material;
@@ -18,9 +19,11 @@ public class PickUpEvents implements Listener{
         if (!(e.getEntity() instanceof Player)) return;
         if (!eGetItem.getType().equals(Material.SUNFLOWER)) return;
         if (!Utils.strip(eGetItem.getItemMeta().getDisplayName()).equals("Gold Coin")) return;
-        
+        e.setCancelled(true);
         int goldAmount = e.getItem().getItemStack().getAmount();
         VaultHook.econ.depositPlayer((OfflinePlayer) e.getEntity(), goldAmount);
         e.getItem().remove();
+        Scoreboard update = new Scoreboard();
+        update.updateScoreboardRegular((Player) e.getEntity());
     }
 }

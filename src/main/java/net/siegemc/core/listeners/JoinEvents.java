@@ -99,8 +99,7 @@ public class JoinEvents implements Listener {
             p.setPlayerListFooter(footer);
         }
         Scoreboard update = new Scoreboard();
-        update.updateScoreboard(player);
-
+        update.updateScoreboardRegular(player);
     }
 }
 
