@@ -4,6 +4,7 @@ import net.siegemc.core.Core;
 import net.siegemc.core.Dungeons.Dungeon;
 import net.siegemc.core.Dungeons.DungeonType;
 import net.siegemc.core.utils.DbManager;
+import net.siegemc.core.utils.Scoreboard;
 import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
@@ -16,9 +17,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
-
-
-
+import org.bukkit.scoreboard.Score;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -99,6 +98,8 @@ public class JoinEvents implements Listener {
             p.setPlayerListHeader(header);
             p.setPlayerListFooter(footer);
         }
+        Scoreboard update = new Scoreboard();
+        update.updateScoreboard(player);
 
     }
 }

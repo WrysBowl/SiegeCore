@@ -21,5 +21,6 @@ public class PickUpEvents implements Listener{
         
         int goldAmount = e.getItem().getItemStack().getAmount();
         VaultHook.econ.depositPlayer((OfflinePlayer) e.getEntity(), goldAmount);
+        e.getItem().remove();
     }
 }

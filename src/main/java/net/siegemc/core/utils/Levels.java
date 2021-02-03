@@ -13,8 +13,8 @@ public class Levels {
         try {
             short level = getLevel(player);
             int exp = getExp(player);
-            while (((level + 3) ^ 3) <= exp) { //Loops until required exp is greater than current exp
-                exp -= (level + 3) ^ 3; //Removes required exp of the level from current exp
+            while (getExpCeiling(player) <= exp) { //Loops until required exp is greater than current exp
+                exp -= getExpCeiling(player); //Removes required exp of the level from current exp
                 level += 1;
             }
             if (getLevel(player) != level) {
@@ -24,6 +24,10 @@ public class Levels {
         } catch (Exception e) {
             e.printStackTrace(); //I have no idea what I'm doing
         }
+    }
+
+    public static double getExpCeiling(OfflinePlayer player) {
+        return Math.pow((Levels.getLevel(player) + 3), 3);
     }
 
     public static Short getLevel(OfflinePlayer player) {
