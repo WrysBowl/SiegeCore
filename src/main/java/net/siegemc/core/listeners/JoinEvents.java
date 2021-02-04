@@ -3,6 +3,7 @@ package net.siegemc.core.listeners;
 import net.siegemc.core.Core;
 import net.siegemc.core.Dungeons.Dungeon;
 import net.siegemc.core.Dungeons.DungeonType;
+import net.siegemc.core.items.CustomItem;
 import net.siegemc.core.utils.DbManager;
 import net.siegemc.core.utils.Scoreboard;
 import net.siegemc.core.utils.Utils;
@@ -100,6 +101,7 @@ public class JoinEvents implements Listener {
         }
         Scoreboard update = new Scoreboard();
         update.updateScoreboardRegular(player);
+        update.updateScoreboardNoParty(player);
     }
 }
 
