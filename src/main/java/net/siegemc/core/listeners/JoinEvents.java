@@ -3,9 +3,9 @@ package net.siegemc.core.listeners;
 import net.siegemc.core.Core;
 import net.siegemc.core.Dungeons.Dungeon;
 import net.siegemc.core.Dungeons.DungeonType;
-import net.siegemc.core.items.CustomItem;
+import net.siegemc.core.informants.Tablist;
 import net.siegemc.core.utils.DbManager;
-import net.siegemc.core.utils.Scoreboard;
+import net.siegemc.core.informants.Scoreboard;
 import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
@@ -18,14 +18,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scoreboard.Score;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class JoinEvents implements Listener {
     @EventHandler
@@ -81,24 +78,8 @@ public class JoinEvents implements Listener {
                 }
             }
         }
-        for (Player p : Bukkit.getOnlinePlayers()) {
+        new Tablist().tablistUpdate();
 
-            String header = Utils.tacc("\n" +
-                    "&6&lSiegeRPG\n" +
-                    "&6&oplay.SiegeRPG.net" +
-                    "&f\n" +
-                    "");
-            
-            String footer = Utils.tacc("\n" +
-                    "&6Discord: &7/discord\n" +
-                    "&6Website: &7/website\n" +
-                    "&7There are &6&n"+Bukkit.getOnlinePlayers().size()+"&7 players online!\n" +
-                    "");
-            String tabName = Utils.tacc(VaultHook.perms.getPrimaryGroup(p) + " " + ChatColor.GRAY + p.getName());
-            p.setPlayerListName(tabName);
-            p.setPlayerListHeader(header);
-            p.setPlayerListFooter(footer);
-        }
         Scoreboard update = new Scoreboard();
         update.updateScoreboardRegular(player);
         update.updateScoreboardNoParty(player);

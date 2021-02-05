@@ -12,19 +12,30 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class Stats {
-    public static double getStrength(Player p) {
-        ItemStack itemWep = p.getInventory().getItemInMainHand();
+    public static double getWepStat(ItemStack itemWep, String statType) {
         ItemMeta metaWep = itemWep.getItemMeta();
+
+        //Check if the item has nbt tags
+        if (metaWep == null) { return 0; }
+
+        //Check the nbt 'item' of the weapon
+        CustomItem customItem = Core.getItems().get(NBT.getString(metaWep, "item"));
+
+        //Check if item is a weapon
+        if (!(customItem instanceof CustomWeapon)) { return 0; }
+
+        int perfectQuality = NBT.getInt(metaWep, "perfectQuality");
+        CustomWeapon weapon = (CustomWeapon) customItem;
+        double wepStrength = weapon.getStats().getOrDefault(Stat.getFromID(statType), 0);
+        return CustomItem.calculateStatValue((int) Math.floor(wepStrength), perfectQuality);
+    }
+
+
+
+    public static double getStrength(Player p) {
         double strength = 0;
-        if (metaWep!=null) {
-            CustomItem customItem = Core.getItems().get(NBT.getString(metaWep, "item"));
-            if (customItem instanceof CustomWeapon && !(customItem instanceof BowItem)) {
-                int perfectQuality = NBT.getInt(metaWep, "perfectQuality");
-                CustomWeapon weapon = (CustomWeapon) customItem;
-                double wepStrength = weapon.getStats().getOrDefault(Stat.STRENGTH, 0);
-                strength += CustomItem.calculateStatValue((int) Math.floor(wepStrength), perfectQuality);
-            }
-        }
+        ItemStack itemWep = p.getInventory().getItemInMainHand();
+        strength += getWepStat(itemWep, "STRENGTH");
 
         //Calculates player's skill level for Strength
         strength += AureliumAPI.getStatLevel(p, com.archyx.aureliumskills.stats.Stat.STRENGTH);

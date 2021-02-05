@@ -1,6 +1,6 @@
 package net.siegemc.core.listeners;
 
-import net.siegemc.core.utils.Scoreboard;
+import net.siegemc.core.informants.Scoreboard;
 import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Material;
