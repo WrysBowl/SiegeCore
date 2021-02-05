@@ -28,6 +28,9 @@ public class Food implements Listener {
         e.setCancelled(true);
         ItemStack tool = e.getPlayer().getInventory().getItemInMainHand();
         tool.setAmount(tool.getAmount()-1);
+        if (tool.getAmount() == 0) {
+            e.getPlayer().setFoodLevel(20);
+        }
     }
 
     @EventHandler
