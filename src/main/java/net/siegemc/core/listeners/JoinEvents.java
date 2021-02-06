@@ -80,9 +80,7 @@ public class JoinEvents implements Listener {
         }
         new Tablist().tablistUpdate();
 
-        Scoreboard update = new Scoreboard();
-        update.updateScoreboardRegular(player);
-        update.updateScoreboardNoParty(player);
+        new Scoreboard().updateScoreboard(player);
     }
 }
 

@@ -13,15 +13,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class Stats {
     public static double getWepStat(ItemStack itemWep, String statType) {
-        ItemMeta metaWep = itemWep.getItemMeta();
 
         //Check if the item has nbt tags
+        ItemMeta metaWep = itemWep.getItemMeta();
         if (metaWep == null) { return 0; }
 
         //Check the nbt 'item' of the weapon
         CustomItem customItem = Core.getItems().get(NBT.getString(metaWep, "item"));
-
-        //Check if item is a weapon
         if (!(customItem instanceof CustomWeapon)) { return 0; }
 
         int perfectQuality = NBT.getInt(metaWep, "perfectQuality");
