@@ -320,9 +320,9 @@ public class CustomItemListener implements Listener {
             drawParticles(player.getLocation().add(0, player.getEyeHeight(), 0), loc, 255, 0, 255);
             for (LivingEntity e : loc.getNearbyLivingEntities(wand.getDamageRadius())) {
                 if (e instanceof Player || e instanceof ArmorStand) continue;
-                e.damage(CustomItem.getDamage(player, e, item));
-                
                 DamageIndicators.showIndicator(e, (int) Math.round(CustomItem.getDamage(player, e, item)), false);
+                e.damage(CustomItem.getDamage(player, e, item));
+                NBT.addString(e, "attacker", NBT.serializePlayer(player));
             }
             AureliumAPI.setMana(player, AureliumAPI.getMana(player) - wand.getManaRequired());
             new BukkitRunnable() {

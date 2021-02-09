@@ -3,13 +3,10 @@ package net.siegemc.core.listeners;
 import net.siegemc.core.Core;
 import net.siegemc.core.Dungeons.Dungeon;
 import net.siegemc.core.Dungeons.DungeonType;
+import net.siegemc.core.informants.Scoreboard;
 import net.siegemc.core.informants.Tablist;
 import net.siegemc.core.utils.DbManager;
-import net.siegemc.core.informants.Scoreboard;
 import net.siegemc.core.utils.Utils;
-import net.siegemc.core.utils.VaultHook;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +25,6 @@ public class JoinEvents implements Listener {
     @EventHandler
     public void connectEvent(AsyncPlayerPreLoginEvent e) {
         new BukkitRunnable() { // We create a runnable to run asynchronously (on another thread, not the main one, so that the server won't lag if this one does)
-            @SuppressWarnings("ConstantConditions")
             @Override
             public void run() {
                 String ip = e.getAddress().getHostAddress();

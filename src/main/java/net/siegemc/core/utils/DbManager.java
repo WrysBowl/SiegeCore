@@ -1,19 +1,18 @@
 package net.siegemc.core.utils;
 
 import net.siegemc.core.Core;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.yaml.snakeyaml.Yaml;
 
-import java.io.InputStream;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Map;
+import java.sql.SQLException;
 import java.util.Queue;
 import java.util.concurrent.LinkedTransferQueue;
 
 
 public class DbManager {
-
     private static final String url;
     private static final String user;
     private static final String password;
@@ -22,17 +21,16 @@ public class DbManager {
     private static final int INITIAL_POOL_SIZE = 10;
     private static final int MAX_TIMEOUT = 30 * 1000;
     static {
-        Yaml yaml = new Yaml();
-        InputStream stream = Core.plugin().getResource("privKeys.yml");
-        if (stream == null) {
+        File configFile = new File(Core.plugin().getDataFolder().getAbsolutePath(), "privKeys.yml");
+        if (!configFile.exists()) {
             Core.plugin().getLogger().severe("You need a privKeys.yml file for the plugin to work! Get the most updated values in the #dev-stuff discord channel!");
         }
-        Map<String, Object> obj = yaml.load(stream);
-        @SuppressWarnings("unchecked")
-        Map<String, Object> dbObj = (Map<String, Object>) obj.get("db");
-        url = String.format("jdbc:mysql://%s/%s", dbObj.get("endpoint"), dbObj.get("db name"));
-        user = String.valueOf(dbObj.get("username"));
-        password = String.valueOf(dbObj.get("password"));
+        YamlConfiguration configuration = YamlConfiguration.loadConfiguration(configFile);
+        url = String.format("jdbc:mysql://%s/%s",
+                configuration.getString("db.endpoint"),
+                configuration.getString("db.db name"));
+        user = String.valueOf(configuration.getString("db.username"));
+        password = String.valueOf(configuration.getString("db.password"));
     }
 
     public static void create() {
@@ -53,20 +51,19 @@ public class DbManager {
 
 
     public static synchronized Connection getConnection() {
+        if (connectionPool.isEmpty())
+            connectionPool.add(createConnection());
+        Connection connection = connectionPool.poll();
         try {
-            if (connectionPool.isEmpty())
-                connectionPool.add(createConnection());
-            Connection connection = connectionPool.poll();
             if (connection == null || connection.isClosed() || !connection.isValid(MAX_TIMEOUT)) {
                 connection = createConnection();
             }
-
-            usedConnections.add(connection);
-            return connection;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+    
+        usedConnections.add(connection);
+        return connection;
     }
 
     public static synchronized void releaseConnection(Connection connection) {

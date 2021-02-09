@@ -1,9 +1,13 @@
 package net.siegemc.core.utils;
 
 import net.siegemc.core.Core;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.persistence.PersistentDataType;
+
+import java.util.UUID;
 
 public class NBT {
     public static NamespacedKey generateKey(String key) {
@@ -33,5 +37,13 @@ public class NBT {
     @SuppressWarnings("ConstantConditions")
     public static String getString(PersistentDataHolder holder, String key) {
         return holder.getPersistentDataContainer().getOrDefault(generateKey(key), PersistentDataType.STRING, null);
+    }
+    
+    public static String serializePlayer(OfflinePlayer player) {
+        return player.getUniqueId().toString();
+    }
+    
+    public static OfflinePlayer deserializePlayer(String player) {
+        return Bukkit.getOfflinePlayer(UUID.fromString(player));
     }
 }

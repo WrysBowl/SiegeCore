@@ -4,12 +4,12 @@ import lombok.Getter;
 import net.siegemc.core.Core;
 import net.siegemc.core.items.CustomItem;
 import net.siegemc.core.utils.Levels;
+import net.siegemc.core.utils.NBT;
 import net.siegemc.core.utils.Utils;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -71,7 +71,19 @@ public class CustomDrops implements Listener {
             if (name.toLowerCase().contains(mobName.toLowerCase())) {
                 ConfigurationSection itemSection = configuration.getConfigurationSection("mobs."+mobName+".items");
                 int xp = configuration.getInt("mobs."+mobName+".xp");
-                if (entity.getKiller() == null || entity.getKiller() instanceof Player) Levels.addExp(entity.getKiller(), xp);
+                
+                OfflinePlayer killer = null;
+                if (entity.getKiller() == null || entity.getKiller() instanceof Player) {
+                    killer = entity.getKiller();;
+                } else if (NBT.getString(entity, "attacker") != null) {
+                    killer = NBT.deserializePlayer(NBT.getString(entity, "attacker"));
+                }
+                
+                if (killer != null) {
+                    Levels.addExp(killer, xp);
+                    if (killer.isOnline()) ((Player) killer).sendMessage(Utils.tacc("&a+"+xp+" EXP"));
+                }
+                
                 if (itemSection != null) {
                     for (String item : itemSection.getKeys(false)) {
                         if (itemSection.getString(item) == null) continue;

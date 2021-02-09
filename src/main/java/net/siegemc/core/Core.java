@@ -9,6 +9,7 @@ import net.siegemc.core.listeners.*;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartyCommand;
 import net.siegemc.core.party.PartyConfig;
+import net.siegemc.core.utils.DbManager;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -40,8 +41,8 @@ public final class Core extends JavaPlugin {
         
         // Create Hooks / Connections
         (new VaultHook()).createHooks(); // Add the hooks to the vault plugin
-        //DbManager.create(); // Create the initial connections
-
+        DbManager.create(); // Create the initial connections
+        
         // Recover any parties from before shutdown
         ConfigurationSection parties = PartyConfig.getConfiguration().getConfigurationSection("party");
         if (parties != null) for (String party : parties.getKeys(false)) {
