@@ -15,7 +15,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import redis.clients.util.IOUtils;
 
+import java.io.IOException;
+import java.net.URL;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -81,4 +88,19 @@ public final class Core extends JavaPlugin {
         for (Party party : getParties().values()) if (party.isMember(playerUUID)) return party;
         return null;
     }
+
+    public String getName(String uuid) {
+        String url = "https://api.mojang.com/user/profiles/"+uuid.replace("-", "")+"/names";
+        try {
+            String nameJson = IOUtils.toString(new URL(url));
+            JSONArray nameValue = (JSONArray) JSONValue.parseWithException(nameJson);
+            String playerSlot = nameValue.get(nameValue.size()-1).toString();
+            JSONObject nameObject = (JSONObject) JSONValue.parseWithException(playerSlot);
+            return nameObject.get("name").toString();
+        } catch (IOException | ParseException | org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
+
 }
