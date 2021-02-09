@@ -20,9 +20,13 @@ public class Scoreboard {
         o.getScore(Utils.tacc("&7╠ &eGold " + (int) VaultHook.econ.getBalance(p) + "⛁")).setScore(12);
 
         // if player is not in dungeon or party
-        o.getScore(Utils.tacc("&7╠ &cStrength " + Stats.getStrength(p))).setScore(11);
-
-
+        o.getScore("  ").setScore(11);
+        o.getScore(Utils.tacc("&7╠ &4Strength " + Stats.getStrength(p))).setScore(10);
+        o.getScore(Utils.tacc("&7╠ &cHealth " + Stats.getHealth(p))).setScore(9);
+        o.getScore(Utils.tacc("&7╠ &6Regen " + Stats.getRegeneration(p))).setScore(8);
+        o.getScore(Utils.tacc("&7╠ &aLuck " + Stats.getLuck(p))).setScore(7);
+        o.getScore(Utils.tacc("&7╠ &dWisdom " + Stats.getWisdom(p))).setScore(6);
+        o.getScore(Utils.tacc("&7╠ &9Tough " + Stats.getToughness(p))).setScore(5);
         p.setScoreboard(b);
     }
 }

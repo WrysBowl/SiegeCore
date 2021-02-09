@@ -1,5 +1,6 @@
 package net.siegemc.core.listeners;
 
+import net.siegemc.core.Core;
 import net.siegemc.core.informants.Scoreboard;
 import net.siegemc.core.informants.Tablist;
 import org.bukkit.Bukkit;
@@ -12,11 +13,14 @@ public class QuitEvents implements Listener {
 
     @EventHandler
     public void quitEvent(PlayerQuitEvent e) {
-        try {
-            Thread.sleep(1000);
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
+        Bukkit.getServer().getScheduler().runTaskLater(Core.plugin(), () -> {
+            new Tablist().tablistUpdate();
+
+            Scoreboard s = new Scoreboard();
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                s.updateScoreboard(p);
+            }
+        }, 20L);
 
         new Tablist().tablistUpdate();
 

@@ -7,6 +7,7 @@ import net.siegemc.core.informants.Scoreboard;
 import net.siegemc.core.informants.Tablist;
 import net.siegemc.core.utils.DbManager;
 import net.siegemc.core.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -76,7 +77,10 @@ public class JoinEvents implements Listener {
         }
         new Tablist().tablistUpdate();
 
-        new Scoreboard().updateScoreboard(player);
+        Scoreboard s = new Scoreboard();
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            s.updateScoreboard(p);
+        }
     }
 }
 
