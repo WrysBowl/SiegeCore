@@ -1,9 +1,10 @@
-package net.siegemc.core.Dungeons;
+package net.siegemc.core.dungeons;
 
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
 import net.siegemc.core.Core;
 import org.bukkit.*;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.generator.ChunkGenerator;
 import org.jetbrains.annotations.NotNull;
@@ -25,14 +26,15 @@ public enum DungeonType {
 
     /**
      * Creates a new dungeon
-     * @param schemName The path to the schematic file (in the resources folder of the plugin)
-     * @param dungeonLevel The level of the dungeon
+     *
+     * @param schemName       The path to the schematic file (in the resources folder of the plugin)
+     * @param dungeonLevel    The level of the dungeon
      * @param dungeonDistance The distance between each dungeon of the same type
-     * @param x The x offset from the dungeon schematic copy position and the location of the spawn point.
-     * @param y The y offset from the dungeon schematic copy position and the location of the player
-     * @param z The z offset from the dungeon schematic copy position and the location of the player
-     * @param dungeonBoss Not going to lie idk, it was something Wrys was doing
-     * @param dungeonTasks Not going to lie idk, it was something Wrys was doing
+     * @param x               The x offset from the dungeon schematic copy position and the location of the spawn point.
+     * @param y               The y offset from the dungeon schematic copy position and the location of the player
+     * @param z               The z offset from the dungeon schematic copy position and the location of the player
+     * @param dungeonBoss     Not going to lie idk, it was something Wrys was doing
+     * @param dungeonTasks    Not going to lie idk, it was something Wrys was doing
      */
     DungeonType(String schemName /*The file path of the schematic, relative to the resources folder */, int dungeonLevel, short dungeonDistance /* Distance between each dungeon */, int x, int y, int z /*If you were to paste the dungeon at 0 0 0 then the location of the spawn would be the x, y and z*/, Entity dungeonBoss, DungeonTask[] dungeonTasks) {
         this.dungeonLevel = dungeonLevel;
@@ -64,6 +66,14 @@ public enum DungeonType {
             world = creator.createWorld(); // Creates the world
         }
         spawnLocation = new Location(world, x, y, z);
+        ConfigurationSection dungeonCfg = DungeonConfig.getDungeons(this);
+        dungeonCfg.getKeys(false).forEach(key -> {
+            if (dungeonCfg.isConfigurationSection(key)) {
+                ConfigurationSection section = dungeonCfg.getConfigurationSection(key);
+                Dungeon.deserialize(section, Integer.valueOf(key), this);
+            }
+        });
+
     }
 
     /**
@@ -100,6 +110,7 @@ public enum DungeonType {
         if (available == null) {
             available = new Dungeon(this, dungeonLength + 1);
             available.reset();
+            dungeons.add(available);
         }
         return available;
     }

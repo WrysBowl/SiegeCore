@@ -1,4 +1,4 @@
-package net.siegemc.core.Dungeons;
+package net.siegemc.core.dungeons;
 
 import com.sk89q.worldedit.WorldEditException;
 import net.siegemc.core.Core;
@@ -13,6 +13,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.UUID;
 
 /* The dungeons.yml file
    dungeons:
@@ -93,8 +94,12 @@ public class Dungeon {
             if (dungeon.contains("players"))
                 dungeon.getStringList("players").remove(player.getUniqueId().toString());
         }
-        if (player.isOnline())
-            ((Player) player).teleport(Core.spawnLocation);
+        if (player.isOnline()) {
+            Player p = (Player) player;
+            p.teleport(Core.spawnLocation);
+            PersistentDataContainer container = p.getPersistentDataContainer();
+            container.set(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER, container.getAdapterContext().newPersistentDataContainer());
+        }
     }
 
     /**
@@ -130,16 +135,19 @@ public class Dungeon {
 
     /**
      * TODO methods to save a dungeon's data to a configurationSection (serialize) and retrieve it (deserialize)
+     *
      * @param section
      * @param index
      */
-    protected static void deserialize(ConfigurationSection section, int index) {
-
+    protected static Dungeon deserialize(ConfigurationSection section, int index, DungeonType type) {
+        Dungeon dungeon = new Dungeon(type, index);
+        section.getStringList("players").forEach(uuid -> {
+            OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
+            dungeon.currentPlayers.add(player);
+        });
+        return dungeon;
     }
 
-    protected static ConfigurationSection serialize() {
-        return null;
-    }
 
 }
 

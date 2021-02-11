@@ -1,4 +1,4 @@
-package net.siegemc.core.Dungeons;
+package net.siegemc.core.dungeons;
 
 public class DungeonBosses {
     enum BossNames {

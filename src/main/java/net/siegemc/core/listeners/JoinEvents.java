@@ -1,8 +1,8 @@
 package net.siegemc.core.listeners;
 
 import net.siegemc.core.Core;
-import net.siegemc.core.Dungeons.Dungeon;
-import net.siegemc.core.Dungeons.DungeonType;
+import net.siegemc.core.dungeons.Dungeon;
+import net.siegemc.core.dungeons.DungeonType;
 import net.siegemc.core.informants.Scoreboard;
 import net.siegemc.core.informants.Tablist;
 import net.siegemc.core.utils.DbManager;
@@ -72,6 +72,8 @@ public class JoinEvents implements Listener {
                     } else if (player.getWorld().getName() != "dungeons" || player.getLocation().distance(dungeon.location) > type.dungeonDistance)
                         player.teleport(dungeon.location.add(type.spawnLocation));
 
+                } else {
+                    container.set(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER, container.getAdapterContext().newPersistentDataContainer());
                 }
             }
         }
