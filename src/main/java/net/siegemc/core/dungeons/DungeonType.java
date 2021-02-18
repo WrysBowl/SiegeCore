@@ -70,7 +70,8 @@ public enum DungeonType {
         dungeonCfg.getKeys(false).forEach(key -> {
             if (dungeonCfg.isConfigurationSection(key)) {
                 ConfigurationSection section = dungeonCfg.getConfigurationSection(key);
-                Dungeon.deserialize(section, Integer.valueOf(key), this);
+                Integer k = Integer.valueOf(key);
+                dungeons.add(k, Dungeon.deserialize(section, k, this));
             }
         });
 
