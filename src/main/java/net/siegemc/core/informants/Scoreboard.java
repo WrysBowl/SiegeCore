@@ -2,6 +2,7 @@ package net.siegemc.core.informants;
 
 import net.siegemc.core.Core;
 import net.siegemc.core.party.Party;
+import net.siegemc.core.utils.Levels;
 import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
@@ -17,15 +18,15 @@ public class Scoreboard {
         org.bukkit.scoreboard.Scoreboard b = Bukkit.getScoreboardManager().getNewScoreboard();
         Objective o = b.registerNewObjective("Title", "", Utils.tacc("&6SiegeRPG &7(" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() + ")"));
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
-        //double levelPercent = (double) (Levels.getExp(p)/Levels.getExpCeiling(p)); //for score #13
+        double levelPercent = (double) (Levels.getExp(p)/ Levels.getExpCeiling(p)); //for score #13
         o.getScore(" ").setScore(15);
         o.getScore(Utils.tacc("&6Profile &7" + p.getName())).setScore(14);
-        //o.getScore(Utils.tacc("&7╠ Level &5" + Levels.getLevel(p) + ChatColor.GRAY + "(" + ChatColor.LIGHT_PURPLE + levelPercent + "%" + ChatColor.GRAY + ")")).setScore(13);
-        o.getScore(Utils.tacc("&7╠ &eGold " + (int) VaultHook.econ.getBalance(p) + "⛁")).setScore(12);
+        o.getScore(Utils.tacc("&7╠ Level &5" + Levels.getLevel(p) + "&7(&d" + levelPercent + "%" + "&7)")).setScore(13);
+        o.getScore(Utils.tacc("&7╠ &eGold " + (int) VaultHook.econ.getBalance(p))).setScore(12);//⛁
         o.getScore("  ").setScore(11);
+        p.setScoreboard(b);
 
-
-        if (Core.getParty(p.getUniqueId()) == null) { // if player is not in dungeon or party
+        /*if (Core.getParty(p.getUniqueId()) == null) { // if player is not in dungeon or party
             o.getScore(Utils.tacc("&7╠ &4Strength " + Stats.getStrength(p))).setScore(10);
             o.getScore(Utils.tacc("&7╠ &cHealth " + Stats.getHealth(p))).setScore(9);
             o.getScore(Utils.tacc("&7╠ &6Regen " + Stats.getRegeneration(p))).setScore(8);
@@ -41,7 +42,7 @@ public class Scoreboard {
                 Bukkit.getPlayer(UUID.fromString(String.valueOf(uuid))).getDisplayName();
                 o.getScore(Utils.tacc("&7╠ &6" + +Stats.getStrength(p))).setScore(10);
             }
-        }
+        }*/
 
     }
 }

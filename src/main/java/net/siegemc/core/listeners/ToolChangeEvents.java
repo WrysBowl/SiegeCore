@@ -29,7 +29,7 @@ public class ToolChangeEvents implements Listener {
                     player.setGameMode(GameMode.ADVENTURE);
                 }
             }
-        }, 20L);
+        }, 1L);
     }
 
 }

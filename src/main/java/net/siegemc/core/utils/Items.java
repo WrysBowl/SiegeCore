@@ -12,7 +12,7 @@ public enum Items {
     public static Items checkTool(Material toolType) {
         try {
             return Items.valueOf(toolType.toString());
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             return null;
         }
     }
