@@ -22,7 +22,7 @@ public class Scoreboard {
         o.getScore(" ").setScore(15);
         o.getScore(Utils.tacc("&6Profile &7" + p.getName())).setScore(14);
         o.getScore(Utils.tacc("&7╠ Level &5" + Levels.getLevel(p) + "&7(&d" + levelPercent + "%" + "&7)")).setScore(13);
-        o.getScore(Utils.tacc("&7╠ &eGold " + (int) VaultHook.econ.getBalance(p))).setScore(12);//⛁
+        o.getScore(Utils.tacc("&7╠ &7Gold &e" + (int) VaultHook.econ.getBalance(p))).setScore(12);
         o.getScore("  ").setScore(11);
         p.setScoreboard(b);
 

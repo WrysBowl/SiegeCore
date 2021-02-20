@@ -21,7 +21,7 @@ public class ChatEvents implements Listener {
             e.setCancelled(true);
             return;
         }
-        e.setFormat(Utils.tacc(level + " " + prefix + " &7%1$s >&f %2$s"));
+        e.setFormat(Utils.tacc(level + " " + prefix + " &7%1$s »&f %2$s"));
         //e.setFormat(Utils.tacc(String.format("%s %s &7%s »&f %s", level, prefix, player, message)));
     }
 }
