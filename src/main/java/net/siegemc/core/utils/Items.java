@@ -10,11 +10,10 @@ public enum Items {
     NETHERITE_PICKAXE, NETHERITE_AXE, NETHERITE_HOE, NETHERITE_SHOVEL;
 
     public static Items checkTool(Material toolType) {
-        for (Items tools : values()) {
-            if (tools.equals(toolType.toString())) {
-                return tools;
-            }
+        try {
+            return Items.valueOf(toolType.toString());
+        } catch (NullPointerException e) {
+            return null;
         }
-        return null;
     }
 }
