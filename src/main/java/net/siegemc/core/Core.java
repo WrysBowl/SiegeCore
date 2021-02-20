@@ -67,6 +67,7 @@ public final class Core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ChatEvents(), this);
         Bukkit.getPluginManager().registerEvents(new QuitEvents(), this);
         Bukkit.getPluginManager().registerEvents(new Food(), this);
+        Bukkit.getPluginManager().registerEvents(new ToolChangeEvents(), this);
     
         // Register Commands
         PartyCommand partyCommand = new PartyCommand();
@@ -87,20 +88,6 @@ public final class Core extends JavaPlugin {
     public static Party getParty(UUID playerUUID) {
         for (Party party : getParties().values()) if (party.isMember(playerUUID)) return party;
         return null;
-    }
-
-    public String getName(String uuid) {
-        String url = "https://api.mojang.com/user/profiles/"+uuid.replace("-", "")+"/names";
-        try {
-            String nameJson = IOUtils.toString(new URL(url));
-            JSONArray nameValue = (JSONArray) JSONValue.parseWithException(nameJson);
-            String playerSlot = nameValue.get(nameValue.size()-1).toString();
-            JSONObject nameObject = (JSONObject) JSONValue.parseWithException(playerSlot);
-            return nameObject.get("name").toString();
-        } catch (IOException | ParseException | org.json.simple.parser.ParseException e) {
-            e.printStackTrace();
-        }
-        return "error";
     }
 
 }

@@ -2,7 +2,6 @@ package net.siegemc.core.informants;
 
 import net.siegemc.core.Core;
 import net.siegemc.core.party.Party;
-import net.siegemc.core.stats.Stats;
 import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;

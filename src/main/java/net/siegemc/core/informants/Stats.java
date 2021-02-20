@@ -1,4 +1,4 @@
-package net.siegemc.core.stats;
+package net.siegemc.core.informants;
 
 import com.archyx.aureliumskills.api.AureliumAPI;
 import net.siegemc.core.Core;
