@@ -55,7 +55,7 @@ public class Dungeon {
     Dungeon(DungeonType dungeonType, int index) {
         this.type = dungeonType;
         this.index = index;
-        location = new Location(Bukkit.getWorld("dungeons"), type.dungeonDistance * index /*This is for each dungeon's distance*/, 128, 500 * type.ordinal() /* This is for each dungeon type's distance */);
+        location = new Location(Bukkit.getWorld("dungeons"), type.dungeonDistance * index /*This is for each dungeon's distance*/, 128, 500 * type.index /* This is for each dungeon type's distance */);
     }
 
     /**
@@ -70,7 +70,7 @@ public class Dungeon {
             PersistentDataContainer dungeonContainer = container.get(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER);
             if (dungeonContainer == null)
                 player.getPersistentDataContainer().set(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER, container.getAdapterContext().newPersistentDataContainer());
-            dungeonContainer.set(Utils.namespacedKey("type"), PersistentDataType.STRING, type.name());
+            dungeonContainer.set(Utils.namespacedKey("type"), PersistentDataType.STRING, type.name);
             dungeonContainer.set(Utils.namespacedKey("index"), PersistentDataType.INTEGER, index);
             container.set(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER, dungeonContainer);
             ConfigurationSection dungeon = DungeonConfig.getDungeon(type, index);

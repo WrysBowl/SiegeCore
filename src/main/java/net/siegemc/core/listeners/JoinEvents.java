@@ -61,7 +61,14 @@ public class JoinEvents implements Listener {
         if (dungeonContainer != null) {
             String dungeonType = dungeonContainer.get(Utils.namespacedKey("type"), PersistentDataType.STRING);
             if (dungeonType != null) {
-                DungeonType type = DungeonType.valueOf(dungeonType);
+                DungeonType type = null;
+                for (DungeonType typ : DungeonType.dungeonTypes) {
+                    if (typ.name == dungeonType) type = typ;
+                }
+                if (type == null) {
+                    container.set(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER, container.getAdapterContext().newPersistentDataContainer());
+                    player.teleport(Core.spawnLocation);
+                }
                 Integer index = dungeonContainer.get(Utils.namespacedKey("index"), PersistentDataType.INTEGER);
                 if (type.dungeons.contains(index)) {
                     Dungeon dungeon = type.dungeons.get(index);

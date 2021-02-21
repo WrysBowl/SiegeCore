@@ -61,13 +61,25 @@ public class DungeonConfig { //How to delete schematics?
     }
 
     /**
+     * @param dungeonName The dungeon type's name
+     * @return The configuration section
+     */
+    public static ConfigurationSection getDungeonType(String dungeonName) {
+        ConfigurationSection section = configuration.getConfigurationSection(dungeonName);
+        if (section == null) section = configuration.createSection(dungeonName);
+        return section;
+    }
+
+
+    /**
      * @param dungeonType The type of the dungeon
      * @return ConfigurationSection The config's data on the list of dungeons of that type
      */
     public static ConfigurationSection getDungeons(DungeonType dungeonType) { // Get the dungeons of a specific type from the file
-        if (configuration.isConfigurationSection(dungeonType.name()))
-            return configuration.getConfigurationSection(dungeonType.name());
-        return configuration.createSection(dungeonType.name());
+        ConfigurationSection section = getDungeonType(dungeonType.name);
+        ConfigurationSection dungeonSection = section.getConfigurationSection("dungeons");
+        if(dungeonSection == null) dungeonSection = section.createSection("dungeons");
+        return dungeonSection;
     }
 
     /**
@@ -80,6 +92,12 @@ public class DungeonConfig { //How to delete schematics?
         if (dungeons.isConfigurationSection(String.valueOf(index)))
             return dungeons.getConfigurationSection(String.valueOf(index));
         return dungeons.createSection(String.valueOf(index));
+    }
+
+    public static void deserializeDungeonTypes(){
+        configuration.getKeys(false).forEach(key -> {
+            DungeonType.deserialize(configuration.getConfigurationSection(key), key);
+        });
     }
 
 }
