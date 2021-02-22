@@ -18,7 +18,7 @@ public class Scoreboard {
         org.bukkit.scoreboard.Scoreboard b = Bukkit.getScoreboardManager().getNewScoreboard();
         Objective o = b.registerNewObjective("Title", "", Utils.tacc("&6SiegeRPG &7(" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() + ")"));
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
-        double levelPercent = (double) (Levels.getExp(p)/ Levels.getExpCeiling(p)); //for score #13
+        double levelPercent = (Levels.getExp(p)/ Levels.getExpCeiling(p)); //for score #13
         o.getScore(" ").setScore(15);
         o.getScore(Utils.tacc("&6Profile &7" + p.getName())).setScore(14);
         o.getScore(Utils.tacc("&7╠ Level &5" + Levels.getLevel(p) + "&7(&d" + levelPercent + "%" + "&7)")).setScore(13);
