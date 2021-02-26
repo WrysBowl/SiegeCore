@@ -26,6 +26,7 @@ public class DungeonConfig { //How to delete schematics?
         try {
             configFile.createNewFile();
             configuration.load(configFile);
+            deserializeDungeonTypes();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidConfigurationException e) {
@@ -78,7 +79,7 @@ public class DungeonConfig { //How to delete schematics?
     public static ConfigurationSection getDungeons(DungeonType dungeonType) { // Get the dungeons of a specific type from the file
         ConfigurationSection section = getDungeonType(dungeonType.name);
         ConfigurationSection dungeonSection = section.getConfigurationSection("dungeons");
-        if(dungeonSection == null) dungeonSection = section.createSection("dungeons");
+        if (dungeonSection == null) dungeonSection = section.createSection("dungeons");
         return dungeonSection;
     }
 
@@ -94,9 +95,9 @@ public class DungeonConfig { //How to delete schematics?
         return dungeons.createSection(String.valueOf(index));
     }
 
-    public static void deserializeDungeonTypes(){
+    public static void deserializeDungeonTypes() {
         configuration.getKeys(false).forEach(key -> {
-            DungeonType.deserialize(configuration.getConfigurationSection(key), key);
+            DungeonType.dungeonTypes.add(DungeonType.deserialize(configuration.getConfigurationSection(key), key));
         });
     }
 

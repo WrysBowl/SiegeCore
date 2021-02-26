@@ -1,6 +1,8 @@
 package net.siegemc.core.dungeons;
 
 import com.sk89q.worldedit.WorldEditException;
+import io.lumine.xikage.mythicmobs.adapters.AbstractLocation;
+import io.lumine.xikage.mythicmobs.adapters.bukkit.BukkitWorld;
 import net.siegemc.core.Core;
 import net.siegemc.core.utils.Utils;
 import org.bukkit.Bukkit;
@@ -55,7 +57,7 @@ public class Dungeon {
     Dungeon(DungeonType dungeonType, int index) {
         this.type = dungeonType;
         this.index = index;
-        location = new Location(Bukkit.getWorld("dungeons"), type.dungeonDistance * index /*This is for each dungeon's distance*/, 128, 500 * type.index /* This is for each dungeon type's distance */);
+        location = new Location(DungeonType.world, type.dungeonDistance * index /*This is for each dungeon's distance*/, 128, 500 * type.index /* This is for each dungeon type's distance */);
     }
 
     /**
@@ -131,10 +133,17 @@ public class Dungeon {
         } catch (IOException | WorldEditException e) {
             e.printStackTrace();
         }
+        type.dungeons.add(this);
+        this.spawnBoss();
+    }
+
+    public void spawnBoss() {
+        Location bossLoc = location.add(type.bossLocation);
+        type.boss.spawn(new AbstractLocation(new BukkitWorld(DungeonType.world), bossLoc.getX(), bossLoc.getY(), bossLoc.getZ()), 1 /*TODO Wrys what is the level*/);
     }
 
     /**
-     * TODO methods to save a dungeon's data to a configurationSection (serialize) and retrieve it (deserialize)
+     * Convert the selected configuration, index and type into a dungeon
      *
      * @param section
      * @param index
@@ -147,6 +156,7 @@ public class Dungeon {
         });
         return dungeon;
     }
+
 
 }
 

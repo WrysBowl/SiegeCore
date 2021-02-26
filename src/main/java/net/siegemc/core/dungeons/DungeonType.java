@@ -2,6 +2,8 @@ package net.siegemc.core.dungeons;
 
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
+import io.lumine.xikage.mythicmobs.MythicMobs;
+import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 import net.siegemc.core.Core;
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
@@ -27,7 +29,9 @@ import java.util.Random;
 //  level: 5
 //  distance: 500
 //  boss:
-//      Something that Wrys needs to figure out.
+//      x: 1
+//      y: 2
+//      z: 3
 //  dungeons: # List of dungeons of that type
 //      1:
 //          # Dungeon stuff (see Dungeon.java)
@@ -39,15 +43,22 @@ public class DungeonType {
     public Location spawnLocation;
     public int dungeonLevel;
     public ArrayList<Dungeon> dungeons;
+    public Location bossLocation;
+    public MythicMob boss;
+
     public static HashSet<DungeonType> dungeonTypes;
+    public static World world = Bukkit.getWorld("dungeons");
+
     public String name;
     public Integer index;
 
     public static DungeonType deserialize(ConfigurationSection section, String name) {
         ConfigurationSection spawnOffset = section.getConfigurationSection("spawnOffset");
         ConfigurationSection boss = section.getConfigurationSection("boss");
-        DungeonType type = new DungeonType(section.getString("schemPath"), section.getInt("level"), (short) section.getInt("distance"),
-                spawnOffset.getInt("x"), spawnOffset.getInt("y"), spawnOffset.getInt("z"), name);
+        Location relSpawnLoc = new Location(world, spawnOffset.getInt("x"), spawnOffset.getInt("y"), spawnOffset.getInt("z"));
+        Location relBossLoc = new Location(world, boss.getInt("x"), boss.getInt("y"), boss.getInt("z"));
+        DungeonType type = new DungeonType(name, section.getString("schemPath"), section.getInt("level"), (short) section.getInt("distance"),
+                relSpawnLoc, relBossLoc, boss.getString("name"));
         return type;
     }
 
@@ -57,15 +68,16 @@ public class DungeonType {
      * @param schemPath    The path to the schematic file (in the data folder of the plugin)
      * @param dungeonLevel The level of the dungeon
      * @param distance     The distance between each dungeon of the same type
-     * @param x            The x offset from the dungeon schematic copy position and the location of the spawn point.
-     * @param y            The y offset from the dungeon schematic copy position and the location of the player
-     * @param z            The z offset from the dungeon schematic copy position and the location of the player
+     * @param relSpawnLoc  The relative player spawn location, relative to the dungeon schematic copy position and the location of the spawn point.
      * @param name         The dungeon's name
      */
-    DungeonType(String schemPath /*The file path of the schematic, relative to the resources folder */, int dungeonLevel, short distance /* Distance between each dungeon */, int x, int y, int z /*If you were to paste the dungeon at 0 0 0 then the location of the spawn would be the x, y and z*/, String name) {
+    DungeonType(String name, String schemPath /*The file path of the schematic, relative to the resources folder */, int dungeonLevel, short distance /* Distance between each dungeon */, Location relSpawnLoc, Location relBossLoc, String bossName) {
         this.dungeonLevel = dungeonLevel;
         this.index = dungeonTypes.size();
         dungeonTypes.add(this);
+        this.boss = MythicMobs.inst().getMobManager().getMythicMob(bossName);
+        this.spawnLocation = relSpawnLoc;
+        this.bossLocation = relBossLoc;
         this.name = name;
         try {
             schematic = SchematicPaster.loadSchematic(new FileInputStream(new File(Core.plugin().getDataFolder().getAbsolutePath(), schemPath)), ClipboardFormats.findByAlias("SPONGE")); // Sponge schematics as they're the latest ones
@@ -74,7 +86,6 @@ public class DungeonType {
             e.printStackTrace();
         }
         this.dungeonDistance = distance;
-        World world = Bukkit.getWorld("dungeons");
         if (world == null) {
             WorldCreator creator = new WorldCreator(name); // If the dungeons world is nonexistent it creates it and makes each new chunk generated empty
             creator.generateStructures(false).type(WorldType.FLAT).environment(World.Environment.NORMAL);
@@ -92,7 +103,6 @@ public class DungeonType {
             });
             world = creator.createWorld(); // Creates the world
         }
-        spawnLocation = new Location(world, x, y, z);
         ConfigurationSection dungeonCfg = DungeonConfig.getDungeons(this);
         dungeonCfg.getKeys(false).forEach(key -> {
             if (dungeonCfg.isConfigurationSection(key)) {
