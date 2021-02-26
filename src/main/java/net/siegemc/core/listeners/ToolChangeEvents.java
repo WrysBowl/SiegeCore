@@ -15,15 +15,18 @@ public class ToolChangeEvents implements Listener {
     @EventHandler
     public void onToolChange(PlayerItemHeldEvent e) {
         Player player = e.getPlayer();
-        Material toolType = player.getInventory().getItemInMainHand().getType();
+        Material initialTool = player.getInventory().getItemInMainHand().getType();
+
         Bukkit.getServer().getScheduler().runTaskLater(Core.plugin(), () -> {
+            Material toolType = player.getInventory().getItemInMainHand().getType();
+            if (Items.checkTools(toolType) == null && Items.checkTools(initialTool) == null) { return; }
+
             if (player.getGameMode() == GameMode.ADVENTURE) {
-                if (Items.checkTools(toolType) == null) { //Checks if tool of player is contained in the enum
+                if (Items.checkTools(toolType) != null) { //Checks if tool of player is contained in the enum
                     player.setGameMode(GameMode.SURVIVAL);
                 }
-            }
-            if (player.getGameMode() == GameMode.SURVIVAL) {
-                if (Items.checkTools(toolType) != null) { //Checks if tool of player is not contained in the enum
+            } else if (player.getGameMode() == GameMode.SURVIVAL) {
+                if (Items.checkTools(toolType) == null) { //Checks if tool of player is not contained in the enum
                     player.setGameMode(GameMode.ADVENTURE);
                 }
             }
