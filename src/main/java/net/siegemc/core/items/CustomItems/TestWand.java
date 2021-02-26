@@ -1,11 +1,10 @@
-package net.siegemc.core.items.items;
+package net.siegemc.core.items.CustomItems;
 
 import net.siegemc.core.Core;
-import net.siegemc.core.items.Rarity;
-import net.siegemc.core.items.Stat;
-import net.siegemc.core.items.WandItem;
+import net.siegemc.core.items.CreateItems.Rarity;
+import net.siegemc.core.items.CreateItems.Stat;
+import net.siegemc.core.items.CreateItems.WandItem;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;

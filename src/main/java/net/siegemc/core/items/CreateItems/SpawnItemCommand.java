@@ -1,4 +1,4 @@
-package net.siegemc.core.items;
+package net.siegemc.core.items.CreateItems;
 
 import net.siegemc.core.Core;
 import net.siegemc.core.utils.Utils;

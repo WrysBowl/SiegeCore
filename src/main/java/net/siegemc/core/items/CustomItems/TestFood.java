@@ -1,8 +1,8 @@
-package net.siegemc.core.items.items;
+package net.siegemc.core.items.CustomItems;
 
 import net.siegemc.core.Core;
-import net.siegemc.core.items.FoodItem;
-import net.siegemc.core.items.Rarity;
+import net.siegemc.core.items.CreateItems.FoodItem;
+import net.siegemc.core.items.CreateItems.Rarity;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

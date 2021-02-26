@@ -2,7 +2,7 @@ package net.siegemc.core.listeners;
 
 import com.archyx.aureliumskills.api.AureliumAPI;
 import net.siegemc.core.Core;
-import net.siegemc.core.items.*;
+import net.siegemc.core.items.CreateItems.*;
 import net.siegemc.core.utils.NBT;
 import org.bukkit.Color;
 import org.bukkit.GameMode;

@@ -2,7 +2,7 @@ package net.siegemc.core.listeners;
 
 import lombok.Getter;
 import net.siegemc.core.Core;
-import net.siegemc.core.items.CustomItem;
+import net.siegemc.core.items.CreateItems.CustomItem;
 import net.siegemc.core.utils.Levels;
 import net.siegemc.core.utils.NBT;
 import net.siegemc.core.utils.Utils;

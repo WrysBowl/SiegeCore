@@ -2,9 +2,9 @@ package net.siegemc.core.informants;
 
 import com.archyx.aureliumskills.api.AureliumAPI;
 import net.siegemc.core.Core;
-import net.siegemc.core.items.CustomItem;
-import net.siegemc.core.items.CustomWeapon;
-import net.siegemc.core.items.Stat;
+import net.siegemc.core.items.CreateItems.CustomItem;
+import net.siegemc.core.items.CreateItems.CustomWeapon;
+import net.siegemc.core.items.CreateItems.Stat;
 import net.siegemc.core.utils.NBT;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

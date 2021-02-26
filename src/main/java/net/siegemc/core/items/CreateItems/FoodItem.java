@@ -1,4 +1,4 @@
-package net.siegemc.core.items;
+package net.siegemc.core.items.CreateItems;
 
 import lombok.Getter;
 import lombok.Setter;

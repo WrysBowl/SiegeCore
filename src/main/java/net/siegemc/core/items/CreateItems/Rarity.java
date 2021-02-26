@@ -1,4 +1,4 @@
-package net.siegemc.core.items;
+package net.siegemc.core.items.CreateItems;
 
 public enum Rarity {
     COMMON("Common", "7"),

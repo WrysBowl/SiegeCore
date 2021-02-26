@@ -19,12 +19,6 @@ public class WorldProtection implements Listener {
     }
     
     @EventHandler
-    public void onBreak(BlockBreakEvent event) {
-        if (event.getPlayer().getGameMode().equals(GameMode.CREATIVE)) return;
-        event.setCancelled(true);
-    }
-    
-    @EventHandler
     public void onPlace(BlockPlaceEvent event) {
         if (event.getPlayer().getGameMode().equals(GameMode.CREATIVE)) return;
         event.setCancelled(true);

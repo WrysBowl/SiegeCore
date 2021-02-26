@@ -1,4 +1,4 @@
-package net.siegemc.core.items;
+package net.siegemc.core.items.CreateItems;
 
 import com.archyx.aureliumskills.api.AureliumAPI;
 import lombok.Getter;
@@ -7,7 +7,6 @@ import net.siegemc.core.Core;
 import net.siegemc.core.utils.NBT;
 import org.bukkit.Material;
 import org.bukkit.configuration.MemorySection;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;

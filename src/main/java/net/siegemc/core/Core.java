@@ -2,9 +2,9 @@ package net.siegemc.core;
 
 import lombok.Getter;
 import net.siegemc.core.dungeons.DungeonConfig;
-import net.siegemc.core.items.CustomItem;
-import net.siegemc.core.items.ItemConfig;
-import net.siegemc.core.items.SpawnItemCommand;
+import net.siegemc.core.items.CreateItems.CustomItem;
+import net.siegemc.core.items.CreateItems.ItemConfig;
+import net.siegemc.core.items.CreateItems.SpawnItemCommand;
 import net.siegemc.core.listeners.*;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartyCommand;
@@ -14,15 +14,10 @@ import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import redis.clients.util.IOUtils;
 
-import java.io.IOException;
-import java.net.URL;
-import java.text.ParseException;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -68,12 +63,14 @@ public final class Core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new QuitEvents(), this);
         Bukkit.getPluginManager().registerEvents(new Food(), this);
         Bukkit.getPluginManager().registerEvents(new ToolChangeEvents(), this);
+        Bukkit.getPluginManager().registerEvents(new BreakEvents(), this);
     
         // Register Commands
         PartyCommand partyCommand = new PartyCommand();
         Bukkit.getPluginCommand("party").setExecutor(partyCommand);
         Bukkit.getPluginCommand("party").setTabCompleter(partyCommand);
         Bukkit.getPluginCommand("spawnitem").setExecutor(new SpawnItemCommand());
+
     }
     
     @Override
