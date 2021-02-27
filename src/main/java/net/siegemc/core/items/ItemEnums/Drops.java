@@ -2,7 +2,6 @@ package net.siegemc.core.items.ItemEnums;
 
 import net.siegemc.core.informants.Stats;
 import net.siegemc.core.utils.Utils;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -16,7 +15,7 @@ public class Drops {
     short blockRegenDelay = 20; //1 second block regeneration
     double luckChance = 0;
 
-    public enum allDrops {
+    public enum droppableBlocks {
         GRASS_BLOCK, DIRT, COARSE_DIRT, PODZOL, STONE, LIGHT_GRAY_CONCRETE, ANDESITE, GREEN_TERRACOTTA, GREEN_CONCRETE, LIME_TERRACOTTA
     }
 
@@ -24,19 +23,19 @@ public class Drops {
         this.luckChance = Stats.getLuck(player);
         switch(blockType.toString()) {
             case "GRASS_BLOCK":
-                calcDrop(Utils.createItem(Material.DARK_OAK_BUTTON, Utils.tacc("&fDirt Clump &7✪"), false), 30);
-                calcDrop(Utils.createItem(Material.WHEAT_SEEDS, Utils.tacc("&fSeed &7✪"), false), 10);
-                calcDrop(Utils.createItem(Material.GREEN_CARPET, Utils.tacc("&fTurf &7✪"), false), 5);
-                calcDrop(Utils.createItem(Material.GREEN_DYE, Utils.tacc("&fMoss &7✪"), false), 1);
-                calcDrop(Utils.createItem(Material.GRASS_BLOCK, Utils.tacc("&fMossy Dirt &7✪"), false), 0.5);
+                calcDrop(Items.searchItemLibrary("DIRT_CLUMP", 1),30);
+                calcDrop(Items.searchItemLibrary("SEED", 1), 10);
+                calcDrop(Items.searchItemLibrary("TURF", 1), 5);
+                calcDrop(Items.searchItemLibrary("MOSS", 1), 1);
+                calcDrop(Items.searchItemLibrary("MOSSY_DIRT", 1), 0.5);
                 break;
             case "DIRT":
             case "COARSE_DIRT":
-                calcDrop(Utils.createItem(Material.DARK_OAK_BUTTON, Utils.tacc("&fDirt Clump &7✪"), false), 50);
+                calcDrop(Items.searchItemLibrary("DIRT_CLUMP", 1), 50);
                 calcDrop(Utils.createItem(Material.STONE_BUTTON, Utils.tacc("&fPebble &7✪"), false), 25);
                 break;
             case "PODZOL":
-                calcDrop(Utils.createItem(Material.DARK_OAK_BUTTON, Utils.tacc("&fDirt Clump &7✪"), false), 80);
+                calcDrop(Items.searchItemLibrary("DIRT_CLUMP", 1), 80);
                 break;
             case "STONE":
             case "LIGHT_GRAY_CONCRETE":
@@ -48,15 +47,15 @@ public class Drops {
             case "GREEN_TERRACOTTA":
             case "GREEN_CONCRETE":
             case "LIME_TERRACOTTA":
-                calcDrop(Utils.createItem(Material.GREEN_CARPET, Utils.tacc("&fTurf &7✪"), false), 25);
-                calcDrop(Utils.createItem(Material.WHEAT_SEEDS, Utils.tacc("&fSeed &7✪"), false), 15);
-                calcDrop(Utils.createItem(Material.GREEN_DYE, Utils.tacc("&fMoss &7✪"), false), 5);
+                calcDrop(Items.searchItemLibrary("TURF", 1), 25);
+                calcDrop(Items.searchItemLibrary("SEED", 1), 15);
+                calcDrop(Items.searchItemLibrary("MOSS", 1), 5);
                 break;
         }
     }
-    public static allDrops checkAllDrops(Material blockType) { //Check to make sure the block has a loot table
+    public static droppableBlocks checkAllDrops(Material blockType) { //Check to make sure the block has a loot table
         try {
-            return allDrops.valueOf(blockType.toString());
+            return droppableBlocks.valueOf(blockType.toString());
         } catch (IllegalArgumentException e) {
             return null;
         }
