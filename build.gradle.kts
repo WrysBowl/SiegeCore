@@ -8,36 +8,32 @@ buildscript {
 }
 
 plugins {
-    id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
+    java
+    id("org.jetbrains.kotlin.jvm") version "1.4.21"
     id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
-group 'net.siegemc'
-version '0.0.2'
+group "net.siegemc"
+version "0.0.2"
 
 
 repositories {
     mavenCentral()
-    maven { url = "https://oss.sonatype.org/content/groups/public/" }
-    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
-    maven { url = "https://repo.codemc.org/repository/maven-public/" }
-    maven { url = "https://papermc.io/repo/repository/maven-public/" }
-    maven { url = "https://mvn.lumine.io/repository/maven-public/" }
-    maven { url = "https://jitpack.io" }
-    maven { url = "https://repo.dmulloy2.net/nexus/repository/public/" }
-    maven {
-        url = "https://dl.bintray.com/ichbinjoe/public/"
-    }
-    maven {
-        url = "https://maven.enginehub.org/repo/"
-    }
+    maven { url = uri("https://oss.sonatype.org/content/groups/public/") }
+    maven { url = uri("https://repo.aikar.co/content/groups/aikar/") }
+    maven { url = uri("https://repo.codemc.org/repository/maven-public/") }
+    maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
+    maven { url = uri("https://mvn.lumine.io/repository/maven-public/") }
+    maven { url = uri("https://jitpack.io") }
+    maven { url = uri("https://repo.dmulloy2.net/nexus/repository/public/") }
+    maven { url = uri("https://dl.bintray.com/ichbinjoe/public/") }
+    maven { url = uri("https://maven.enginehub.org/repo/") }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
-    testCompile("junit:junit:4.12")
+    testImplementation("junit:junit:4.12")
     compileOnly("org.projectlombok:lombok:1.18.16")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.5.0")
     compileOnly("io.lumine.xikage:MythicMobs:4.11.0-BETA") // MythicMobs API
@@ -45,8 +41,8 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") // Vault API
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.1-SNAPSHOT")
     compileOnly("com.github.Archy-x:AureliumSkills:Alpha1.6.0")
-    compile("co.aikar:acf-paper:0.5.0-SNAPSHOT")
-    compile("com.github.stefvanschie.inventoryframework:IF:0.9.0")
+    implementation("co.aikar:acf-paper:0.5.0-SNAPSHOT")
+    implementation("com.github.stefvanschie.inventoryframework:IF:0.9.0")
     annotationProcessor("org.projectlombok:lombok:1.18.16")
     //compile(fileTree(include(["*.jar"]), dir("libs")))
 }
