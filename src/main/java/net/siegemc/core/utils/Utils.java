@@ -24,7 +24,7 @@ public class Utils {
         return new NamespacedKey(Core.plugin(), str);
     }
 
-    public static ItemStack createItem(final Material material, final String name, final boolean glowing, Integer amount, final String... lore) {
+    public static ItemStack createItem(final Material material, final String name, final boolean glowing, final String... lore) {
         final ItemStack item = new ItemStack(material, 1);
         final ItemMeta meta = item.getItemMeta();
 
@@ -41,8 +41,6 @@ public class Utils {
         meta.setLore(Arrays.asList(lore));
 
         item.setItemMeta(meta);
-
-        item.setAmount(amount);
 
         return item;
     }

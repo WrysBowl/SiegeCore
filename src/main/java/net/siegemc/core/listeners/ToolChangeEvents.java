@@ -1,7 +1,7 @@
 package net.siegemc.core.listeners;
 
 import net.siegemc.core.Core;
-import net.siegemc.core.items.ItemLibrary.Items;
+import net.siegemc.core.items.ItemEnums.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;

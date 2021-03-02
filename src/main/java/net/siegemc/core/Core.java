@@ -5,9 +5,6 @@ import net.siegemc.core.dungeons.DungeonConfig;
 import net.siegemc.core.items.CreateItems.CustomItem;
 import net.siegemc.core.items.CreateItems.ItemConfig;
 import net.siegemc.core.items.CreateItems.SpawnItemCommand;
-import net.siegemc.core.items.CustomShapedRecipe;
-import net.siegemc.core.items.CustomShapelessRecipe;
-import net.siegemc.core.items.Recipes;
 import net.siegemc.core.listeners.*;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartyCommand;
@@ -17,20 +14,18 @@ import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
+import java.lang.reflect.Field;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public final class Core extends JavaPlugin {
     @Getter private static final HashMap<UUID, Party> parties = new HashMap<>();
     @Getter private static final HashMap<String, CustomItem> items = new HashMap<>();
     public static Location spawnLocation;
-    private List<CustomShapelessRecipe> shapelessRecipes = new ArrayList<>();
-    private List<CustomShapedRecipe> shapedRecipes = new ArrayList<>();
-
+    
     @SuppressWarnings({"ResultOfMethodCallIgnored", "ConstantConditions"})
     @Override
     public void onEnable() {
@@ -69,55 +64,27 @@ public final class Core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new Food(), this);
         Bukkit.getPluginManager().registerEvents(new ToolChangeEvents(), this);
         Bukkit.getPluginManager().registerEvents(new BreakEvents(), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryClickEvents(), this);
-
-
+    
         // Register Commands
         PartyCommand partyCommand = new PartyCommand();
         Bukkit.getPluginCommand("party").setExecutor(partyCommand);
         Bukkit.getPluginCommand("party").setTabCompleter(partyCommand);
         Bukkit.getPluginCommand("spawnitem").setExecutor(new SpawnItemCommand());
 
-        // Register Recipes
-        Recipes recipes = new Recipes();
-        for (CustomShapelessRecipe recipe : recipes.getShapelessRecipes()) {
-            addRecipe(recipe);
-        }
-        for (CustomShapedRecipe recipe : recipes.getShapedRecipes()) {
-            addRecipe(recipe);
-        }
     }
-
-
+    
     @Override
     public void onDisable() {
         for (Party party : getParties().values()) party.save(true);
     }
-
-
+    
     public static Core plugin() {
         return Core.getPlugin(Core.class); // Method to get the plugin from other classes, so you can use Core.plugin() in other classes to get the plugin
     }
-
-
+    
     public static Party getParty(UUID playerUUID) {
         for (Party party : getParties().values()) if (party.isMember(playerUUID)) return party;
         return null;
-    }
-
-    public void addRecipe(CustomShapedRecipe recipe) {
-        shapedRecipes.add(recipe);
-    }
-
-    public void addRecipe(CustomShapelessRecipe recipe) {
-        shapelessRecipes.add(recipe);
-    }
-
-    public List<CustomShapedRecipe> getShapedRecipes() {
-        return shapedRecipes;
-    }
-    public List<CustomShapelessRecipe> getShapelessRecipes(){
-        return shapelessRecipes;
     }
 
 }
