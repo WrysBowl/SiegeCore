@@ -69,8 +69,8 @@ public final class Core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new Food(), this);
         Bukkit.getPluginManager().registerEvents(new ToolChangeEvents(), this);
         Bukkit.getPluginManager().registerEvents(new BreakEvents(), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryClickEvents(), this);
-
+        Bukkit.getPluginManager().registerEvents(new CustomCraftingEvents(), this);
+        Bukkit.getPluginManager().registerEvents(new HelperCustomCraftingEvents(), this);
 
         // Register Commands
         PartyCommand partyCommand = new PartyCommand();

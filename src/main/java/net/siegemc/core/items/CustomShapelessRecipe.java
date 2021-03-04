@@ -15,7 +15,9 @@ public class CustomShapelessRecipe {
 
     public boolean doesFit(List<ItemStack> newMatrix) {
         for(int i = 0; i<matrix.size(); i++) {
-            if(!newMatrix.contains(matrix.get(i))) return false;
+            if(!newMatrix.contains(matrix.get(i))) { //if the crafting table slot does not contain the ingredients
+                return false;
+            }
         }
         return true;
     }
