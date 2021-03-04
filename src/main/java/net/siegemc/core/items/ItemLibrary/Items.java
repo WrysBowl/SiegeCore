@@ -21,8 +21,15 @@ public class Items {
     }
 
     public enum Reagents {
+<<<<<<< Updated upstream
         DIRT_CLUMP
     }
+=======
+        DIRT_CLUMP, SEED,
+    }
+
+
+>>>>>>> Stashed changes
 
     public static ItemStack searchItemLibrary(String itemName, Integer tier, Integer amount) {
         switch(itemName) {

@@ -19,6 +19,7 @@ public class Recipes {
     }
 
     public Recipes() {
+
         loadDirtClumpRecipe("UPGRADE", 1);
         loadDirtClumpRecipe("DISMANTLE", 2);
     }
@@ -39,6 +40,9 @@ public class Recipes {
                 case 1:
                     craftingGrid.add(Items.searchItemLibrary("DIRT_CLUMP", 1, 8));
                     result = Items.searchItemLibrary("DIRT_CLUMP", 2, 1);
+                case 2:
+                    craftingGrid.add(Items.searchItemLibrary("DIRT_CLUMP", 2, 8));
+                    result = Items.searchItemLibrary("DIRT_CLUMP", 3, 1);
             }
         } else if (recipeType.equals("DISMANTLE")) {
             switch (tier) {
