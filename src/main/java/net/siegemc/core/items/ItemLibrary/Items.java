@@ -20,7 +20,9 @@ public class Items {
         }
     }
 
-
+    public enum Reagents {
+        DIRT_CLUMP, SEED
+    }
 
     public static ItemStack searchItemLibrary(String itemName, Integer tier, Integer amount) {
         switch(itemName) {
