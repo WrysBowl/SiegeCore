@@ -21,7 +21,7 @@ public class Items {
     }
 
     public enum Reagents {
-        DIRT_CLUMP, SEED
+        DIRT_CLUMP
     }
 
     public static ItemStack searchItemLibrary(String itemName, Integer tier, Integer amount) {
