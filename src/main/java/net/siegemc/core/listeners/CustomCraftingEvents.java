@@ -27,12 +27,12 @@ public class CustomCraftingEvents implements Listener {
     private Inventory inv;
     private List<ItemStack> craftingSlots = new ArrayList<>();
     private List<Integer> numCraftingSlots = new ArrayList<>();
+    private boolean resultSlotSet = false;
+    ItemStack filler = Utils.createItem(Material.GRAY_STAINED_GLASS_PANE, ChatColor.GREEN + "", false, 1);
+    ItemStack craftingSlot = new ItemStack(Material.AIR);
 
     public void createNewGUI() {
         inv = Bukkit.createInventory(null, 45, "Crafting Table");
-        ItemStack filler = Utils.createItem(Material.GRAY_STAINED_GLASS_PANE, ChatColor.GREEN + "", false, 1);
-        ItemStack craftingSlot = new ItemStack(Material.AIR);
-
         for (int i=0; i<inv.getSize(); i++) { //Set all slots to filler variable
             inv.setItem(i, filler);
         }
@@ -65,6 +65,14 @@ public class CustomCraftingEvents implements Listener {
             }
         }
         return matrix;
+    }
+
+    public void clearMatrix() {
+        for (int y=10; y<29; y+=9) { //Sets crafting grid slots
+            for (int x=0; x<3; x++) {
+                inv.setItem(y+x, craftingSlot);
+            }
+        }
     }
 
     public void setResult(ItemStack item) {
@@ -104,7 +112,6 @@ public class CustomCraftingEvents implements Listener {
             for (ItemStack i : getMatrix()) {
                 matrix.add(i);
             }
-            Bukkit.broadcastMessage(matrix.toString());
             for (CustomShapedRecipe recipe : Core.plugin().getShapedRecipes()) {
                 if (recipe.doesFit(matrix)) {
                     result = recipe.getResult();
@@ -115,13 +122,19 @@ public class CustomCraftingEvents implements Listener {
                     result = recipe.getResult();
                 }
             }
-            //Known bug: After grabbing the result slot for 8 Tier 1 dirt clumps to 1 tier 2 dirt clump, the crafting table updates
-            //and is replaced with 14 tier 1 dirt clumps. Lowering the recipe requirement down to 4 dirt clumps/tier2, replaces the
-            //crafting table with 6 tier 1 dirt clumps instead of 14 with the original 8 tier 1 dirt clump recipe.
+
+            if (e.getSlot()==24 && resultSlotSet) {
+                clearMatrix();
+                return;
+            }
+
+            //Known bug: Grabbing the result slot will not make the items in the crafting table go away
+            //Possible solutions: Save a variable to the field to check if the result slot is a proper recipe result then clear the matrix
             if(result != null) {
-                setMatrix(getMatrix());
+                setMatrix(matrix);
                 setResult(result);
                 player.updateInventory();
+                resultSlotSet = true;
             }
         }, 1);
     }
