@@ -26,7 +26,7 @@ public class DungeonConfig { //How to delete schematics?
         try {
             configFile.createNewFile();
             configuration.load(configFile);
-            deserializeDungeonTypes();
+            //deserializeDungeonTypes();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidConfigurationException e) {
