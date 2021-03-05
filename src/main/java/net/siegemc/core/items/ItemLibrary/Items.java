@@ -4,7 +4,19 @@ import net.siegemc.core.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashMap;
+
 public class Items {
+    //Array of all current reagents
+    public static String[] Reagents = {"DIRT_CLUMP", "SEED", "TURF", "MOSS", "MOSSY_DIRT", "PEBBLE", "ROCK", "STONE"};
+    //Array of all current material used by reagents
+    //[NOTE]: Reagents uses the material at that same index i.e. Reagents[0] uses ReagentMats[0]
+    public static org.bukkit.Material[] ReagentMats = {Material.DARK_OAK_BUTTON, Material.WHEAT_SEEDS, Material.GREEN_CARPET,
+                                                       Material.GREEN_DYE, Material.GRASS_BLOCK, Material.STONE_BUTTON,
+                                                       Material.GRAY_DYE, Material.STONE};
+
+    public static HashMap<String, org.bukkit.Material> ReagentsToMaterials; //EMPTY!!! DO NOT USE!!!
+
     public enum Tools { //Used to check when to set gamemode to adventure/survival
         WOODEN_PICKAXE, WOODEN_AXE, WOODEN_HOE, WOODEN_SHOVEL,
         STONE_PICKAXE, STONE_AXE, STONE_HOE, STONE_SHOVEL,
@@ -20,11 +32,29 @@ public class Items {
         }
     }
 
-    public enum Reagents {
-        DIRT_CLUMP, SEED
-    }
-
     public static ItemStack searchItemLibrary(String itemName, Integer tier, Integer amount) {
+        // Loop through all current reagents
+        // INEFFICIENT!!! Will write a hashmap when I find out a way to do that in Java
+        int indx = 0; // Will be the index of the required Reagent if found
+        while (indx < Reagents.length) {
+            if (Reagents[indx] == itemName) {
+                break; // Found reagent, stop loop execution
+            }
+            indx++;
+        }
+        // If reagent not found return null
+        if (indx == Reagents.length) {
+            return null;
+        }
+        // Otherwise return relevant UtilsItem
+        else {
+            String name = "&7" + Reagents[indx] + " &7" + stringRepeat("✪", tier); // "Build" relevant string
+            return Utils.createItem(ReagentMats[indx], Utils.tacc(name), false, amount);
+        }
+
+        // Old code
+
+        /*
         switch(itemName) {
             case "DIRT_CLUMP":
                 switch(tier) {
@@ -132,5 +162,16 @@ public class Items {
                 }
         }
         return null;
+         */
+    }
+
+    // Quick write!!!! INEFFICIENT!!!!!
+    static String stringRepeat(String str, int times) {
+        String ans = ""; // init return variable
+        // loop n times
+        for (int i = 0; i < times; i++) {
+            ans = ans + str; // concatenate
+        }
+        return ans;
     }
 }

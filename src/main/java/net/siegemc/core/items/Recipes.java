@@ -20,10 +20,36 @@ public class Recipes {
 
     public Recipes() {
 
-        loadDirtClumpRecipe("UPGRADE", 1);
-        loadDirtClumpRecipe("DISMANTLE", 2);
+        for (int i = 0; i < Items.Reagents.length; i++) {
+            loadRecipes(Items.Reagents[i]);
+        }
     }
 
+    // New function to automate both Upgrade and Dismantle loading for Reagents
+    // Eliminated tier parameter
+    public void loadRecipes(String reagent) {
+        List<ItemStack> craftingGrid = new ArrayList();
+        ItemStack result = null;
+
+        // Load all upgrade recipes for the reagent
+        // i in addition to being used as the loop iterator is also used as the tier
+        for (int i = 1; i < 5; i++) {
+            craftingGrid.add(Items.searchItemLibrary(reagent, i, 8));
+            result = Items.searchItemLibrary(reagent, (i + 1), 1);
+            shapelessRecipes.add(new CustomShapelessRecipe(craftingGrid, result));
+        }
+
+        // Load all dismantle recipes for the reagent
+        for (int i = 2; i < 6; i++) {
+            craftingGrid.add(Items.searchItemLibrary(reagent, i, 1));
+            result = Items.searchItemLibrary(reagent, i - 1, 4);
+            shapelessRecipes.add(new CustomShapelessRecipe(craftingGrid, result));
+        }
+    }
+
+    // Old code
+
+    /*
     public void loadDirtClumpRecipe(String recipeType, Integer tier) {
         /*
         List<ItemStack> matrix = new ArrayList<>();
@@ -32,6 +58,7 @@ public class Recipes {
         for(int i = 0; i <8; i++) matrix.add(item); //2 stone pieces in each crafting slot
         plugin.addRecipe(new CustomShapedRecipe(matrix,res));
         */
+        /*
         List<ItemStack> craftingGrid = new ArrayList();
         ItemStack result = null;
 
@@ -52,5 +79,8 @@ public class Recipes {
             }
         }
         shapelessRecipes.add(new CustomShapelessRecipe(craftingGrid, result));
-    }
+
+    }*/
+
+
 }
