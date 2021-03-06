@@ -138,6 +138,10 @@ public class Dungeon {
     }
 
     public void spawnBoss() {
+        if (type.bossLocation == null || type.boss == null) {
+            Core.plugin().getLogger().warning("The boss can't be spawned in a dungeon with no boss! Dungeon type: " + type.name);
+            return;
+        }
         Location bossLoc = location.add(type.bossLocation);
         type.boss.spawn(new AbstractLocation(new BukkitWorld(DungeonType.world), bossLoc.getX(), bossLoc.getY(), bossLoc.getZ()), 1 /*TODO Wrys what is the level*/);
     }

@@ -56,6 +56,10 @@ public class DungeonType {
         ConfigurationSection spawnOffset = section.getConfigurationSection("spawnOffset");
         ConfigurationSection boss = section.getConfigurationSection("boss");
         Location relSpawnLoc = new Location(world, spawnOffset.getInt("x"), spawnOffset.getInt("y"), spawnOffset.getInt("z"));
+        if (boss == null) {
+            return new DungeonType(name, section.getString("schemPath"), section.getInt("level"), (short) section.getInt("distance"),
+                    relSpawnLoc, null, null);
+        }
         Location relBossLoc = new Location(world, boss.getInt("x"), boss.getInt("y"), boss.getInt("z"));
         DungeonType type = new DungeonType(name, section.getString("schemPath"), section.getInt("level"), (short) section.getInt("distance"),
                 relSpawnLoc, relBossLoc, boss.getString("name"));
