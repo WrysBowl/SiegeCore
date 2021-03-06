@@ -19,68 +19,32 @@ public class Recipes {
     }
 
     public Recipes() {
-
-        for (int i = 0; i < Items.Reagents.length; i++) {
-            loadRecipes(Items.Reagents[i]);
+        // Load all Reagent Recipes
+        for (String str : Items.ReagentsToMaterials.keySet()) {
+            loadReagentRecipes(str);
         }
     }
 
-    // New function to automate both Upgrade and Dismantle loading for Reagents
-    // Eliminated tier parameter
-    public void loadRecipes(String reagent) {
+    // Automate both Upgrade and Dismantle loading for Reagents
+    public void loadReagentRecipes(String reagent) {
         List<ItemStack> craftingGrid = new ArrayList();
         ItemStack result = null;
 
         // Load all upgrade recipes for the reagent
         // i in addition to being used as the loop iterator is also used as the tier
-        for (int i = 1; i < 5; i++) {
+        for (Integer i = 1; i < 5; i++) {
             craftingGrid.add(Items.searchItemLibrary(reagent, i, 8));
             result = Items.searchItemLibrary(reagent, (i + 1), 1);
-            shapelessRecipes.add(new CustomShapelessRecipe(craftingGrid, result));
+            shapelessRecipes.add(new CustomShapelessRecipe(new ArrayList(craftingGrid), result));
+            craftingGrid.clear();
         }
 
         // Load all dismantle recipes for the reagent
-        for (int i = 2; i < 6; i++) {
+        for (Integer i = 2; i < 6; i++) {
             craftingGrid.add(Items.searchItemLibrary(reagent, i, 1));
             result = Items.searchItemLibrary(reagent, i - 1, 4);
-            shapelessRecipes.add(new CustomShapelessRecipe(craftingGrid, result));
+            shapelessRecipes.add(new CustomShapelessRecipe(new ArrayList(craftingGrid), result));
+            craftingGrid.clear();
         }
     }
-
-    // Old code
-
-    /*
-    public void loadDirtClumpRecipe(String recipeType, Integer tier) {
-        /*
-        List<ItemStack> matrix = new ArrayList<>();
-        ItemStack item = new ItemStack(Material.STONE,2);
-        ItemStack res = new ItemStack(Material.OAK_LOG,4); //resulting product is 4 oak logs
-        for(int i = 0; i <8; i++) matrix.add(item); //2 stone pieces in each crafting slot
-        plugin.addRecipe(new CustomShapedRecipe(matrix,res));
-        */
-        /*
-        List<ItemStack> craftingGrid = new ArrayList();
-        ItemStack result = null;
-
-        if (recipeType.equals("UPGRADE")) {
-            switch (tier) {
-                case 1:
-                    craftingGrid.add(Items.searchItemLibrary("DIRT_CLUMP", 1, 8));
-                    result = Items.searchItemLibrary("DIRT_CLUMP", 2, 1);
-                case 2:
-                    craftingGrid.add(Items.searchItemLibrary("DIRT_CLUMP", 2, 8));
-                    result = Items.searchItemLibrary("DIRT_CLUMP", 3, 1);
-            }
-        } else if (recipeType.equals("DISMANTLE")) {
-            switch (tier) {
-                case 2:
-                    craftingGrid.add(Items.searchItemLibrary("DIRT_CLUMP", 2, 1));
-                    result = Items.searchItemLibrary("DIRT_CLUMP", 1, 4);
-            }
-        }
-        shapelessRecipes.add(new CustomShapelessRecipe(craftingGrid, result));
-
-    }*/
-
-
 }
