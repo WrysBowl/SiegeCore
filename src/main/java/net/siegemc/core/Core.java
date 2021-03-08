@@ -71,6 +71,7 @@ public final class Core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new BreakEvents(), this);
         Bukkit.getPluginManager().registerEvents(new CustomCraftingEvents(), this);
         Bukkit.getPluginManager().registerEvents(new HelperCustomCraftingEvents(), this);
+        Bukkit.getPluginManager().registerEvents(new StatGems(), this);
 
         // Register Commands
         PartyCommand partyCommand = new PartyCommand();

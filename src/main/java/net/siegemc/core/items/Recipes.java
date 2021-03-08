@@ -1,6 +1,7 @@
 package net.siegemc.core.items;
 
 import net.siegemc.core.items.ItemLibrary.Items;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ public class Recipes {
             shapelessRecipes.add(new CustomShapelessRecipe(new ArrayList(craftingGrid), result));
             craftingGrid.clear();
         }
-
         // Load all dismantle recipes for the reagent
         for (Integer i = 2; i < 6; i++) {
             craftingGrid.add(Items.searchItemLibrary(reagent, i, 1));
