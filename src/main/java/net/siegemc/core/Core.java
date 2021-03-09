@@ -5,9 +5,11 @@ import net.siegemc.core.dungeons.DungeonConfig;
 import net.siegemc.core.items.CreateItems.CustomItem;
 import net.siegemc.core.items.CreateItems.ItemConfig;
 import net.siegemc.core.items.CreateItems.SpawnItemCommand;
+import net.siegemc.core.items.listeners.CustomItemKotlinListener;
 import net.siegemc.core.items.CustomShapedRecipe;
 import net.siegemc.core.items.CustomShapelessRecipe;
 import net.siegemc.core.items.Recipes;
+import net.siegemc.core.items.implemented.TestSword;
 import net.siegemc.core.listeners.*;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartyCommand;
@@ -16,7 +18,9 @@ import net.siegemc.core.utils.DbManager;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -34,6 +38,12 @@ public final class Core extends JavaPlugin {
     @SuppressWarnings({"ResultOfMethodCallIgnored", "ConstantConditions"})
     @Override
     public void onEnable() {
+
+
+//        TestSword testSword = new TestSword(new ItemStack(Material.DIAMOND_SWORD));
+//        testSword.getItem();
+        // how to get a custom item ^
+
         // Initialize
         spawnLocation = new Location(Bukkit.getWorld("SiegeHub"), 70.5, 71, 3.5, 90, 0);
         
@@ -72,6 +82,7 @@ public final class Core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CustomCraftingEvents(), this);
         Bukkit.getPluginManager().registerEvents(new HelperCustomCraftingEvents(), this);
         Bukkit.getPluginManager().registerEvents(new StatGems(), this);
+        Bukkit.getPluginManager().registerEvents(new CustomItemKotlinListener(), this);
 
         // Register Commands
         PartyCommand partyCommand = new PartyCommand();

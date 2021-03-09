@@ -43,6 +43,7 @@ dependencies {
     compileOnly("com.github.Archy-x:AureliumSkills:Alpha1.6.0")
     implementation("co.aikar:acf-paper:0.5.0-SNAPSHOT")
     implementation("com.github.stefvanschie.inventoryframework:IF:0.9.0")
+    implementation("de.tr7zw:item-nbt-api-plugin:2.7.1")
     annotationProcessor("org.projectlombok:lombok:1.18.16")
     //compile(fileTree(include(["*.jar"]), dir("libs")))
 }
