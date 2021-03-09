@@ -4,47 +4,30 @@ import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.CreateItems.Rarity
 import net.siegemc.core.items.StatGem
 import net.siegemc.core.items.StatTypes
-import net.siegemc.core.items.types.CustomWeapon
+import net.siegemc.core.items.types.CustomChestplate
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.inventory.ItemStack
 
+class TestChestplate(override var item: ItemStack) : CustomChestplate() {
 
-
-
-class TestSword(override var item: ItemStack) : CustomWeapon() {
-
-    constructor() : this(ItemStack(Material.DIAMOND_SWORD))
+    constructor() : this(ItemStack(Material.DIAMOND_CHESTPLATE))
 
     // default item properties
-    override val name: String = "Test Sword"
+    override val name: String = "Test Chestplate"
     override val rarity: Rarity = Rarity.DEBUG
     override val levelRequirement: Int = 0
-    override val material: Material = Material.DIAMOND_SWORD
+    override val material: Material = Material.DIAMOND_CHESTPLATE
 
     // equipment properties
     override var statGem: StatGem? = null
 
-    // weapon properties
-    override val damage: Double
-        get() = myProp * 2.0
-
-    // item specific properties
-    private var myProp: Int = 10
-        set(value) {
-            field = value
-            val nbtItem = NBTItem(item)
-            if (!nbtItem.hasKey("testSwordMyProp") || nbtItem.getInteger("testSwordMyProp")!! != myProp) nbtItem.setInteger("testSwordMyProp", myProp)
-            // also set the weapon damage because it depends on myProp
-            if (!nbtItem.hasKey("weaponDamage") || nbtItem.getDouble("weaponDamage")!! != damage) nbtItem.setDouble("weaponDamage", damage)
-            this.item = nbtItem.item
-        }
-
+    // armor properties
 
     override fun onHit(e: EntityDamageByEntityEvent) {
-        if (e.damager is Player) {
-            (e.damager as Player).sendTitle("Custom Item!", null, 1, 5, 1)
+        if (e.entity is Player) {
+            (e.entity as Player).sendTitle("Chestplate Damage", null, 1, 5, 1)
         }
     }
 
@@ -75,7 +58,6 @@ class TestSword(override var item: ItemStack) : CustomWeapon() {
             }
 
             // get our item specific properties
-            if (nbtItem.hasKey("testSwordMyProp")) myProp = nbtItem.getInteger("testSwordMyProp")
 
             // note that we don't fix weapon damage because when we set myProp it also updates damage
         } else {
@@ -86,15 +68,8 @@ class TestSword(override var item: ItemStack) : CustomWeapon() {
             nbtItem.setString("itemName", name)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "TestSword")
+            nbtItem.setString("itemClass", "TestChestplate")
 
-            // setting item specific properties (done first because damage depends on myProp)
-            if (nbtItem.hasKey("testSwordMyProp")) myProp = nbtItem.getInteger("testSwordMyProp")
-            else {
-                // setting item and weapon specific properties (we don't have to do this if we set myProp)
-                nbtItem.setInteger("testSwordMyProp", myProp)
-                nbtItem.setDouble("weaponDamage", damage)
-            }
 
 
         }

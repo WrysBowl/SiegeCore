@@ -40,8 +40,8 @@ public final class Core extends JavaPlugin {
     public void onEnable() {
 
 
-//        TestSword testSword = new TestSword(new ItemStack(Material.DIAMOND_SWORD));
-//        testSword.getItem();
+        TestSword testSword = new TestSword();
+        testSword.getItem();
         // how to get a custom item ^
 
         // Initialize

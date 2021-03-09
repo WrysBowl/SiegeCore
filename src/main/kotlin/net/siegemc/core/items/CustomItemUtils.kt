@@ -1,11 +1,20 @@
 package net.siegemc.core.items
 
 import de.tr7zw.nbtapi.NBTItem
+import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import java.lang.reflect.Constructor
 
 
 object CustomItemUtils {
+
+    val materials = hashMapOf<String, Material>(
+        "TestSword" to Material.DIAMOND_SWORD,
+        "TestBoots" to Material.DIAMOND_BOOTS,
+        "TestChestplate" to Material.DIAMOND_CHESTPLATE,
+        "TestLeggings" to Material.DIAMOND_LEGGINGS,
+        "TestHelmet" to Material.DIAMOND_HELMET,
+    )
 
     fun getCustomItem(item: ItemStack): CustomItem? {
         val nbtItem = NBTItem(item)
