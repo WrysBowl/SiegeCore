@@ -1,4 +1,6 @@
-package net.siegemc.core.items.types
+package net.siegemc.core.items.types.equipment.armor
+
+import net.siegemc.core.items.types.ItemTypes
 
 abstract class CustomBoots : CustomArmor() {
     override val type: ItemTypes = ItemTypes.BOOTS
