@@ -1,5 +1,7 @@
 package net.siegemc.core.utils;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.siegemc.core.Core;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -18,6 +20,10 @@ public class Utils {
 
     static public String strip(String str) {
         return ChatColor.stripColor(str);
+    }
+
+    static public Component parse(String str) {
+        return MiniMessage.get().parse(str);
     }
 
     static public NamespacedKey namespacedKey(String str) {

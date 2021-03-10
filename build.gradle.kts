@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 buildscript {
     repositories {
         jcenter()
@@ -9,12 +11,17 @@ buildscript {
 
 plugins {
     java
-    id("org.jetbrains.kotlin.jvm") version "1.4.21"
+    kotlin("jvm") version "1.4.21"
     id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 group "net.siegemc"
 version "0.0.2"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 
 repositories {
@@ -64,4 +71,16 @@ tasks {
     build {
         dependsOn(shadowJar)
     }
+    withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+//    withType<KotlinCompile> {
+//        kotlinOptions.jvmTarget = "1.8"
+//    }
 }
+
+
+
+//val compileKotlin: KotlinCompile by tasks
+//
+//compileKotlin.kotlinOptions.jvmTarget = "1.8"

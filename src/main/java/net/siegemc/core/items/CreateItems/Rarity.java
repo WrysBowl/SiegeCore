@@ -1,12 +1,12 @@
 package net.siegemc.core.items.CreateItems;
 
 public enum Rarity {
-    COMMON("Common", "7"),
-    UNCOMMON("Uncommon", "a"),
-    RARE("Rare", "9"),
-    EPIC("Epic", "5"),
-    LEGENDARY("Legendary", "6"),
-    DEBUG("Debug", "c");
+    COMMON("Common", "<gray>"),
+    UNCOMMON("Uncommon", "<green>"),
+    RARE("Rare", "<blue>"),
+    EPIC("Epic", "<dark_purple>"),
+    LEGENDARY("Legendary", "<gold>"),
+    DEBUG("Debug", "<red>");
     
     private final String color;
     private final String id;

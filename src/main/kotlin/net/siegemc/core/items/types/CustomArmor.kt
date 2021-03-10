@@ -6,4 +6,7 @@ abstract class CustomArmor : CustomEquipment() {
     override val type: ItemTypes = ItemTypes.ARMOR
 
     abstract fun onHit(e: EntityDamageByEntityEvent)
+
+
+
 }

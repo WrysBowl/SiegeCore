@@ -40,7 +40,7 @@ public final class Core extends JavaPlugin {
     public void onEnable() {
 
 
-        TestSword testSword = new TestSword();
+        TestSword testSword = new TestSword(101);
         testSword.getItem();
         // how to get a custom item ^
 

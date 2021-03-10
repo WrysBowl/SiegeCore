@@ -1,7 +1,7 @@
 package net.siegemc.core.items.implemented
 
 import de.tr7zw.nbtapi.NBTItem
-import net.siegemc.core.items.CreateItems.Rarity
+import net.siegemc.core.items.Rarity
 import net.siegemc.core.items.StatGem
 import net.siegemc.core.items.StatTypes
 import net.siegemc.core.items.types.CustomWeapon
@@ -11,17 +11,16 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.inventory.ItemStack
 
 
+class TestSword(override var item: ItemStack, override val quality: Int) : CustomWeapon() {
 
-
-class TestSword(override var item: ItemStack) : CustomWeapon() {
-
-    constructor() : this(ItemStack(Material.DIAMOND_SWORD))
+    constructor(quality: Int) : this(ItemStack(Material.DIAMOND_SWORD), quality)
 
     // default item properties
     override val name: String = "Test Sword"
-    override val rarity: Rarity = Rarity.DEBUG
+    override var rarity: Rarity = Rarity.DEBUG
     override val levelRequirement: Int = 0
     override val material: Material = Material.DIAMOND_SWORD
+    override val description: List<String> = listOf("A powerful sword")
 
     // equipment properties
     override var statGem: StatGem? = null
@@ -35,9 +34,15 @@ class TestSword(override var item: ItemStack) : CustomWeapon() {
         set(value) {
             field = value
             val nbtItem = NBTItem(item)
-            if (!nbtItem.hasKey("testSwordMyProp") || nbtItem.getInteger("testSwordMyProp")!! != myProp) nbtItem.setInteger("testSwordMyProp", myProp)
+            if (!nbtItem.hasKey("testSwordMyProp") || nbtItem.getInteger("testSwordMyProp")!! != myProp) nbtItem.setInteger(
+                "testSwordMyProp",
+                myProp
+            )
             // also set the weapon damage because it depends on myProp
-            if (!nbtItem.hasKey("weaponDamage") || nbtItem.getDouble("weaponDamage")!! != damage) nbtItem.setDouble("weaponDamage", damage)
+            if (!nbtItem.hasKey("weaponDamage") || nbtItem.getDouble("weaponDamage")!! != damage) nbtItem.setDouble(
+                "weaponDamage",
+                damage
+            )
             this.item = nbtItem.item
         }
 
@@ -49,14 +54,24 @@ class TestSword(override var item: ItemStack) : CustomWeapon() {
     }
 
     init {
+        rarity = Rarity.getFromInt(quality)
         val nbtItem = NBTItem(item)
 
         // this is already a custom item and not a new item, so set our custom test props and fix the default properties
         if (nbtItem.hasKey("customItem")) {
             // fix default properties
-            if (!nbtItem.hasKey("itemName") || nbtItem.getString("itemName") != name) nbtItem.setString("itemName", name)
-            if (!nbtItem.hasKey("itemRarity") || Rarity.valueOf(nbtItem.getString("itemRarity")) != rarity) nbtItem.setString("itemRarity", rarity.toString())
-            if (!nbtItem.hasKey("itemLevelRequirement") || nbtItem.getInteger("itemLevelRequirement") != levelRequirement) nbtItem.setInteger("itemLevelRequirement", levelRequirement)
+            if (!nbtItem.hasKey("itemName") || nbtItem.getString("itemName") != name) nbtItem.setString(
+                "itemName",
+                name
+            )
+            if (!nbtItem.hasKey("itemRarity") || Rarity.valueOf(nbtItem.getString("itemRarity")) != rarity) nbtItem.setString(
+                "itemRarity",
+                rarity.toString()
+            )
+            if (!nbtItem.hasKey("itemLevelRequirement") || nbtItem.getInteger("itemLevelRequirement") != levelRequirement) nbtItem.setInteger(
+                "itemLevelRequirement",
+                levelRequirement
+            )
 
             // get stat gem
             if (nbtItem.hasKey("itemStatGem") || nbtItem.getString("itemStatGem") !== "false") {
@@ -69,7 +84,7 @@ class TestSword(override var item: ItemStack) : CustomWeapon() {
                         val newStatGem = StatGem(statGemType, it)
                         statGem = newStatGem
                     }
-                } catch(e: Exception) {
+                } catch (e: Exception) {
                     nbtItem.setString("itemStatGem", "false")
                 }
             }
@@ -86,7 +101,7 @@ class TestSword(override var item: ItemStack) : CustomWeapon() {
             nbtItem.setString("itemName", name)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "TestSword")
+            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.TestSword")
 
             // setting item specific properties (done first because damage depends on myProp)
             if (nbtItem.hasKey("testSwordMyProp")) myProp = nbtItem.getInteger("testSwordMyProp")
