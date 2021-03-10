@@ -24,6 +24,7 @@ class TestSword(override var item: ItemStack, override val quality: Int) : Custo
 
     // equipment properties
     override var statGem: StatGem? = null
+    override val baseStats: HashMap<StatTypes, Double> = hashMapOf(StatTypes.STRENGTH to 10.0)
 
     // weapon properties
     override val damage: Double

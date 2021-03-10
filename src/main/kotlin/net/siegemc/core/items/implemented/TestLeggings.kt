@@ -23,6 +23,7 @@ class TestLeggings(override var item: ItemStack, override val quality: Int) : Cu
 
     // equipment properties
     override var statGem: StatGem? = null
+    override val baseStats: HashMap<StatTypes, Double> = hashMapOf(StatTypes.HEALTH to 70.0)
 
     // armor properties
 

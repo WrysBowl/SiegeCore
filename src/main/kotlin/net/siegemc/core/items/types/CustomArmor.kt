@@ -5,8 +5,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 abstract class CustomArmor : CustomEquipment() {
     override val type: ItemTypes = ItemTypes.ARMOR
 
-    abstract fun onHit(e: EntityDamageByEntityEvent)
-
-
+    open fun onHit(e: EntityDamageByEntityEvent) {
+        // does nothing lol
+    }
 
 }

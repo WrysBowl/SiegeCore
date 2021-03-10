@@ -22,6 +22,7 @@ class TestBoots(override var item: ItemStack, override val quality: Int) : Custo
 
     // equipment properties
     override var statGem: StatGem? = null
+    override val baseStats: HashMap<StatTypes, Double> = hashMapOf(StatTypes.HEALTH to 50.0)
 
     // armor properties
 

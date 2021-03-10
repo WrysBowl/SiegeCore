@@ -6,6 +6,7 @@ enum class Rarity(val id: String, val color: String) {
     RARE("Rare", "<blue>"),
     EPIC("Epic", "<dark_purple>"),
     LEGENDARY("Legendary", "<gold>"),
+    SPECIAL("Special", "<rainbow>"),
     DEBUG("Debug", "<red>");
 
     companion object {
@@ -23,6 +24,7 @@ enum class Rarity(val id: String, val color: String) {
                 in 60..79 -> RARE
                 in 80..94 -> EPIC
                 in 95..100 -> LEGENDARY
+                in 101..150 -> SPECIAL
                 else -> DEBUG
             }
         }

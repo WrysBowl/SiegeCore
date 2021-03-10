@@ -11,7 +11,9 @@ abstract class CustomWeapon : CustomEquipment() {
 
     abstract val damage: Double
 
-    abstract fun onHit(e: EntityDamageByEntityEvent)
+    open fun onHit(e: EntityDamageByEntityEvent) {
+        // does nothing lol
+    }
 
 
 }

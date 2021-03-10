@@ -23,6 +23,7 @@ class TestHelmet(override var item: ItemStack, override val quality: Int) : Cust
 
     // equipment properties
     override var statGem: StatGem? = null
+    override val baseStats: HashMap<StatTypes, Double> = hashMapOf(StatTypes.HEALTH to 60.0)
 
     // armor properties
 
