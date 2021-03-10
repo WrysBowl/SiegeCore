@@ -9,7 +9,7 @@ import net.siegemc.core.items.listeners.CustomItemKotlinListener;
 import net.siegemc.core.items.CustomShapedRecipe;
 import net.siegemc.core.items.CustomShapelessRecipe;
 import net.siegemc.core.items.Recipes;
-import net.siegemc.core.items.implemented.TestSword;
+import net.siegemc.core.items.implemented.equipment.weapons.melee.TestSword;
 import net.siegemc.core.listeners.*;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartyCommand;
@@ -18,9 +18,7 @@ import net.siegemc.core.utils.DbManager;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;

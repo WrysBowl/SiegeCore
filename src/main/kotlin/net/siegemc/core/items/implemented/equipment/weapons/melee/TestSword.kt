@@ -1,17 +1,17 @@
-package net.siegemc.core.items.implemented
+package net.siegemc.core.items.implemented.equipment.weapons.melee
 
 import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.Rarity
 import net.siegemc.core.items.StatGem
 import net.siegemc.core.items.StatTypes
-import net.siegemc.core.items.types.CustomWeapon
+import net.siegemc.core.items.types.equipment.weapons.CustomMeleeWeapon
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.inventory.ItemStack
 
 
-class TestSword(override var item: ItemStack, override val quality: Int) : CustomWeapon() {
+class TestSword(override var item: ItemStack, override val quality: Int) : CustomMeleeWeapon() {
 
     constructor(quality: Int) : this(ItemStack(Material.DIAMOND_SWORD), quality)
 
@@ -20,7 +20,7 @@ class TestSword(override var item: ItemStack, override val quality: Int) : Custo
     override var rarity: Rarity = Rarity.DEBUG
     override val levelRequirement: Int = 0
     override val material: Material = Material.DIAMOND_SWORD
-    override val description: List<String> = listOf("A powerful sword")
+    override val description: List<String> = listOf("A test sword!")
 
     // equipment properties
     override var statGem: StatGem? = null
@@ -29,6 +29,7 @@ class TestSword(override var item: ItemStack, override val quality: Int) : Custo
     // weapon properties
     override val damage: Double
         get() = myProp * 2.0
+    override val attackSpeed: Double = 1.7
 
     // item specific properties
     private var myProp: Int = 10
@@ -100,9 +101,10 @@ class TestSword(override var item: ItemStack, override val quality: Int) : Custo
             // setting default item properties
             nbtItem.setBoolean("customItem", true)
             nbtItem.setString("itemName", name)
+            nbtItem.setString("itemType", type.stylizedName)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.TestSword")
+            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.equipment.weapons.melee.TestSword")
 
             // setting item specific properties (done first because damage depends on myProp)
             if (nbtItem.hasKey("testSwordMyProp")) myProp = nbtItem.getInteger("testSwordMyProp")
@@ -116,6 +118,8 @@ class TestSword(override var item: ItemStack, override val quality: Int) : Custo
         }
 
         item = nbtItem.item
+
+        updateMeta()
 
     }
 }

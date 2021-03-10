@@ -1,10 +1,10 @@
-package net.siegemc.core.items.implemented
+package net.siegemc.core.items.implemented.equipment.armor.chestplates
 
 import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.Rarity
 import net.siegemc.core.items.StatGem
 import net.siegemc.core.items.StatTypes
-import net.siegemc.core.items.types.CustomChestplate
+import net.siegemc.core.items.types.equipment.armor.CustomChestplate
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
@@ -78,14 +78,17 @@ class TestChestplate(override var item: ItemStack, override val quality: Int) : 
             // setting default item properties
             nbtItem.setBoolean("customItem", true)
             nbtItem.setString("itemName", name)
+            nbtItem.setString("itemType", type.stylizedName)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.TestChestplate")
+            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.equipment.armor.chestplates.TestChestplate")
 
 
         }
 
         item = nbtItem.item
+
+        updateMeta()
 
     }
 }

@@ -1,37 +1,38 @@
-package net.siegemc.core.items.implemented
+package net.siegemc.core.items.implemented.equipment.armor.boots
 
 import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.Rarity
 import net.siegemc.core.items.StatGem
 import net.siegemc.core.items.StatTypes
-import net.siegemc.core.items.types.CustomLeggings
+import net.siegemc.core.items.types.equipment.armor.CustomBoots
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.inventory.ItemStack
 
-class TestLeggings(override var item: ItemStack, override val quality: Int) : CustomLeggings() {
+class TestBoots(override var item: ItemStack, override val quality: Int) : CustomBoots() {
 
-    constructor(quality: Int) : this(ItemStack(Material.DIAMOND_LEGGINGS), quality)
+    constructor(quality: Int) : this(ItemStack(Material.DIAMOND_BOOTS), quality)
 
     // default item properties
-    override val name: String = "Test Helmet"
+    override val name: String = "Test Boots"
     override var rarity: Rarity = Rarity.DEBUG
     override val levelRequirement: Int = 0
-    override val material: Material = Material.DIAMOND_LEGGINGS
-    override val description: List<String> = listOf("Test leggings!")
+    override val material: Material = Material.DIAMOND_BOOTS
 
     // equipment properties
     override var statGem: StatGem? = null
-    override val baseStats: HashMap<StatTypes, Double> = hashMapOf(StatTypes.HEALTH to 70.0)
+    override val baseStats: HashMap<StatTypes, Double> = hashMapOf(StatTypes.HEALTH to 50.0)
 
     // armor properties
 
+
     override fun onHit(e: EntityDamageByEntityEvent) {
         if (e.entity is Player) {
-            (e.entity as Player).sendTitle("Leggings Damage", null, 1, 5, 1)
+            (e.entity as Player).sendTitle("Boots Damage", null, 1, 5, 1)
         }
     }
+
 
     init {
         rarity = Rarity.getFromInt(quality)
@@ -78,14 +79,18 @@ class TestLeggings(override var item: ItemStack, override val quality: Int) : Cu
             // setting default item properties
             nbtItem.setBoolean("customItem", true)
             nbtItem.setString("itemName", name)
+            nbtItem.setString("itemType", type.stylizedName)
+            nbtItem.setInteger("itemQuality", quality)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.TestLeggings")
+            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.equipment.armor.boots.TestBoots")
 
 
         }
 
         item = nbtItem.item
+
+        updateMeta()
 
     }
 }

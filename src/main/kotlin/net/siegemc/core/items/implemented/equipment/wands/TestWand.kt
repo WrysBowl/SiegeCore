@@ -1,37 +1,35 @@
-package net.siegemc.core.items.implemented
+package net.siegemc.core.items.implemented.equipment.wands
 
 import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.Rarity
 import net.siegemc.core.items.StatGem
 import net.siegemc.core.items.StatTypes
-import net.siegemc.core.items.types.CustomHelmet
+import net.siegemc.core.items.types.equipment.CustomWand
 import org.bukkit.Material
-import org.bukkit.entity.Player
-import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.inventory.ItemStack
 
-class TestHelmet(override var item: ItemStack, override val quality: Int) : CustomHelmet() {
+class TestWand(override var item: ItemStack, override val quality: Int) : CustomWand() {
 
-    constructor(quality: Int) : this(ItemStack(Material.DIAMOND_HELMET), quality)
+    constructor(quality: Int) : this(ItemStack(Material.STICK), quality)
 
     // default item properties
-    override val name: String = "Test Helmet"
+    override val name: String = "Test Wand"
     override var rarity: Rarity = Rarity.DEBUG
     override val levelRequirement: Int = 0
-    override val material: Material = Material.DIAMOND_HELMET
-    override val description: List<String> = listOf("A test helmet!")
+    override val material: Material = Material.STICK
+    override val description: List<String> = listOf("A test wand!")
 
     // equipment properties
     override var statGem: StatGem? = null
-    override val baseStats: HashMap<StatTypes, Double> = hashMapOf(StatTypes.HEALTH to 60.0)
+    override val baseStats: HashMap<StatTypes, Double> = hashMapOf(StatTypes.STRENGTH to 50.0)
 
-    // armor properties
-
-    override fun onHit(e: EntityDamageByEntityEvent) {
-        if (e.entity is Player) {
-            (e.entity as Player).sendTitle("Helmet Damage", null, 1, 5, 1)
-        }
-    }
+    // wand properties
+    override val range: Int = 15
+    override val red: Int = 100
+    override val green: Int = 100
+    override val blue: Int = 100
+    override val damageRadius: Double = 3.5
+    override val manaRequired: Int = 2
 
     init {
         rarity = Rarity.getFromInt(quality)
@@ -53,21 +51,6 @@ class TestHelmet(override var item: ItemStack, override val quality: Int) : Cust
                 levelRequirement
             )
 
-            // get stat gem
-            if (nbtItem.hasKey("itemStatGem") || nbtItem.getString("itemStatGem") !== "false") {
-                val statGemStr = nbtItem.getString("itemStatGem")
-                val statGemArr = statGemStr.split('|')
-                try {
-                    val statGemType = StatTypes.valueOf(statGemArr[0])
-                    val statGemAmount = statGemArr[1].toDoubleOrNull()
-                    statGemAmount?.let {
-                        val newStatGem = StatGem(statGemType, it)
-                        statGem = newStatGem
-                    }
-                } catch (e: Exception) {
-                    nbtItem.setString("itemStatGem", "false")
-                }
-            }
 
             // get our item specific properties
 
@@ -78,14 +61,23 @@ class TestHelmet(override var item: ItemStack, override val quality: Int) : Cust
             // setting default item properties
             nbtItem.setBoolean("customItem", true)
             nbtItem.setString("itemName", name)
+            nbtItem.setString("itemType", type.stylizedName)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.TestHelmet")
+            nbtItem.setInteger("wandRange", range)
+            nbtItem.setInteger("wandRed", red)
+            nbtItem.setInteger("wandGreen", green)
+            nbtItem.setInteger("wandBlue", blue)
+            nbtItem.setDouble("wandDamageRadius", damageRadius)
+            nbtItem.setInteger("wandManaRequired", manaRequired)
+            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.equipment.wands.TestWand")
 
 
         }
 
         item = nbtItem.item
+
+        updateMeta()
 
     }
 }

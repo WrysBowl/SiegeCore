@@ -1,36 +1,29 @@
-package net.siegemc.core.items.implemented
+package net.siegemc.core.items.implemented.food
 
 import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.Rarity
-import net.siegemc.core.items.StatGem
-import net.siegemc.core.items.StatTypes
-import net.siegemc.core.items.types.CustomBoots
+import net.siegemc.core.items.types.CustomFood
 import org.bukkit.Material
-import org.bukkit.entity.Player
-import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.inventory.ItemStack
 
-class TestBoots(override var item: ItemStack, override val quality: Int) : CustomBoots() {
+class TestSteak(override var item: ItemStack, override val quality: Int) : CustomFood() {
 
-    constructor(quality: Int) : this(ItemStack(Material.DIAMOND_BOOTS), quality)
+    constructor(quality: Int) : this(ItemStack(Material.COOKED_BEEF), quality)
 
     // default item properties
-    override val name: String = "Test Boots"
+    override val name: String = "Test Steak"
     override var rarity: Rarity = Rarity.DEBUG
     override val levelRequirement: Int = 0
-    override val material: Material = Material.DIAMOND_BOOTS
+    override val material: Material = Material.COOKED_BEEF
 
-    // equipment properties
-    override var statGem: StatGem? = null
-    override val baseStats: HashMap<StatTypes, Double> = hashMapOf(StatTypes.HEALTH to 50.0)
+    // food properties
+    override val hunger: Int = 5
+    override val health: Int = 2
 
-    // armor properties
-
-
-    override fun onHit(e: EntityDamageByEntityEvent) {
-        if (e.entity is Player) {
-            (e.entity as Player).sendTitle("Boots Damage", null, 1, 5, 1)
-        }
+    override fun onEat(e: PlayerItemConsumeEvent) {
+        super.onEat(e)
+        e.player.sendTitle("You ate food", null, 1, 5, 1)
     }
 
 
@@ -54,21 +47,6 @@ class TestBoots(override var item: ItemStack, override val quality: Int) : Custo
                 levelRequirement
             )
 
-            // get stat gem
-            if (nbtItem.hasKey("itemStatGem") || nbtItem.getString("itemStatGem") !== "false") {
-                val statGemStr = nbtItem.getString("itemStatGem")
-                val statGemArr = statGemStr.split('|')
-                try {
-                    val statGemType = StatTypes.valueOf(statGemArr[0])
-                    val statGemAmount = statGemArr[1].toDoubleOrNull()
-                    statGemAmount?.let {
-                        val newStatGem = StatGem(statGemType, it)
-                        statGem = newStatGem
-                    }
-                } catch (e: Exception) {
-                    nbtItem.setString("itemStatGem", "false")
-                }
-            }
 
             // get our item specific properties
 
@@ -79,15 +57,18 @@ class TestBoots(override var item: ItemStack, override val quality: Int) : Custo
             // setting default item properties
             nbtItem.setBoolean("customItem", true)
             nbtItem.setString("itemName", name)
+            nbtItem.setString("itemType", type.stylizedName)
             nbtItem.setInteger("itemQuality", quality)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.TestBoots")
+            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.food.TestSteak")
 
 
         }
 
         item = nbtItem.item
+
+        updateMeta()
 
     }
 }

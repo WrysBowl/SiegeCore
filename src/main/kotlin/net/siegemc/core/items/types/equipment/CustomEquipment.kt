@@ -1,4 +1,4 @@
-package net.siegemc.core.items.types
+package net.siegemc.core.items.types.equipment
 
 import net.siegemc.core.items.CustomItem
 import net.siegemc.core.items.Rarity
@@ -64,6 +64,6 @@ abstract class CustomEquipment : CustomItem {
         return map
     }
 
-    fun getRarityMultiplier(quality: Int): Double = quality / 100 + 0.5
+    private fun getRarityMultiplier(quality: Int): Double = quality / 100 + 0.5
 
 }
