@@ -83,7 +83,9 @@ class TestBoots(override var item: ItemStack, override val quality: Int) : Custo
             nbtItem.setInteger("itemQuality", quality)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.equipment.armor.boots.TestBoots")
+            nbtItem.setString("itemClass", this::class.qualifiedName)
+
+            nbtItem.setString("equipmentStatGem", if (statGem != null) "${statGem!!.type}|${statGem!!.amount}" else "false")
 
 
         }

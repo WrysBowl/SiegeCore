@@ -19,13 +19,13 @@ abstract class CustomEquipment : CustomItem {
         val newLore = mutableListOf(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$rarity</rainbow> <gray>$quality%" else "${rarity.color}$rarity <gray>$quality%"))
         statGem?.let {
             newLore.add(Utils.parse(" "))
-            newLore.add(Utils.parse("<color:#FF3CFF>+${it.amount} <light_purple>${it.type.id} Gem"))
+            newLore.add(Utils.parse("<color:#FF3CFF>+${it.amount} <light_purple>${it.type.stylizedName} Gem"))
         }
         if (baseStats.size != 0) {
             newLore.add(Utils.parse(" "))
             val realStats = getStats(addGem = false, addRarity = true)
             baseStats.keys.forEach {
-                newLore.add(Utils.parse("<green>+${realStats[it]} <gray>${it.id}"))
+                newLore.add(Utils.parse("<green>+${realStats[it]} <gray>${it.stylizedName}"))
             }
         }
         newLore.add(Utils.parse(" "))

@@ -54,8 +54,8 @@ class TestHelmet(override var item: ItemStack, override val quality: Int) : Cust
             )
 
             // get stat gem
-            if (nbtItem.hasKey("itemStatGem") || nbtItem.getString("itemStatGem") !== "false") {
-                val statGemStr = nbtItem.getString("itemStatGem")
+            if (nbtItem.hasKey("equipmentStatGem") || nbtItem.getString("equipmentStatGem") !== "false") {
+                val statGemStr = nbtItem.getString("equipmentStatGem")
                 val statGemArr = statGemStr.split('|')
                 try {
                     val statGemType = StatTypes.valueOf(statGemArr[0])
@@ -65,7 +65,7 @@ class TestHelmet(override var item: ItemStack, override val quality: Int) : Cust
                         statGem = newStatGem
                     }
                 } catch (e: Exception) {
-                    nbtItem.setString("itemStatGem", "false")
+                    nbtItem.setString("equipmentStatGem", "false")
                 }
             }
 
@@ -81,7 +81,9 @@ class TestHelmet(override var item: ItemStack, override val quality: Int) : Cust
             nbtItem.setString("itemType", type.stylizedName)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.equipment.armor.helmets.TestHelmet")
+            nbtItem.setString("itemClass", this::class.qualifiedName)
+
+            nbtItem.setString("equipmentStatGem", if (statGem != null) "${statGem!!.type}|${statGem!!.amount}" else "false")
 
 
         }

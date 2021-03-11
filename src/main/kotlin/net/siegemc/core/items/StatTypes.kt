@@ -1,9 +1,18 @@
 package net.siegemc.core.items
 
-enum class StatTypes(val id: String) {
+enum class StatTypes(val stylizedName: String) {
     STRENGTH("Strength"),
     TOUGHNESS("Toughness"),
     HEALTH("Health"),
     LUCK("Luck"),
     REGENERATION("Regeneration");
+
+    companion object {
+        fun getFromId(id: String?): StatTypes? {
+            for (statType in values()) {
+                if (statType.stylizedName.equals(id, ignoreCase = true)) return statType
+            }
+            return null
+        }
+    }
 }

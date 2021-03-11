@@ -61,7 +61,7 @@ class TestSteak(override var item: ItemStack, override val quality: Int) : Custo
             nbtItem.setInteger("itemQuality", quality)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.food.TestSteak")
+            nbtItem.setString("itemClass", this::class.qualifiedName)
 
 
         }

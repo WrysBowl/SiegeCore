@@ -19,6 +19,10 @@ object CustomItemUtils {
     fun getCustomItem(item: ItemStack): CustomItem? {
         val nbtItem = NBTItem(item)
         return if (nbtItem.hasKey("itemClass")) {
+            val type = nbtItem.getString("itemType")
+            if (type.equals("Stat Gem")) {
+                val statAmount = nbtItem.getString("statGemAmount")
+            }
             try {
                 val className = nbtItem.getString("itemClass")
                 val clazz = Class.forName(className)

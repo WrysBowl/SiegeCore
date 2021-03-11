@@ -104,7 +104,9 @@ class TestSword(override var item: ItemStack, override val quality: Int) : Custo
             nbtItem.setString("itemType", type.stylizedName)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.equipment.weapons.melee.TestSword")
+            nbtItem.setString("itemClass", this::class.qualifiedName)
+
+            nbtItem.setString("equipmentStatGem", if (statGem != null) "${statGem!!.type}|${statGem!!.amount}" else "false")
 
             // setting item specific properties (done first because damage depends on myProp)
             if (nbtItem.hasKey("testSwordMyProp")) myProp = nbtItem.getInteger("testSwordMyProp")
@@ -113,6 +115,8 @@ class TestSword(override var item: ItemStack, override val quality: Int) : Custo
                 nbtItem.setInteger("testSwordMyProp", myProp)
                 nbtItem.setDouble("weaponDamage", damage)
             }
+
+
 
 
         }

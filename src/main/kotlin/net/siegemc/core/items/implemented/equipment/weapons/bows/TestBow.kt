@@ -85,9 +85,11 @@ class TestBow(override var item: ItemStack, override val quality: Int) : CustomB
             nbtItem.setString("itemType", type.stylizedName)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.equipment.weapons.bows.TestBow")
+            nbtItem.setString("itemClass", this::class.qualifiedName)
 
             nbtItem.setDouble("weaponDamage", damage)
+
+            nbtItem.setString("equipmentStatGem", if (statGem != null) "${statGem!!.type}|${statGem!!.amount}" else "false")
 
 
 

@@ -81,7 +81,9 @@ class TestLeggings(override var item: ItemStack, override val quality: Int) : Cu
             nbtItem.setString("itemType", type.stylizedName)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.equipment.armor.leggings.TestLeggings")
+            nbtItem.setString("itemClass", this::class.qualifiedName)
+
+            nbtItem.setString("equipmentStatGem", if (statGem != null) "${statGem!!.type}|${statGem!!.amount}" else "false")
 
 
         }

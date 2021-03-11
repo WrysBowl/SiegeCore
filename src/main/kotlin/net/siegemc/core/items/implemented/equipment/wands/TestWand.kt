@@ -70,7 +70,9 @@ class TestWand(override var item: ItemStack, override val quality: Int) : Custom
             nbtItem.setInteger("wandBlue", blue)
             nbtItem.setDouble("wandDamageRadius", damageRadius)
             nbtItem.setInteger("wandManaRequired", manaRequired)
-            nbtItem.setString("itemClass", "net.siegemc.core.items.implemented.equipment.wands.TestWand")
+            nbtItem.setString("itemClass", this::class.qualifiedName)
+
+            nbtItem.setString("equipmentStatGem", if (statGem != null) "${statGem!!.type}|${statGem!!.amount}" else "false")
 
 
         }

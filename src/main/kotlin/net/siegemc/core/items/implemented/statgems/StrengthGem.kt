@@ -1,37 +1,35 @@
-package net.siegemc.core.items.implemented.equipment.armor.chestplates
+package net.siegemc.core.items.implemented.statgems
 
 import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.Rarity
-import net.siegemc.core.items.StatGem
 import net.siegemc.core.items.StatTypes
-import net.siegemc.core.items.types.equipment.armor.CustomChestplate
+import net.siegemc.core.items.types.StatGemItem
 import org.bukkit.Material
-import org.bukkit.entity.Player
-import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.inventory.ItemStack
 
-class TestChestplate(override var item: ItemStack, override val quality: Int) : CustomChestplate() {
+class StrengthGem(override var item: ItemStack, override val quality: Int, override var statAmount: Double) : StatGemItem() {
 
-    constructor(quality: Int) : this(ItemStack(Material.DIAMOND_CHESTPLATE), quality)
+    constructor(quality: Int, statAmount: Double) : this(ItemStack(Material.POPPED_CHORUS_FRUIT), quality, statAmount)
+
+    constructor(item: ItemStack) {
+        val nbtItem = NBTItem(item)
+        val nbtQuality = nbtItem.getString("itemQuality")
+        val nbtType = nbtItem.getString("amou")
+        val newQuality = if (nbtItem.hasKey(""))
+        this()
+    }
 
     // default item properties
-    override val name: String = "Test Chestplate"
+    override val name: String = "Strength Gem"
     override var rarity: Rarity = Rarity.DEBUG
     override val levelRequirement: Int = 0
-    override val material: Material = Material.DIAMOND_CHESTPLATE
-    override val description: List<String> = listOf("A test chestplate!")
+    override val material: Material = Material.POPPED_CHORUS_FRUIT
 
-    // equipment properties
-    override var statGem: StatGem? = null
-    override val baseStats: HashMap<StatTypes, Double> = hashMapOf(StatTypes.HEALTH to 80.0)
+    // food properties
+    override val statType = StatTypes.STRENGTH
+//    override var statAmount: Double = 0.0
 
-    // armor properties
 
-    override fun onHit(e: EntityDamageByEntityEvent) {
-        if (e.entity is Player) {
-            (e.entity as Player).sendTitle("Chestplate Damage", null, 1, 5, 1)
-        }
-    }
 
     init {
         rarity = Rarity.getFromInt(quality)
@@ -53,21 +51,6 @@ class TestChestplate(override var item: ItemStack, override val quality: Int) : 
                 levelRequirement
             )
 
-            // get stat gem
-            if (nbtItem.hasKey("itemStatGem") || nbtItem.getString("itemStatGem") !== "false") {
-                val statGemStr = nbtItem.getString("itemStatGem")
-                val statGemArr = statGemStr.split('|')
-                try {
-                    val statGemType = StatTypes.valueOf(statGemArr[0])
-                    val statGemAmount = statGemArr[1].toDoubleOrNull()
-                    statGemAmount?.let {
-                        val newStatGem = StatGem(statGemType, it)
-                        statGem = newStatGem
-                    }
-                } catch (e: Exception) {
-                    nbtItem.setString("itemStatGem", "false")
-                }
-            }
 
             // get our item specific properties
 
@@ -79,11 +62,13 @@ class TestChestplate(override var item: ItemStack, override val quality: Int) : 
             nbtItem.setBoolean("customItem", true)
             nbtItem.setString("itemName", name)
             nbtItem.setString("itemType", type.stylizedName)
+            nbtItem.setInteger("itemQuality", quality)
             nbtItem.setString("itemRarity", rarity.toString())
             nbtItem.setInteger("itemLevelRequirement", levelRequirement)
             nbtItem.setString("itemClass", this::class.qualifiedName)
 
-            nbtItem.setString("equipmentStatGem", if (statGem != null) "${statGem!!.type}|${statGem!!.amount}" else "false")
+            nbtItem.setString("statGemType", statType.stylizedName)
+            nbtItem.setDouble("statGemAmount", statAmount)
 
 
         }
