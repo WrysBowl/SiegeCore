@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class JoinEvents implements Listener {
+public class Join implements Listener {
     @EventHandler
     public void connectEvent(AsyncPlayerPreLoginEvent e) {
         new BukkitRunnable() { // We create a runnable to run asynchronously (on another thread, not the main one, so that the server won't lag if this one does)

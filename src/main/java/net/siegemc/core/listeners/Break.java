@@ -1,7 +1,7 @@
 package net.siegemc.core.listeners;
 
 import net.siegemc.core.Core;
-import net.siegemc.core.items.ItemLibrary.Drops;
+import net.siegemc.core.items.DropTable.BlockDrops;
 import net.siegemc.core.utils.Levels;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 
 
 
-public class BreakEvents implements Listener {
+public class Break implements Listener {
 
     @EventHandler
     public void breakEvent(BlockBreakEvent e) {
@@ -27,14 +27,14 @@ public class BreakEvents implements Listener {
 
         if (player.getGameMode() == GameMode.CREATIVE) { return; }
 
-        if (Drops.checkAllDrops(block) == null) {
+        if (BlockDrops.checkAllDrops(block) == null) {
             e.setCancelled(true);
             return;
         }
 
         e.setDropItems(false);
 
-        Drops dropTable = new Drops();
+        BlockDrops dropTable = new BlockDrops();
         dropTable.giveBlockDrops(block, player);
         Short expReward = dropTable.getExpReward();
 

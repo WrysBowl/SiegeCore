@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class HelperCustomCraftingEvents implements Listener {
+public class InventoryClose implements Listener {
     @EventHandler
     public void onCraftingInventoryClick(InventoryCloseEvent e) { //Removes the invOpened metadata when player closes their inventory so they can click GUIs again
         if (e.getPlayer().hasMetadata("invOpened")) {

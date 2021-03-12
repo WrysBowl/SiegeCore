@@ -1,7 +1,6 @@
 package net.siegemc.core.items;
 
 import net.siegemc.core.items.ItemLibrary.Items;
-import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -34,15 +33,15 @@ public class Recipes {
         // Load all upgrade recipes for the reagent
         // i in addition to being used as the loop iterator is also used as the tier
         for (Integer i = 1; i < 5; i++) {
-            craftingGrid.add(Items.searchItemLibrary(reagent, i, 8));
-            result = Items.searchItemLibrary(reagent, (i + 1), 1);
+            craftingGrid.add(Items.searchMaterialLibrary(reagent, i, 8));
+            result = Items.searchMaterialLibrary(reagent, (i + 1), 1);
             shapelessRecipes.add(new CustomShapelessRecipe(new ArrayList(craftingGrid), result));
             craftingGrid.clear();
         }
         // Load all dismantle recipes for the reagent
         for (Integer i = 2; i < 6; i++) {
-            craftingGrid.add(Items.searchItemLibrary(reagent, i, 1));
-            result = Items.searchItemLibrary(reagent, i - 1, 4);
+            craftingGrid.add(Items.searchMaterialLibrary(reagent, i, 1));
+            result = Items.searchMaterialLibrary(reagent, i - 1, 4);
             shapelessRecipes.add(new CustomShapelessRecipe(new ArrayList(craftingGrid), result));
             craftingGrid.clear();
         }
