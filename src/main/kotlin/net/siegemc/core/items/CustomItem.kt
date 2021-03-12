@@ -16,6 +16,7 @@ abstract class CustomItem {
     open var rarity: Rarity = Rarity.getFromInt(quality)
 
     abstract val name: String
+    abstract val customModelData: Int
     abstract val levelRequirement: Int
     abstract val description: List<String>
     abstract val type: ItemTypes
@@ -34,11 +35,15 @@ abstract class CustomItem {
         nbtItem.setString("itemName", name)
         nbtItem.setString("itemType", type.toString())
         nbtItem.setInteger("itemQuality", quality)
+        nbtItem.setInteger("custom", quality)
         nbtItem.setString("itemRarity", rarity.toString())
         nbtItem.setInteger("itemLevelRequirement", levelRequirement)
         nbtItem.setString("itemClass", this::class.qualifiedName)
 
         item = nbtItem.item
+        val meta = item.itemMeta
+        meta.setCustomModelData(customModelData)
+        item.itemMeta = meta
         return nbtItem
     }
 

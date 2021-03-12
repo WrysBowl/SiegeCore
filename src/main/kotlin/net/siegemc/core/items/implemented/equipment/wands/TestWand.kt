@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack
 
 class TestWand @Deprecated("Specify quality") constructor() : CustomWand(
     name = "Test Wand",
+    customModelData = 1,
     description = listOf("A wand for testing"),
     levelRequirement = 0,
     material = Material.STICK,

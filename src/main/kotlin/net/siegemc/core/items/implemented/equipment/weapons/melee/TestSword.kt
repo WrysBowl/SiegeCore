@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack
 
 class TestSword @Deprecated("Specify quality") constructor() : CustomMeleeWeapon(
     name = "Test Sword",
+    customModelData = 1,
     description = listOf("A sword for testing"),
     levelRequirement = 0,
     material = Material.DIAMOND_SWORD,

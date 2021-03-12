@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack
 
 class TestHelmet @Deprecated("Specify quality") constructor() : CustomHelmet(
     name = "Test Helmet",
+    customModelData = 1,
     description = listOf("Helmet for testing"),
     levelRequirement = 0,
     material = Material.DIAMOND_HELMET,

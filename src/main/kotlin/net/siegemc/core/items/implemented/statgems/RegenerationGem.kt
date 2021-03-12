@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack
 
 class RegenerationGem @Deprecated("Specify quality") constructor() : StatGemType(
     name = "Regeneration Gem",
+    customModelData = 1,
     description = listOf("A powerful gem"),
     levelRequirement = 0,
     material = Material.POPPED_CHORUS_FRUIT,

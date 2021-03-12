@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack
 
 class ToughnessGem @Deprecated("Specify quality") constructor() : StatGemType(
     name = "Toughness Gem",
+    customModelData = 1,
     description = listOf("A powerful gem"),
     levelRequirement = 0,
     material = Material.POPPED_CHORUS_FRUIT,

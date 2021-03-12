@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack
 
 class TestChestplate @Deprecated("Specify quality") constructor() : CustomChestplate(
     name = "Test Chestplate",
+    customModelData = 1,
     description = listOf("Chestplate for testing"),
     levelRequirement = 0,
     material = Material.DIAMOND_CHESTPLATE,

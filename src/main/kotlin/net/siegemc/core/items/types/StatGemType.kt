@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta
 
 abstract class StatGemType(
     final override val name: String,
+    final override val customModelData: Int,
     final override val description: List<String>,
     final override val levelRequirement: Int,
     final override val material: Material,

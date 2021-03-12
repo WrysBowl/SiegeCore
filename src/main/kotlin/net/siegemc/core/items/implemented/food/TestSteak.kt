@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack
 
 class TestSteak @Deprecated("Specify quality") constructor() : CustomFood(
     name = "Test Steak",
+    customModelData = 1,
     description = listOf("Food for testing"),
     levelRequirement = 0,
     material = Material.COOKED_BEEF,

@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack
 
 class TestLeggings @Deprecated("Specify quality") constructor() : CustomLeggings(
     name = "Test Leggings",
+    customModelData = 1,
     description = listOf("Boots for testing"),
     levelRequirement = 0,
     material = Material.DIAMOND_LEGGINGS,

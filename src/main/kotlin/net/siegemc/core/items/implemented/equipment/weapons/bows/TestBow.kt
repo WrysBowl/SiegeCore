@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack
 
 class TestBow @Deprecated("Specify quality") constructor() : CustomBow(
     name = "Test Bow",
+    customModelData = 1,
     description = listOf("A bow for testing"),
     levelRequirement = 0,
     material = Material.BOW,
