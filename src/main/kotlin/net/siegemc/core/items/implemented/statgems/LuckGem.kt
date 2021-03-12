@@ -25,6 +25,12 @@ class LuckGem @Deprecated("Specify quality") constructor() : StatGemType(
         this.quality = quality
     }
 
+    @Suppress("DEPRECATION")
+    constructor(quality: Int, statAmount: Double): this() {
+        this.quality = quality
+        this.statAmount = statAmount
+    }
+
     init {
         serialize()
         updateMeta()

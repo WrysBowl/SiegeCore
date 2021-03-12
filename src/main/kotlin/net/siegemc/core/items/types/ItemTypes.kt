@@ -15,7 +15,8 @@ enum class ItemTypes(val stylizedName: String, val clazz: KClass<out CustomItem>
     BOOTS("Boots", CustomBoots::class),
     WAND("Wand", CustomWand::class),
     FOOD("Food", CustomFood::class),
-    STATGEM("Stat Gem", StatGemType::class);
+    STATGEM("Stat Gem", StatGemType::class),
+    MATERIAL("Material", CustomMaterial::class);
 
     companion object {
         fun getFromId(id: String?): ItemTypes? {
