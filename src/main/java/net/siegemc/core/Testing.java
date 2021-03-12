@@ -1,5 +1,6 @@
 package net.siegemc.core;
 
+import net.siegemc.core.items.CustomItemUtils;
 import net.siegemc.core.items.implemented.equipment.weapons.melee.TestSword;
 import org.junit.Test;
 
@@ -17,6 +18,10 @@ public class Testing {
 
         testSword.getItem();
         // You can then get the ItemStack
+
+        CustomItemUtils.INSTANCE.getCustomItem(testSword.getItem());
+        // This function is used to get the custom item of an itemstack. Make sure to wrap this in try/catch or it will
+        // throw an NPE. The INSTANCE is because this is pepega java and that's a kotlin object.
     }
 }
 
