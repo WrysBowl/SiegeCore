@@ -5,11 +5,10 @@ import net.siegemc.core.dungeons.DungeonConfig;
 import net.siegemc.core.items.CreateItems.CustomItem;
 import net.siegemc.core.items.CreateItems.ItemConfig;
 import net.siegemc.core.items.CreateItems.SpawnItemCommand;
-import net.siegemc.core.items.listeners.CustomItemKotlinListener;
 import net.siegemc.core.items.CustomShapedRecipe;
 import net.siegemc.core.items.CustomShapelessRecipe;
 import net.siegemc.core.items.Recipes;
-import net.siegemc.core.items.implemented.equipment.weapons.melee.TestSword;
+import net.siegemc.core.items.listeners.CustomItemKotlinListener;
 import net.siegemc.core.listeners.*;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartyCommand;
@@ -36,11 +35,6 @@ public final class Core extends JavaPlugin {
     @SuppressWarnings({"ResultOfMethodCallIgnored", "ConstantConditions"})
     @Override
     public void onEnable() {
-
-
-        TestSword testSword = new TestSword(101);
-        testSword.getItem();
-        // how to get a custom item ^
 
         // Initialize
         spawnLocation = new Location(Bukkit.getWorld("SiegeHub"), 70.5, 71, 3.5, 90, 0);

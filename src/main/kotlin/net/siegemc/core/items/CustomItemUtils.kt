@@ -1,28 +1,15 @@
 package net.siegemc.core.items
 
 import de.tr7zw.nbtapi.NBTItem
-import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import java.lang.reflect.Constructor
 
 
 object CustomItemUtils {
 
-    val materials = hashMapOf<String, Material>(
-        "TestSword" to Material.DIAMOND_SWORD,
-        "TestBoots" to Material.DIAMOND_BOOTS,
-        "TestChestplate" to Material.DIAMOND_CHESTPLATE,
-        "TestLeggings" to Material.DIAMOND_LEGGINGS,
-        "TestHelmet" to Material.DIAMOND_HELMET,
-    )
-
     fun getCustomItem(item: ItemStack): CustomItem? {
         val nbtItem = NBTItem(item)
         return if (nbtItem.hasKey("itemClass")) {
-            val type = nbtItem.getString("itemType")
-            if (type.equals("Stat Gem")) {
-                val statAmount = nbtItem.getString("statGemAmount")
-            }
             try {
                 val className = nbtItem.getString("itemClass")
                 val clazz = Class.forName(className)
@@ -37,5 +24,21 @@ object CustomItemUtils {
             null
         }
 
+    }
+
+    fun statMap(
+        strength: Double? = null,
+        regeneration: Double? = null,
+        toughness: Double? = null,
+        health: Double? = null,
+        luck: Double? = null
+    ): HashMap<StatTypes, Double> {
+        val map = hashMapOf<StatTypes, Double>()
+        strength?.let { map[StatTypes.STRENGTH] = it }
+        regeneration?.let { map[StatTypes.REGENERATION] = it }
+        toughness?.let { map[StatTypes.TOUGHNESS] = it }
+        health?.let { map[StatTypes.HEALTH] = it }
+        luck?.let { map[StatTypes.LUCK] = it }
+        return map
     }
 }

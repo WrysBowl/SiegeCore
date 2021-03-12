@@ -1,22 +1,26 @@
 package net.siegemc.core.items.types.equipment
 
+import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.CustomItem
 import net.siegemc.core.items.Rarity
 import net.siegemc.core.items.StatGem
 import net.siegemc.core.items.StatTypes
 import net.siegemc.core.utils.Utils
 import org.bukkit.inventory.ItemFlag
+import org.bukkit.inventory.meta.ItemMeta
 
-abstract class CustomEquipment : CustomItem {
-    abstract var statGem: StatGem?
+abstract class CustomEquipment : CustomItem() {
+
+    open var statGem: StatGem? = null
     abstract val baseStats: HashMap<StatTypes, Double>
 
-    override fun updateMeta() {
-        val meta = item.itemMeta ?: return
+    override fun updateMeta(): ItemMeta {
+        val meta = item.itemMeta
 
         meta.displayName(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$name</rainbow>" else "${rarity.color}$name"))
 
-        val newLore = mutableListOf(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$rarity</rainbow> <gray>$quality%" else "${rarity.color}$rarity <gray>$quality%"))
+        val newLore =
+            mutableListOf(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$rarity</rainbow> <gray>$quality%" else "${rarity.color}$rarity <gray>$quality%"))
         statGem?.let {
             newLore.add(Utils.parse(" "))
             newLore.add(Utils.parse("<color:#FF3CFF>+${it.amount} <light_purple>${it.type.stylizedName} Gem"))
@@ -38,6 +42,16 @@ abstract class CustomEquipment : CustomItem {
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE)
         item.itemMeta = meta
+        return meta
+    }
+
+    override fun serialize(): NBTItem {
+        val nbtItem = super.serialize()
+
+        nbtItem.setString("equipmentStatGem", if (statGem != null) statGem!!.toString() else "false")
+
+        item = nbtItem.item
+        return nbtItem
     }
 
 
@@ -64,6 +78,6 @@ abstract class CustomEquipment : CustomItem {
         return map
     }
 
-    private fun getRarityMultiplier(quality: Int): Double = quality / 100 + 0.5
+    open fun getRarityMultiplier(quality: Int): Double = quality / 100 + 0.5
 
 }

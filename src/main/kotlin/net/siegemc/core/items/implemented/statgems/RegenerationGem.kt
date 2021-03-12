@@ -5,12 +5,12 @@ import net.siegemc.core.items.types.StatGemType
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
-class StrengthGem @Deprecated("Specify quality") constructor() : StatGemType(
-    name = "Strength Gem",
+class RegenerationGem @Deprecated("Specify quality") constructor() : StatGemType(
+    name = "Regeneration Gem",
     description = listOf("A powerful gem"),
     levelRequirement = 0,
     material = Material.POPPED_CHORUS_FRUIT,
-    statType = StatTypes.STRENGTH
+    statType = StatTypes.REGENERATION
 ) {
 
     @Suppress("DEPRECATION")

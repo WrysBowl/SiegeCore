@@ -1,7 +1,7 @@
 package net.siegemc.core.items.types.equipment.armor
 
-import net.siegemc.core.items.types.equipment.CustomEquipment
 import net.siegemc.core.items.types.ItemTypes
+import net.siegemc.core.items.types.equipment.CustomEquipment
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 abstract class CustomArmor : CustomEquipment() {

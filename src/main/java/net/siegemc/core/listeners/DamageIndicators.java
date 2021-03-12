@@ -5,7 +5,6 @@ import net.siegemc.core.utils.InvisibleArmorStand;
 import net.siegemc.core.utils.NBT;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Arrow;

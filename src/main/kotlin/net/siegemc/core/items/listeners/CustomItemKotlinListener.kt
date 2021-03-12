@@ -1,9 +1,9 @@
 package net.siegemc.core.items.listeners
 
-import net.siegemc.core.items.types.equipment.weapons.CustomWeapon
 import net.siegemc.core.items.CustomItem
 import net.siegemc.core.items.CustomItemUtils
 import net.siegemc.core.items.types.equipment.armor.CustomArmor
+import net.siegemc.core.items.types.equipment.weapons.CustomMeleeWeapon
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -18,7 +18,7 @@ class CustomItemKotlinListener : Listener {
             val customItem: CustomItem? = CustomItemUtils.getCustomItem(item)
 
             customItem?.let {
-                if (it is CustomWeapon) {
+                if (it is CustomMeleeWeapon) {
                     it.onHit(e)
                 }
             }

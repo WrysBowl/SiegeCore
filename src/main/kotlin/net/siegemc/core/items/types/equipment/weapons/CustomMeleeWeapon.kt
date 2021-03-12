@@ -1,52 +1,43 @@
 package net.siegemc.core.items.types.equipment.weapons
 
-import net.siegemc.core.items.Rarity
+import net.siegemc.core.items.StatTypes
 import net.siegemc.core.items.types.ItemTypes
-import net.siegemc.core.utils.Utils
+import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.inventory.ItemFlag
+import org.bukkit.inventory.meta.ItemMeta
 
-abstract class CustomMeleeWeapon : CustomWeapon() {
+// Up here is the primary constructor, where most of the arguments for the type are listed
+abstract class CustomMeleeWeapon(
+    final override val name: String,
+    final override val description: List<String>,
+    final override val levelRequirement: Int,
+    final override val material: Material,
+    override val baseStats: HashMap<StatTypes, Double>,
+    override val damage: Double,
+    val attackSpeed: Double
+) : CustomWeapon() {
     override val type: ItemTypes = ItemTypes.WEAPON
-    override val description: List<String> = listOf("A powerful melee weapon!")
 
-    abstract val attackSpeed: Double
-
+    // This is an event that can be called by a listener on a custom item. If the custom weapon extends the function, it
+    // will run. If not, it will run this event that does literally nothing.
+    // This is open and not abstract so that all items don't have to extend it.
     open fun onHit(e: EntityDamageByEntityEvent) {
         // does nothing lol
     }
 
-    override fun updateMeta() {
-        val meta = item.itemMeta ?: return
-
-        meta.displayName(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$name</rainbow>" else "${rarity.color}$name"))
-
-        val newLore = mutableListOf(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$rarity</rainbow> <gray>$quality%" else "${rarity.color}$rarity <gray>$quality%"))
-        statGem?.let {
-            newLore.add(Utils.parse(" "))
-            newLore.add(Utils.parse("<color:#FF3CFF>+${it.amount} <light_purple>${it.type.stylizedName} Gem"))
-        }
-        if (baseStats.size != 0) {
-            newLore.add(Utils.parse(" "))
-            val realStats = getStats(addGem = false, addRarity = true)
-            baseStats.keys.forEach {
-                newLore.add(Utils.parse("<green>+${realStats[it]} <gray>${it.stylizedName}"))
-            }
-        }
-        newLore.add(Utils.parse(" "))
-        description.forEach {
-            newLore.add(Utils.parse("<dark_gray>$it"))
-        }
-        newLore.add(Utils.parse(" "))
-        newLore.add(Utils.parse("<gray>Level: $levelRequirement"))
-        meta.lore(newLore)
-
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE)
+    // This function just updates the lore of the item with all the necessary information.
+    // Here we extend and modify the attribute modifier
+    override fun updateMeta(): ItemMeta {
+        val meta = super.updateMeta()
         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED)
-        meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, AttributeModifier("Attack Speed", attackSpeed, AttributeModifier.Operation.ADD_NUMBER))
+        meta.addAttributeModifier(
+            Attribute.GENERIC_ATTACK_SPEED,
+            AttributeModifier("Attack Speed", attackSpeed, AttributeModifier.Operation.ADD_NUMBER)
+        )
         item.itemMeta = meta
+        return meta
     }
 
 }

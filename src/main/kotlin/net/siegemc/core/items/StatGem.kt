@@ -1,3 +1,7 @@
 package net.siegemc.core.items
 
-data class StatGem(val type: StatTypes, var amount: Double)
+class StatGem(val type: StatTypes, var amount: Double) {
+    override fun toString(): String {
+        return "$type|$amount"
+    }
+}

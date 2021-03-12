@@ -1,7 +1,5 @@
 package net.siegemc.core.informants;
 
-import net.siegemc.core.Core;
-import net.siegemc.core.party.Party;
 import net.siegemc.core.utils.Levels;
 import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
@@ -9,9 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
-
-import java.util.List;
-import java.util.UUID;
 
 public class Scoreboard {
     public void updateScoreboard(Player p) {

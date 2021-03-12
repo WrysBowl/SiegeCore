@@ -1,7 +1,6 @@
 package net.siegemc.core.items;
 
 import net.siegemc.core.items.ItemLibrary.Items;
-import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;

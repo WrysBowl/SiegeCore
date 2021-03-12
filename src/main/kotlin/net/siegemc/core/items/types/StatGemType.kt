@@ -1,21 +1,46 @@
 package net.siegemc.core.items.types
 
+import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.CustomItem
 import net.siegemc.core.items.Rarity
 import net.siegemc.core.items.StatTypes
 import net.siegemc.core.utils.Utils
+import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
+import org.bukkit.inventory.meta.ItemMeta
 
-abstract class StatGemItem : CustomItem {
+abstract class StatGemType(
+    final override val name: String,
+    final override val description: List<String>,
+    final override val levelRequirement: Int,
+    final override val material: Material,
+    val statType: StatTypes
+) : CustomItem() {
     override val type: ItemTypes = ItemTypes.STATGEM
-    override val description: List<String> = listOf("Delicious food")
 
-    abstract val statType: StatTypes
-    abstract var statAmount: Double
+    open var statAmount: Double = 0.0
 
-    override fun updateMeta() {
+    override fun serialize(): NBTItem {
+        val nbtItem = super.serialize()
 
-        val meta = item.itemMeta ?: return
+        nbtItem.setString("statGemType", statType.toString())
+        nbtItem.setDouble("statGemAmount", statAmount)
+
+        item = nbtItem.item
+        return nbtItem
+    }
+
+    override fun deserialize(): NBTItem {
+        val nbtItem = super.deserialize()
+
+        statAmount = nbtItem.getDouble("statGemAmount")
+
+        return nbtItem
+    }
+
+    override fun updateMeta(): ItemMeta {
+
+        val meta = item.itemMeta
 
         meta.displayName(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$name</rainbow>" else "${rarity.color}$name"))
 
@@ -32,8 +57,7 @@ abstract class StatGemItem : CustomItem {
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE)
         item.itemMeta = meta
+        return meta
     }
-
-    private fun getRarityMultiplier(quality: Int): Double = quality / 100 + 0.5
 
 }
