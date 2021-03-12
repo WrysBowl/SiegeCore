@@ -1,6 +1,12 @@
 package net.siegemc.core.items
 
 import de.tr7zw.nbtapi.NBTItem
+import net.siegemc.core.items.types.equipment.armor.CustomBoots
+import net.siegemc.core.items.types.equipment.armor.CustomChestplate
+import net.siegemc.core.items.types.equipment.armor.CustomHelmet
+import net.siegemc.core.items.types.equipment.armor.CustomLeggings
+import net.siegemc.core.items.types.equipment.weapons.CustomWeapon
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import java.lang.reflect.Constructor
 
@@ -40,5 +46,50 @@ object CustomItemUtils {
         health?.let { map[StatTypes.HEALTH] = it }
         luck?.let { map[StatTypes.LUCK] = it }
         return map
+    }
+
+    fun getPlayerStat(player: Player, statType: StatTypes): Double {
+        var output = 0.0
+        val inventory = player.inventory
+
+        getCustomItem(inventory.itemInMainHand)?.let {
+            if (it is CustomWeapon && it.baseStats.containsKey(statType)) {
+                output += it.baseStats[statType]!!
+            }
+        }
+
+        inventory.helmet?.let { helmet ->
+            getCustomItem(helmet)?.let {
+                if (it is CustomHelmet && it.baseStats.containsKey(statType)) {
+                    output += it.baseStats[statType]!!
+                }
+            }
+        }
+
+        inventory.chestplate?.let { chestplate ->
+            getCustomItem(chestplate)?.let {
+                if (it is CustomChestplate && it.baseStats.containsKey(statType)) {
+                    output += it.baseStats[statType]!!
+                }
+            }
+        }
+
+        inventory.leggings?.let { leggings ->
+            getCustomItem(leggings)?.let {
+                if (it is CustomLeggings && it.baseStats.containsKey(statType)) {
+                    output += it.baseStats[statType]!!
+                }
+            }
+        }
+
+        inventory.boots?.let { boots ->
+            getCustomItem(boots)?.let {
+                if (it is CustomBoots && it.baseStats.containsKey(statType)) {
+                    output += it.baseStats[statType]!!
+                }
+            }
+        }
+
+        return output
     }
 }

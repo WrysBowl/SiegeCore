@@ -22,7 +22,6 @@ abstract class CustomFood(
 
 
     open fun onEat(e: PlayerItemConsumeEvent) {
-        // TODO(CALL THIS IN A LISTENER)
         CustomItemUtils.getCustomItem(e.item)?.let {
             if (it !is CustomFood) return
             e.isCancelled = true
