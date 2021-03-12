@@ -12,6 +12,7 @@ class TestWand @Deprecated("Specify quality") constructor() : CustomWand(
     levelRequirement = 0,
     material = Material.STICK,
     baseStats = statMap(strength = 10.0),
+    damage = 5.0,
     range = 15,
     red = 100,
     green = 100,
