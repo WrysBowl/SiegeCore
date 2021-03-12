@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class PickUpEvents implements Listener{
+public class PickUp implements Listener{
 
     @EventHandler
     public void entityPickUp(EntityPickupItemEvent e) {

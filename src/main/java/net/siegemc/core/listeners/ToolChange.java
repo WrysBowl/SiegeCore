@@ -10,7 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 
-public class ToolChangeEvents implements Listener {
+public class ToolChange implements Listener {
 
     @EventHandler
     public void onToolChange(PlayerItemHeldEvent e) {

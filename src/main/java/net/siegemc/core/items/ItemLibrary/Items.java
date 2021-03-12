@@ -25,6 +25,7 @@ public class Items {
         put("PEBBLE", Material.STONE_BUTTON);
         put("ROCK", Material.GRAY_DYE);
         put("STONE", Material.STONE);
+        put("STONE", Material.STONE);
     }};
 
     public enum Tools { //Used to check when to set gamemode to adventure/survival
@@ -42,7 +43,7 @@ public class Items {
         }
     }
 
-    public static ItemStack searchItemLibrary(String itemName, Integer tier, Integer amount) {
+    public static ItemStack searchMaterialLibrary(String itemName, Integer tier, Integer amount) {
         String[] colors = {"7", "a", "9", "5", "6"}; // Colors
         // Check if item exists
         if (ReagentsToMaterials.get(itemName) == null) {

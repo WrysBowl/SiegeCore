@@ -60,19 +60,19 @@ public final class Core extends JavaPlugin {
         }
 
         // Register Events
-        Bukkit.getPluginManager().registerEvents(new JoinEvents(), this);
+        Bukkit.getPluginManager().registerEvents(new Join(), this);
         Bukkit.getPluginManager().registerEvents(new WorldProtection(), this);
         Bukkit.getPluginManager().registerEvents(new CustomItemListener(), this);
         Bukkit.getPluginManager().registerEvents(new DamageIndicators(), this);
         Bukkit.getPluginManager().registerEvents(new CustomDrops(), this);
-        Bukkit.getPluginManager().registerEvents(new PickUpEvents(), this);
-        Bukkit.getPluginManager().registerEvents(new ChatEvents(), this);
-        Bukkit.getPluginManager().registerEvents(new QuitEvents(), this);
+        Bukkit.getPluginManager().registerEvents(new PickUp(), this);
+        Bukkit.getPluginManager().registerEvents(new Chat(), this);
+        Bukkit.getPluginManager().registerEvents(new Quit(), this);
         Bukkit.getPluginManager().registerEvents(new Food(), this);
-        Bukkit.getPluginManager().registerEvents(new ToolChangeEvents(), this);
-        Bukkit.getPluginManager().registerEvents(new BreakEvents(), this);
+        Bukkit.getPluginManager().registerEvents(new ToolChange(), this);
+        Bukkit.getPluginManager().registerEvents(new Break(), this);
         Bukkit.getPluginManager().registerEvents(new CustomCraftingEvents(), this);
-        Bukkit.getPluginManager().registerEvents(new HelperCustomCraftingEvents(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryClose(), this);
         Bukkit.getPluginManager().registerEvents(new StatGems(), this);
         Bukkit.getPluginManager().registerEvents(new CustomItemKotlinListener(), this);
 
