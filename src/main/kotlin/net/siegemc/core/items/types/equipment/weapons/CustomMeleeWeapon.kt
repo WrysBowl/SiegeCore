@@ -16,7 +16,7 @@ abstract class CustomMeleeWeapon(
     final override val levelRequirement: Int,
     final override val material: Material,
     override val baseStats: HashMap<StatTypes, Double>,
-    override val damage: Double,
+    //override val damage: Double,
     val attackSpeed: Double
 ) : CustomWeapon() {
     override val type: ItemTypes = ItemTypes.WEAPON

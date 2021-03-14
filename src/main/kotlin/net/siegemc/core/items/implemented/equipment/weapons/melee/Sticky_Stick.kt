@@ -5,14 +5,14 @@ import net.siegemc.core.items.types.equipment.weapons.CustomMeleeWeapon
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
-class TestSword @Deprecated("Specify quality") constructor() : CustomMeleeWeapon(
-    name = "Test Sword",
-    customModelData = 1,
-    description = listOf("A sword for testing"),
-    levelRequirement = 0,
-    material = Material.DIAMOND_SWORD,
-    baseStats = statMap(strength = 10.0),
-    attackSpeed = 1.7
+class Sticky_Stick @Deprecated("Specify quality") constructor() : CustomMeleeWeapon(
+    name = "Sticky Twig",
+    customModelData = 110002,
+    description = listOf("Globs of slime", "on a stick"),
+    levelRequirement = 5,
+    material = Material.STICK,
+    baseStats = statMap(strength = 2.5),
+    attackSpeed = 4.0
 ) {
 
     @Suppress("DEPRECATION")

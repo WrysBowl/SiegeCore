@@ -1,4 +1,4 @@
-package net.siegemc.core.items;
+package net.siegemc.core.items.Recipes;
 
 import net.siegemc.core.items.ItemLibrary.Items;
 import org.bukkit.inventory.ItemStack;
@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Recipes {
 
-    List<CustomShapelessRecipe> shapelessRecipes = new ArrayList();
-    List<CustomShapedRecipe> shapedRecipes = new ArrayList();
+    public List<CustomShapelessRecipe> shapelessRecipes = new ArrayList();
+    public List<CustomShapedRecipe> shapedRecipes = new ArrayList();
 
     public List<CustomShapelessRecipe> getShapelessRecipes() {
         return shapelessRecipes;
@@ -21,12 +21,15 @@ public class Recipes {
     public Recipes() {
         // Load all Reagent Recipes
         for (String str : Items.ReagentsToMaterials.keySet()) {
-            loadReagentRecipes(str);
+            loadMaterialRecipes(str);
         }
+
+
+
     }
 
     // Automate both Upgrade and Dismantle loading for Reagents
-    public void loadReagentRecipes(String reagent) {
+    public void loadMaterialRecipes(String reagent) {
         List<ItemStack> craftingGrid = new ArrayList();
         ItemStack result = null;
 

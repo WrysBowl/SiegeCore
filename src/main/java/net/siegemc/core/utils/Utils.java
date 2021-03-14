@@ -53,6 +53,13 @@ public class Utils {
         return item;
     }
 
+    public static int randRarity() {
+        //((random number between 1 and 100)*(1/random number between 1 and 5))
+        double rand1 = ((Math.random() * 10) + 1);
+        double rand2 = (((Math.random() * 10) + 1));
+        return (int) (rand1*rand2);
+    }
+
 
 
 }

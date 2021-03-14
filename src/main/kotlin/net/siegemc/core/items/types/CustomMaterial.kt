@@ -46,7 +46,7 @@ abstract class CustomMaterial(
 
         val meta = item.itemMeta
 
-        meta.displayName(Utils.parse("<gray>$name <yellow>${"☆".repeat(tier)}"))
+        meta.displayName(Utils.parse("<gray>$name <yellow>${"✪".repeat(tier)}"))
 
         val newLore = mutableListOf(Utils.parse(" "))
         description.forEach {

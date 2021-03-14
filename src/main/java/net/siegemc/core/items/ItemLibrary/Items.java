@@ -23,9 +23,19 @@ public class Items {
         put("MOSS", Material.GREEN_DYE);
         put("MOSSY_DIRT", Material.GRASS_BLOCK);
         put("PEBBLE", Material.STONE_BUTTON);
-        put("ROCK", Material.GRAY_DYE);
         put("STONE", Material.STONE);
-        put("STONE", Material.STONE);
+        put("VINE", Material.VINE);
+        put("WOOD", Material.SPRUCE_PLANKS);
+        put("METAL_SCRAP", Material.NETHERITE_SCRAP);
+        put("REFINED_METAL", Material.IRON_INGOT);
+        put("SLIME", Material.SLIME_BALL);
+        put("MAGMA", Material.MAGMA_CREAM);
+        put("ECTOPLASM", Material.SLIME_BALL);
+        put("BONE", Material.BONE);
+        put("WOOL", Material.WHITE_WOOL);
+        put("LEATHER", Material.LEATHER);
+        put("FEATHER", Material.FEATHER);
+        put("DRUMSTICK", Material.CHICKEN);
     }};
 
     public enum Tools { //Used to check when to set gamemode to adventure/survival

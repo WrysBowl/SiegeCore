@@ -1,8 +1,8 @@
 package net.siegemc.core.listeners;
 
 import net.siegemc.core.Core;
-import net.siegemc.core.items.CustomShapedRecipe;
-import net.siegemc.core.items.CustomShapelessRecipe;
+import net.siegemc.core.items.Recipes.CustomShapedRecipe;
+import net.siegemc.core.items.Recipes.CustomShapelessRecipe;
 import net.siegemc.core.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

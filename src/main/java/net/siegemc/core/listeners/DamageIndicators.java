@@ -42,7 +42,7 @@ public class DamageIndicators implements Listener {
         }
     }
     
-    public static void showIndicator(Entity entity, int damage, boolean critical) {
+    public static void showIndicator(Entity entity, double damage, boolean critical) {
         if (indicators.containsKey(entity)) {
             indicators.get(entity).remove();
             indicators.remove(entity);

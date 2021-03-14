@@ -3,6 +3,7 @@ package net.siegemc.core.items.DropTable;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 import net.siegemc.core.informants.Stats;
 import net.siegemc.core.items.ItemLibrary.Items;
+import net.siegemc.core.items.implemented.materials.mobs.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -32,8 +33,8 @@ public class MobDrops {
                 calcDrop(Items.searchMaterialLibrary("DRUMSTICK", 1, 1),75);
                 break;
             case "Wooly":
-                calcDrop(Items.searchMaterialLibrary("WOOL", 1, 1), 50);
-                calcDrop(Items.searchMaterialLibrary("DRUMSTICK", 1, 1),50);
+                calcDrop(new Wool(0, 1).getItem(), 50);
+                calcDrop(new Drumstick(0, 1).getItem(),50);
                 break;
             case "MooMoo":
                 calcDrop(Items.searchMaterialLibrary("LEATHER", 1, 1),100);
@@ -42,18 +43,18 @@ public class MobDrops {
             case "SUSHI":
                 calcDrop(Items.searchMaterialLibrary("DRUMSTICK", 1, 1),25);
             case "Blob":
-                calcDrop(Items.searchMaterialLibrary("Slime", 1, 1), 100);
+                calcDrop(new Slime(0, 1).getItem(), 100);
                 break;
             case "ScorchingBlob":
-                calcDrop(Items.searchMaterialLibrary("Magma", 1, 1), 100);
+                calcDrop(Items.searchMaterialLibrary("MAGMA", 1, 1), 100);
                 break;
             case "InfectedDigger":
             case "ZombifiedDigger":
-                calcDrop(Items.searchMaterialLibrary("Ectoplasm", 1, 1), 100);
+                calcDrop(new Ectoplasm(0, 1).getItem(), 100);
                 break;
             case "SkeletalLegionnare":
             case "SkeletalBowman":
-                calcDrop(Items.searchMaterialLibrary("Bone", 1, 1), 100);
+                calcDrop(Items.searchMaterialLibrary("BONE", 1, 1), 100);
                 break;
         }
     }

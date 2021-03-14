@@ -102,9 +102,9 @@ class CustomItemKotlinListener : Listener {
                     if (e is Player || e is ArmorStand) continue
                     DamageIndicators.showIndicator(
                         e,
-                        it.damage.roundToInt(), false
+                        it.baseStats.get(StatTypes.STRENGTH)!!, false
                     )
-                    e.damage(it.damage)
+                    e.damage(it.baseStats.get(StatTypes.STRENGTH)!!)
                     NBT.addString(e, "attacker", NBT.serializePlayer(player))
                 }
                 object : BukkitRunnable() {

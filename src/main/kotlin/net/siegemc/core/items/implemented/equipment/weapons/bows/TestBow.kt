@@ -12,7 +12,6 @@ class TestBow @Deprecated("Specify quality") constructor() : CustomBow(
     levelRequirement = 0,
     material = Material.BOW,
     baseStats = CustomItemUtils.statMap(strength = 10.0),
-    damage = 95.0
 ) {
 
     @Suppress("DEPRECATION")

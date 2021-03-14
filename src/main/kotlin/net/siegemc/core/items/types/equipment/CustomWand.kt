@@ -13,7 +13,6 @@ abstract class CustomWand(
     final override val levelRequirement: Int,
     final override val material: Material,
     override val baseStats: HashMap<StatTypes, Double>,
-    override val damage: Double,
     val range: Int = 12,
     val red: Int = 255,
     val green: Int = 255,
