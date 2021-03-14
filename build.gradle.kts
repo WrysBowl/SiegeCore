@@ -47,7 +47,6 @@ dependencies {
     compileOnly("com.vexsoftware:nuvotifier-universal:2.6.0") // NuVotifier API
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") // Vault API
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.1-SNAPSHOT")
-    compileOnly("com.github.Archy-x:AureliumSkills:Alpha1.6.0")
     implementation("co.aikar:acf-paper:0.5.0-SNAPSHOT")
     implementation("com.github.stefvanschie.inventoryframework:IF:0.9.0")
     implementation("de.tr7zw:item-nbt-api-plugin:2.7.1")

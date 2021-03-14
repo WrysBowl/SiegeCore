@@ -1,6 +1,7 @@
 package net.siegemc.core.items.Recipes;
 
 import net.siegemc.core.items.ItemLibrary.Items;
+import net.siegemc.core.items.Recipes.Weapons.Swords;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Recipes {
         for (String str : Items.ReagentsToMaterials.keySet()) {
             loadMaterialRecipes(str);
         }
-
+        new Swords();
 
 
     }
