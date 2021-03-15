@@ -65,6 +65,8 @@ tasks {
         dependencies {
             exclude(dependency("com.google.code.gson:.*"))
             exclude(dependency("org.checkerframework:.*"))
+            include(dependency("org.jetbrains.kotlin:kotlin-stdlib"))
+
         }
     }
     build {
