@@ -2,9 +2,6 @@ package net.siegemc.core;
 
 import lombok.Getter;
 import net.siegemc.core.dungeons.DungeonConfig;
-import net.siegemc.core.items.CreateItems.CustomItem;
-import net.siegemc.core.items.CreateItems.ItemConfig;
-import net.siegemc.core.items.CreateItems.SpawnItemCommand;
 import net.siegemc.core.items.Recipes.CustomShapedRecipe;
 import net.siegemc.core.items.Recipes.CustomShapelessRecipe;
 import net.siegemc.core.items.Recipes.Recipes;
@@ -27,7 +24,6 @@ import java.util.UUID;
 
 public final class Core extends JavaPlugin {
     @Getter private static final HashMap<UUID, Party> parties = new HashMap<>();
-    @Getter private static final HashMap<String, CustomItem> items = new HashMap<>();
     public static Location spawnLocation;
     private List<CustomShapelessRecipe> shapelessRecipes = new ArrayList<>();
     private List<CustomShapedRecipe> shapedRecipes = new ArrayList<>();
@@ -43,11 +39,7 @@ public final class Core extends JavaPlugin {
         if (!getDataFolder().exists()) getDataFolder().mkdir();
         PartyConfig.createConfig();
         DungeonConfig.createConfig();
-        ItemConfig.createConfigs();
-        
-        // Fetch items from config
-        ItemConfig.fetchItems();
-        
+
         // Create Hooks / Connections
         (new VaultHook()).createHooks(); // Add the hooks to the vault plugin
         DbManager.create(); // Create the initial connections
@@ -62,7 +54,6 @@ public final class Core extends JavaPlugin {
         // Register Events
         Bukkit.getPluginManager().registerEvents(new Join(), this);
         Bukkit.getPluginManager().registerEvents(new WorldProtection(), this);
-        Bukkit.getPluginManager().registerEvents(new CustomItemListener(), this);
         Bukkit.getPluginManager().registerEvents(new PickUp(), this);
         Bukkit.getPluginManager().registerEvents(new Chat(), this);
         Bukkit.getPluginManager().registerEvents(new Quit(), this);
@@ -78,7 +69,6 @@ public final class Core extends JavaPlugin {
         PartyCommand partyCommand = new PartyCommand();
         Bukkit.getPluginCommand("party").setExecutor(partyCommand);
         Bukkit.getPluginCommand("party").setTabCompleter(partyCommand);
-        Bukkit.getPluginCommand("spawnitem").setExecutor(new SpawnItemCommand());
 
         // Register Recipes
         Recipes recipes = new Recipes();

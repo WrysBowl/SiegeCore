@@ -1,7 +1,6 @@
 package net.siegemc.core.items.DropTable;
 
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
-import net.siegemc.core.informants.Stats;
 import net.siegemc.core.items.ItemLibrary.Items;
 import net.siegemc.core.items.implemented.materials.mobs.*;
 import org.bukkit.entity.Player;
@@ -22,7 +21,7 @@ public class MobDrops {
     }
 
     public void giveMobDrops(MythicMob entityType, Player player) {
-        this.luckChance = Stats.getLuck(player);
+        //this.luckChance = Stats.getLuck(player);
         switch(entityType.getInternalName()) {
             case "Pigeon":
             case "FeatheredMeat":

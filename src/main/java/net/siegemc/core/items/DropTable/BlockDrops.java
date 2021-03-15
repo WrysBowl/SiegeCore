@@ -1,6 +1,5 @@
 package net.siegemc.core.items.DropTable;
 
-import net.siegemc.core.informants.Stats;
 import net.siegemc.core.items.ItemLibrary.Items;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -21,7 +20,7 @@ public class BlockDrops {
     }
 
     public void giveBlockDrops(Material blockType, Player player) {
-        this.luckChance = Stats.getLuck(player);
+        //this.luckChance = Stats.getLuck(player);
         switch(blockType.toString()) {
             case "GRASS_BLOCK":
                 calcDrop(Items.searchMaterialLibrary("DIRT_CLUMP", 1, 1),30);

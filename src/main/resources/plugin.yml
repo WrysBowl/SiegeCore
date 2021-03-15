@@ -12,7 +12,3 @@ commands:
   party:
     description: Create a party with friends
     aliases: [ p ]
-  spawnitem:
-    permission: item.spawn
-    aliases: [ si, items, item, i ]
-    description: Spawns in a item through a gui menu
