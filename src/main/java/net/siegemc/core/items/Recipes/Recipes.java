@@ -24,7 +24,7 @@ public class Recipes {
         for (String str : Items.ReagentsToMaterials.keySet()) {
             loadMaterialRecipes(str);
         }
-        new Swords();
+        //new Swords();
 
 
     }

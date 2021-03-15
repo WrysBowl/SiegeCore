@@ -1,5 +1,6 @@
 package net.siegemc.core.listeners;
 
+import net.siegemc.core.items.implemented.equipment.weapons.melee.Twig;
 import net.siegemc.core.utils.NBT;
 import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
@@ -22,7 +23,7 @@ public class StatGems implements Listener {
         ItemStack tool = e.getInventory().getItem(e.getSlot());
 
         if (gem.getType() == Material.POPPED_CHORUS_FRUIT) {
-            addStatGem(tool, gem, (Player) e.getWhoClicked());
+            e.getWhoClicked().getInventory().addItem(new Twig(50).getItem());
         }
 
     }

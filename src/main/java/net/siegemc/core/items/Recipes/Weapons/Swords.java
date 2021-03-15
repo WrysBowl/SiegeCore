@@ -19,7 +19,7 @@ public class Swords extends Recipes {
     }
 
     private void Twig() {
-        craftingGrid.set(0, new Slime(0, 1).getItem()); //new Slime(0, 1).getItem()
+        craftingGrid.set(0, new Slime(0, 1).getItem());
         result = new Twig(50).getItem();
         shapedRecipes.add(new CustomShapedRecipe(craftingGrid,result));
     }
