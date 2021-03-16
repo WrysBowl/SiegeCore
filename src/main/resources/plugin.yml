@@ -4,7 +4,7 @@ main: net.siegemc.core.Core
 api-version: 1.16
 description: The main Siege plugin
 prefix: Siege
-depend: [ Vault, ProtocolLib, Votifier, MythicMobs, NBTAPI ]
+depend: [ Vault, ProtocolLib, Votifier, MythicMobs, NBTAPI, Kotlin ]
 load: STARTUP
 authors: [ Wrys, DeltaRays, Ghqst, Bagelll ]
 
