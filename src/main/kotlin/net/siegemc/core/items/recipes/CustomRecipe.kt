@@ -6,13 +6,13 @@ import org.bukkit.inventory.ItemStack
 import java.lang.reflect.Constructor
 import kotlin.reflect.KClass
 
-class CustomRecipe(val items: List<CustomItem?>, val shaped: Boolean = true, val createItem: (Player) -> CustomItem) {
+class CustomRecipe(val items: List<CustomItem?>, val shaped: Boolean = true, val createItem: (Player, Boolean) -> CustomItem) {
 
     fun matches(matrix: List<CustomItem?>): Boolean {
-        if (shaped) {
-            return matrix == items
+        return if (shaped) {
+            matrix == items
         } else {
-            return matrix.containsAll(items)
+            matrix.containsAll(items)
         }
     }
 

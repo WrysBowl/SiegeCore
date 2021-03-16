@@ -14,13 +14,13 @@ abstract class CustomEquipment : CustomItem() {
     open var statGem: StatGem? = null
     abstract val baseStats: HashMap<StatTypes, Double>
 
-    override fun updateMeta(): ItemMeta {
+    override fun updateMeta(hideRarity: Boolean): ItemMeta {
         val meta = item.itemMeta
 
         meta.displayName(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$name</rainbow>" else "${rarity.color}$name"))
 
         val newLore =
-            mutableListOf(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$rarity</rainbow> <gray>$quality%" else "${rarity.color}$rarity <gray>$quality%"))
+            mutableListOf(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$rarity</rainbow> <gray>${if (hideRarity) 50 else quality}%" else "${rarity.color}$rarity <gray>$quality%"))
         statGem?.let {
             newLore.add(Utils.parse(" "))
             newLore.add(Utils.parse("<color:#FF3CFF>+${it.amount} <light_purple>${it.type.stylizedName} Gem"))
@@ -38,6 +38,7 @@ abstract class CustomEquipment : CustomItem() {
         }
         newLore.add(Utils.parse(" "))
         newLore.add(Utils.parse("<gray>Level: $levelRequirement"))
+        if (hideRarity) newLore.add(Utils.parse("<red>This is not the real item"))
         meta.lore(newLore)
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE)
@@ -79,5 +80,6 @@ abstract class CustomEquipment : CustomItem() {
     }
 
     open fun getRarityMultiplier(quality: Int): Double = quality / 100 + 0.5
+
 
 }

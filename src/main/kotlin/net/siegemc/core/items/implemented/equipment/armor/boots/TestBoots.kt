@@ -5,8 +5,8 @@ import net.siegemc.core.items.implemented.materials.TestMaterial
 import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.equipment.armor.CustomBoots
 import org.bukkit.Material
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
-import kotlin.random.Random
 
 class TestBoots @Deprecated("Specify quality") constructor() : CustomBoots(
     name = "Test Boots",
@@ -14,26 +14,39 @@ class TestBoots @Deprecated("Specify quality") constructor() : CustomBoots(
     description = listOf("Boots for testing"),
     levelRequirement = 0,
     material = Material.DIAMOND_BOOTS,
-    recipe = CustomRecipe(listOf(null, TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), null, null, null, null), true) {
-        return@CustomRecipe TestBoots((0..100).random())
+    recipe = CustomRecipe(
+        listOf(
+            null,
+            TestMaterial(0, 1),
+            TestMaterial(0, 1),
+            TestMaterial(0, 1),
+            null,
+            null,
+            null,
+            null
+        ), true
+    ) { _: Player, fakeRarity: Boolean ->
+        val item = TestBoots((0..100).random())
+        item.updateMeta(fakeRarity)
+        return@CustomRecipe item
     },
     baseStats = CustomItemUtils.statMap(strength = 10.0)
 ) {
 
     @Suppress("DEPRECATION")
-    constructor(item: ItemStack): this() {
+    constructor(item: ItemStack) : this() {
         this.item = item
         deserialize()
     }
 
     @Suppress("DEPRECATION")
-    constructor(quality: Int): this() {
+    constructor(quality: Int) : this() {
         this.quality = quality
     }
 
     init {
         serialize()
-        updateMeta()
+        updateMeta(false)
     }
 
 }

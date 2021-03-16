@@ -25,7 +25,7 @@ abstract class CustomItem {
     abstract val type: ItemTypes
     abstract val material: Material
 
-    abstract fun updateMeta(): ItemMeta
+    abstract fun updateMeta(hideRarity: Boolean): ItemMeta
 
 
 

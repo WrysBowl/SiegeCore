@@ -54,14 +54,14 @@ abstract class CustomFood(
         return nbtItem
     }
 
-    override fun updateMeta(): ItemMeta {
+    override fun updateMeta(hideRarity: Boolean): ItemMeta {
 
         val meta = item.itemMeta
 
         meta.displayName(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$name</rainbow>" else "${rarity.color}$name"))
 
         val newLore =
-            mutableListOf(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$rarity</rainbow> <gray>$quality%" else "${rarity.color}$rarity <gray>$quality%"))
+            mutableListOf(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$rarity</rainbow> <gray>${if (hideRarity) 50 else quality}%" else "${rarity.color}$rarity <gray>$quality%"))
         val realHunger = hunger * getRarityMultiplier(quality)
         val realHealth = health * getRarityMultiplier(quality)
         if (realHunger > 0 || realHealth > 0) newLore.add(Utils.parse(" "))
@@ -73,6 +73,7 @@ abstract class CustomFood(
         }
         newLore.add(Utils.parse(" "))
         newLore.add(Utils.parse("<gray>Level: $levelRequirement"))
+        if (hideRarity) newLore.add(Utils.parse("<red>This is not the real item"))
         meta.lore(newLore)
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE)

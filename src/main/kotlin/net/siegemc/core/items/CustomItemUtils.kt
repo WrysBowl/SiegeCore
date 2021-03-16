@@ -8,6 +8,7 @@ import net.siegemc.core.items.types.equipment.armor.CustomChestplate
 import net.siegemc.core.items.types.equipment.armor.CustomHelmet
 import net.siegemc.core.items.types.equipment.armor.CustomLeggings
 import net.siegemc.core.items.types.equipment.weapons.CustomWeapon
+import org.bukkit.entity.Item
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import java.lang.reflect.Constructor
@@ -32,6 +33,12 @@ object CustomItemUtils {
             null
         }
 
+    }
+
+    fun isCustomItemType(item: ItemStack, className: String): Boolean {
+        val nbtItem = NBTItem(item)
+        if (!nbtItem.hasKey("itemClass")) return false
+        return className == nbtItem.getString("itemClass")
     }
 
     fun statMap(

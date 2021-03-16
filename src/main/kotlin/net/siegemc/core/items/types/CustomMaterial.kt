@@ -51,7 +51,7 @@ abstract class CustomMaterial(
         return nbtItem
     }
 
-    override fun updateMeta(): ItemMeta {
+    override fun updateMeta(hideRarity: Boolean): ItemMeta {
 
         val meta = item.itemMeta
 

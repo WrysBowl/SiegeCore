@@ -13,25 +13,25 @@ class Drumstick @Deprecated("Specify quality") constructor() : CustomMaterial(
 ) {
 
     @Suppress("DEPRECATION")
-    constructor(item: ItemStack): this() {
+    constructor(item: ItemStack) : this() {
         this.item = item
         deserialize()
     }
 
     @Suppress("DEPRECATION")
-    constructor(quality: Int): this() {
+    constructor(quality: Int) : this() {
         this.quality = quality
     }
 
     @Suppress("DEPRECATION")
-    constructor(quality: Int, tier: Int): this() {
+    constructor(quality: Int, tier: Int) : this() {
         this.quality = quality
         this.tier = tier
     }
 
     init {
         serialize()
-        updateMeta()
+        updateMeta(false)
     }
 
 }
