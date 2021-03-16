@@ -26,7 +26,7 @@ java {
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://oss.sonatype.org/content/groups/public/") }
+    maven { url = uri("https://nexus.mcdevs.us/repository/mcdevs/") }
     maven { url = uri("https://repo.aikar.co/content/groups/aikar/") }
     maven { url = uri("https://repo.codemc.org/repository/maven-public/") }
     maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
@@ -38,7 +38,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.0")
+    implementation("us.mcdevs.library.kotlin:Kotlin:1.4.0")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
     testImplementation("junit:junit:4.12")
     compileOnly("org.projectlombok:lombok:1.18.16")
