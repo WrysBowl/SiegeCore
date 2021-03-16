@@ -18,12 +18,9 @@ class Regeneration : Runnable {
                 val regenStat = CustomItemUtils.getPlayerStat(player, StatTypes.REGENERATION)
                 val healthStat = CustomItemUtils.getPlayerStat(player, StatTypes.HEALTH)
                 val currentCustomHealth = CustomItemUtils.getHealth(player)
-                Bukkit.broadcastMessage("REGEN: " + regenStat.toString())
-                Bukkit.broadcastMessage("HEALTH: " + healthStat.toString())
-                Bukkit.broadcastMessage("currentCustomHealth: " + currentCustomHealth.toString())
                 player.health += ((regenStat + currentCustomHealth)/healthStat) * player.maxHealth
-                if (player.health > healthStat) {
-                    player.health = healthStat
+                if (player.health > player.maxHealth) {
+                    player.health = player.maxHealth
                 }
             }
         }, 100, 100);

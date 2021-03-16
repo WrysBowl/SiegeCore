@@ -17,6 +17,7 @@ import java.lang.reflect.Constructor
 object CustomItemUtils {
 
     fun getCustomItem(item: ItemStack): CustomItem? {
+        if (!item.hasItemMeta()) return null
         val nbtItem = NBTItem(item)
         return if (nbtItem.hasKey("itemClass")) {
             try {

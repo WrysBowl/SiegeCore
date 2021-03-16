@@ -4,6 +4,7 @@ import net.siegemc.core.items.implemented.equipment.weapons.melee.Twig;
 import net.siegemc.core.utils.NBT;
 import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -23,7 +24,10 @@ public class StatGems implements Listener {
         ItemStack tool = e.getInventory().getItem(e.getSlot());
 
         if (gem.getType() == Material.POPPED_CHORUS_FRUIT) {
-            e.getWhoClicked().getInventory().addItem(new Twig(50).getItem());
+            Twig twig = new Twig(50);
+            Bukkit.broadcastMessage(String.valueOf(twig.getQuality()));
+            Bukkit.broadcastMessage(String.valueOf(twig.getItem()));
+            //e.getWhoClicked().getInventory().addItem(new Twig(50).getItem());
         }
 
     }

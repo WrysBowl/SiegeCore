@@ -45,9 +45,9 @@ class CustomItemKotlinListener : Listener {
             }
         } else if (e.entity is Player) {
             val armor = (e.entity as Player).inventory.armorContents
+            if (armor.isNullOrEmpty()) return
             armor.forEach { item ->
                 val customItem: CustomItem? = CustomItemUtils.getCustomItem(item)
-
                 customItem?.let {
                     if (it is CustomArmor) {
                         it.onHit(e)
