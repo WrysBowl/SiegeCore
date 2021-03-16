@@ -32,8 +32,8 @@ abstract class CustomMeleeWeapon(
 
     // This function just updates the lore of the item with all the necessary information.
     // Here we extend and modify the attribute modifier
-    override fun updateMeta(): ItemMeta {
-        val meta = super.updateMeta()
+    override fun updateMeta(hideRarity: Boolean): ItemMeta {
+        val meta = super.updateMeta(hideRarity)
         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED)
         meta.addAttributeModifier(
             Attribute.GENERIC_ATTACK_SPEED,
