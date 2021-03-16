@@ -2,7 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
+orbs:
+  discord: teka23/discord@0.0.1
+version: 2.1
 jobs:
   build:
     docker:
@@ -40,3 +42,9 @@ jobs:
 
       # run tests!
       - run: gradle test
+
+      - discord/status:
+          failure_message: ':red_circle: A $CIRCLE_JOB job has failed!'
+          success_message: ':tada: A $CIRCLE_JOB job has succeeded!'
+          only_for_branches: master
+          webhook: ${DISCORD_WEBHOOK}
