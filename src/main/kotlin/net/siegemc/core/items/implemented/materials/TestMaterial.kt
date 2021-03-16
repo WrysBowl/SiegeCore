@@ -1,5 +1,7 @@
 package net.siegemc.core.items.implemented.materials
 
+import net.siegemc.core.items.implemented.equipment.armor.chestplates.TestChestplate
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.CustomMaterial
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -8,7 +10,8 @@ class TestMaterial @Deprecated("Specify quality") constructor() : CustomMaterial
     name = "Test Material",
     customModelData = 1,
     description = listOf("its iron"),
-    material = Material.IRON_INGOT
+    material = Material.IRON_INGOT,
+    recipe = null
 ) {
 
     @Suppress("DEPRECATION")

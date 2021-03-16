@@ -2,6 +2,7 @@ package net.siegemc.core.items.types.equipment
 
 import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.StatTypes
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.ItemTypes
 import net.siegemc.core.items.types.equipment.weapons.CustomWeapon
 import org.bukkit.Material
@@ -12,6 +13,7 @@ abstract class CustomWand(
     final override val description: List<String>,
     final override val levelRequirement: Int,
     final override val material: Material,
+    final override val recipe: CustomRecipe?,
     override val baseStats: HashMap<StatTypes, Double>,
     val range: Int = 12,
     val red: Int = 255,
@@ -20,6 +22,13 @@ abstract class CustomWand(
     val manaRequired: Int = 0,
     val damageRadius: Double = 2.5
 ) : CustomWeapon() {
+
+    init {
+        recipe?.let {
+            this::class.qualifiedName?.let { it1 -> CustomRecipe.registerRecipe(it, it1) }
+        }
+    }
+
     override val type: ItemTypes = ItemTypes.WAND
 
     override fun serialize(): NBTItem {

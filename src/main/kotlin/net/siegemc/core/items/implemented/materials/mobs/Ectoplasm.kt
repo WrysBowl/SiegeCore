@@ -8,7 +8,8 @@ class Ectoplasm @Deprecated("Specify quality") constructor() : CustomMaterial(
     name = "Ectoplasm",
     customModelData = 310003,
     description = listOf("Undead residue"),
-    material = Material.SLIME_BALL
+    material = Material.SLIME_BALL,
+    recipe = null
 ) {
 
     @Suppress("DEPRECATION")

@@ -8,7 +8,8 @@ class Slime @Deprecated("Specify quality") constructor() : CustomMaterial(
     name = "Slime",
     customModelData = 310001,
     description = listOf("Not jello?"),
-    material = Material.SLIME_BALL
+    material = Material.SLIME_BALL,
+    recipe = null
 ) {
 
     @Suppress("DEPRECATION")

@@ -1,9 +1,12 @@
 package net.siegemc.core.items.implemented.equipment.armor.boots
 
 import net.siegemc.core.items.CustomItemUtils
+import net.siegemc.core.items.implemented.materials.TestMaterial
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.equipment.armor.CustomBoots
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
+import kotlin.random.Random
 
 class TestBoots @Deprecated("Specify quality") constructor() : CustomBoots(
     name = "Test Boots",
@@ -11,6 +14,9 @@ class TestBoots @Deprecated("Specify quality") constructor() : CustomBoots(
     description = listOf("Boots for testing"),
     levelRequirement = 0,
     material = Material.DIAMOND_BOOTS,
+    recipe = CustomRecipe(listOf(null, TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), null, null, null, null), true) {
+        return@CustomRecipe TestBoots((0..100).random())
+    },
     baseStats = CustomItemUtils.statMap(strength = 10.0)
 ) {
 

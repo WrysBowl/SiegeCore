@@ -4,6 +4,7 @@ import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.CustomItem
 import net.siegemc.core.items.CustomItemUtils
 import net.siegemc.core.items.Rarity
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.utils.Utils
 import org.bukkit.Material
 import org.bukkit.event.player.PlayerItemConsumeEvent
@@ -16,9 +17,17 @@ abstract class CustomFood(
     final override val description: List<String>,
     final override val levelRequirement: Int,
     final override val material: Material,
+    final override val recipe: CustomRecipe?,
     val health: Int = 0,
     val hunger: Int = 0
 ) : CustomItem() {
+
+    init {
+        recipe?.let {
+            this::class.qualifiedName?.let { it1 -> CustomRecipe.registerRecipe(it, it1) }
+        }
+    }
+
     override val type: ItemTypes = ItemTypes.FOOD
 
 

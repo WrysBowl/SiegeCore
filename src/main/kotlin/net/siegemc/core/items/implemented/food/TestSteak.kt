@@ -1,5 +1,8 @@
 package net.siegemc.core.items.implemented.food
 
+import net.siegemc.core.items.implemented.equipment.armor.chestplates.TestChestplate
+import net.siegemc.core.items.implemented.materials.TestMaterial
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.CustomFood
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -10,6 +13,9 @@ class TestSteak @Deprecated("Specify quality") constructor() : CustomFood(
     description = listOf("Food for testing"),
     levelRequirement = 0,
     material = Material.COOKED_BEEF,
+    recipe = CustomRecipe(listOf(TestMaterial(0, 2), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1))) {
+        return@CustomRecipe TestSteak((0..100).random())
+    },
     health = 2,
     hunger = 5
 ) {

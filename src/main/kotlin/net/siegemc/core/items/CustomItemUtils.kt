@@ -1,6 +1,8 @@
 package net.siegemc.core.items
 
 import de.tr7zw.nbtapi.NBTItem
+import net.siegemc.core.items.implemented.equipment.weapons.melee.TestSword
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.equipment.armor.CustomBoots
 import net.siegemc.core.items.types.equipment.armor.CustomChestplate
 import net.siegemc.core.items.types.equipment.armor.CustomHelmet

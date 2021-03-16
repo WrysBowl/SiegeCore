@@ -1,6 +1,9 @@
 package net.siegemc.core.items.implemented.equipment.weapons.melee
 
 import net.siegemc.core.items.CustomItemUtils.statMap
+import net.siegemc.core.items.implemented.equipment.armor.chestplates.TestChestplate
+import net.siegemc.core.items.implemented.materials.TestMaterial
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.equipment.weapons.CustomMeleeWeapon
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -11,6 +14,9 @@ class TestSword @Deprecated("Specify quality") constructor() : CustomMeleeWeapon
     description = listOf("A sword for testing"),
     levelRequirement = 0,
     material = Material.DIAMOND_SWORD,
+    recipe = CustomRecipe(listOf(null, null, TestMaterial(0, 1), TestMaterial(0, 1), null, null, null, TestMaterial(0, 1), TestMaterial(0, 1))) {
+        return@CustomRecipe TestSword((0..100).random())
+    },
     baseStats = statMap(strength = 10.0),
     attackSpeed = 1.7
 ) {

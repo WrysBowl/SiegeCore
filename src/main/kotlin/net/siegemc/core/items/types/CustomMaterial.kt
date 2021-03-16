@@ -2,6 +2,7 @@ package net.siegemc.core.items.types
 
 import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.CustomItem
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.utils.Utils
 import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
@@ -11,8 +12,16 @@ abstract class CustomMaterial(
     final override val name: String,
     final override val customModelData: Int,
     final override val description: List<String>,
-    final override val material: Material
+    final override val material: Material,
+    final override val recipe: CustomRecipe?
 ) : CustomItem() {
+
+    init {
+        recipe?.let {
+            this::class.qualifiedName?.let { it1 -> CustomRecipe.registerRecipe(it, it1) }
+        }
+    }
+
     override val type: ItemTypes = ItemTypes.MATERIAL
     override val levelRequirement: Int = 0
 

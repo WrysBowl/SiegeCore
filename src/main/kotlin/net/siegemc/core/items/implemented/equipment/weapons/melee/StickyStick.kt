@@ -1,16 +1,21 @@
 package net.siegemc.core.items.implemented.equipment.weapons.melee
 
 import net.siegemc.core.items.CustomItemUtils.statMap
+import net.siegemc.core.items.implemented.materials.TestMaterial
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.equipment.weapons.CustomMeleeWeapon
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
-class Sticky_Stick @Deprecated("Specify quality") constructor() : CustomMeleeWeapon(
+class StickyStick @Deprecated("Specify quality") constructor() : CustomMeleeWeapon(
     name = "Sticky Twig",
     customModelData = 110002,
     description = listOf("Globs of slime", "on a stick"),
     levelRequirement = 5,
     material = Material.STICK,
+    recipe = CustomRecipe(listOf(TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1), TestMaterial(0, 1))) {
+        return@CustomRecipe StickyStick((0..100).random())
+    },
     baseStats = statMap(strength = 2.5),
     attackSpeed = 4.0
 ) {

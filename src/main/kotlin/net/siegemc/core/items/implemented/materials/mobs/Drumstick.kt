@@ -8,7 +8,8 @@ class Drumstick @Deprecated("Specify quality") constructor() : CustomMaterial(
     name = "Slime",
     customModelData = 310008,
     description = listOf("A leg of meat from an animal"),
-    material = Material.CHICKEN
+    material = Material.CHICKEN,
+    recipe = null
 ) {
 
     @Suppress("DEPRECATION")

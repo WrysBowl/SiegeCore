@@ -1,6 +1,9 @@
 package net.siegemc.core.items.implemented.equipment.wands
 
 import net.siegemc.core.items.CustomItemUtils.statMap
+import net.siegemc.core.items.implemented.equipment.armor.chestplates.TestChestplate
+import net.siegemc.core.items.implemented.materials.TestMaterial
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.equipment.CustomWand
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -11,6 +14,9 @@ class TestWand @Deprecated("Specify quality") constructor() : CustomWand(
     description = listOf("A wand for testing"),
     levelRequirement = 0,
     material = Material.STICK,
+    recipe = CustomRecipe(listOf(null, null, TestMaterial(0, 1), TestMaterial(0, 1), null, null, null, null), true) {
+        return@CustomRecipe TestWand((0..100).random())
+    },
     baseStats = statMap(strength = 10.0),
     range = 15,
     red = 100,

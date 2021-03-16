@@ -38,7 +38,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.0")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
     testImplementation("junit:junit:4.12")
     compileOnly("org.projectlombok:lombok:1.18.16")
@@ -65,7 +65,7 @@ tasks {
         dependencies {
             exclude(dependency("com.google.code.gson:.*"))
             exclude(dependency("org.checkerframework:.*"))
-            include(dependency("org.jetbrains.kotlin:kotlin-stdlib"))
+            include(dependency("org.jetbrains.kotlin:kotlin-stdlib:1.4.0"))
 
         }
     }

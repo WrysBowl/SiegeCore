@@ -4,6 +4,7 @@ import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.CustomItem
 import net.siegemc.core.items.Rarity
 import net.siegemc.core.items.StatTypes
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.utils.Utils
 import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
@@ -15,8 +16,16 @@ abstract class StatGemType(
     final override val description: List<String>,
     final override val levelRequirement: Int,
     final override val material: Material,
+    final override val recipe: CustomRecipe?,
     val statType: StatTypes
 ) : CustomItem() {
+
+    init {
+        recipe?.let {
+            this::class.qualifiedName?.let { it1 -> CustomRecipe.registerRecipe(it, it1) }
+        }
+    }
+
     override val type: ItemTypes = ItemTypes.STATGEM
 
     open var statAmount: Double = 0.0

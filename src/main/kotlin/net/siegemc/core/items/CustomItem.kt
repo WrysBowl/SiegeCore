@@ -1,6 +1,7 @@
 package net.siegemc.core.items
 
 import de.tr7zw.nbtapi.NBTItem
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.ItemTypes
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -14,6 +15,8 @@ abstract class CustomItem {
             rarity = Rarity.getFromInt(value)
         }
     open var rarity: Rarity = Rarity.getFromInt(quality)
+
+    open val recipe: CustomRecipe? = null
 
     abstract val name: String
     abstract val customModelData: Int

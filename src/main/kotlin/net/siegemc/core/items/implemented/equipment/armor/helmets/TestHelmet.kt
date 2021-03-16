@@ -1,6 +1,9 @@
 package net.siegemc.core.items.implemented.equipment.armor.helmets
 
 import net.siegemc.core.items.CustomItemUtils
+import net.siegemc.core.items.implemented.equipment.armor.chestplates.TestChestplate
+import net.siegemc.core.items.implemented.materials.TestMaterial
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.equipment.armor.CustomHelmet
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -11,6 +14,9 @@ class TestHelmet @Deprecated("Specify quality") constructor() : CustomHelmet(
     description = listOf("Helmet for testing"),
     levelRequirement = 0,
     material = Material.DIAMOND_HELMET,
+    recipe = CustomRecipe(listOf(TestMaterial(0, 1), null, TestMaterial(0, 1), null, null, null, null, null), true) {
+        return@CustomRecipe TestHelmet((0..100).random())
+    },
     baseStats = CustomItemUtils.statMap(strength = 10.0)
 ) {
 
