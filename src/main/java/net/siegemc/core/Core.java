@@ -4,8 +4,8 @@ import lombok.Getter;
 import net.siegemc.core.dungeons.DungeonConfig;
 import net.siegemc.core.items.Recipes.CustomShapedRecipe;
 import net.siegemc.core.items.Recipes.CustomShapelessRecipe;
-import net.siegemc.core.items.Recipes.Recipes;
 import net.siegemc.core.items.listeners.CustomItemKotlinListener;
+import net.siegemc.core.items.listeners.Regeneration;
 import net.siegemc.core.listeners.*;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartyCommand;
@@ -64,6 +64,7 @@ public final class Core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InventoryClose(), this);
         Bukkit.getPluginManager().registerEvents(new StatGems(), this);
         Bukkit.getPluginManager().registerEvents(new CustomItemKotlinListener(), this);
+        new Regeneration().startRegenTask();
 
         // Register Commands
         PartyCommand partyCommand = new PartyCommand();
@@ -71,6 +72,7 @@ public final class Core extends JavaPlugin {
         Bukkit.getPluginCommand("party").setTabCompleter(partyCommand);
 
         // Register Recipes
+        /*
         Recipes recipes = new Recipes();
         for (CustomShapelessRecipe recipe : recipes.getShapelessRecipes()) {
             addRecipe(recipe);
@@ -78,6 +80,7 @@ public final class Core extends JavaPlugin {
         for (CustomShapedRecipe recipe : recipes.getShapedRecipes()) {
             addRecipe(recipe);
         }
+         */
     }
 
 

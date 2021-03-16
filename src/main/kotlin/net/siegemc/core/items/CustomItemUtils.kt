@@ -101,4 +101,12 @@ object CustomItemUtils {
 
         return output
     }
+
+    fun getHealth(player: Player): Double {
+        var healthStat: Double = getPlayerStat(player, StatTypes.HEALTH)
+        return (player.health/player.maxHealth) * healthStat
+    }
+    fun getCurrentHealth(player: Player) : Double {
+        return (getHealth(player)/getPlayerStat(player, StatTypes.HEALTH)) * player.maxHealth
+    }
 }

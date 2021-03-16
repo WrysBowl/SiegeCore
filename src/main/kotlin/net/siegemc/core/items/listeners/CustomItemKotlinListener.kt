@@ -10,6 +10,7 @@ import net.siegemc.core.items.types.equipment.armor.CustomArmor
 import net.siegemc.core.items.types.equipment.weapons.CustomMeleeWeapon
 import net.siegemc.core.listeners.DamageIndicators
 import net.siegemc.core.utils.NBT
+import org.bukkit.Bukkit
 import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Particle
@@ -64,18 +65,10 @@ class CustomItemKotlinListener : Listener {
     }
 
     @EventHandler
-    fun onRegen(event: EntityRegainHealthEvent) {
-        if (event.entity !is Player) return
-        if (event.regainReason == EntityRegainHealthEvent.RegainReason.EATING) event.isCancelled = true
-        val player = event.entity as Player
-        var regen: Double = CustomItemUtils.getPlayerStat(player, StatTypes.REGENERATION)
-
-        regen = when {
-            event.regainReason == EntityRegainHealthEvent.RegainReason.SATIATED -> regen * 0.14
-            player.foodLevel == 10 -> regen * 0.12
-            else -> regen * 0.1
+    fun onRegen(e: EntityRegainHealthEvent) {
+        if (e.regainReason != EntityRegainHealthEvent.RegainReason.CUSTOM) {
+            e.isCancelled = true
         }
-        event.amount = regen
     }
 
     @EventHandler

@@ -1,11 +1,13 @@
 package net.siegemc.core.items.types.equipment.weapons
 
+import net.siegemc.core.items.CustomItemUtils
 import net.siegemc.core.items.StatTypes
 import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.ItemTypes
 import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
+import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.inventory.meta.ItemMeta
 
@@ -27,7 +29,10 @@ abstract class CustomMeleeWeapon(
     // will run. If not, it will run this event that does literally nothing.
     // This is open and not abstract so that all items don't have to extend it.
     open fun onHit(e: EntityDamageByEntityEvent) {
-        // does nothing lol
+        //Need to register crit chance from "Luck"
+        //Register sounds, particles
+        val damage = CustomItemUtils.getPlayerStat(e.damager as Player, StatTypes.STRENGTH)
+        e.damage = damage
     }
 
     // This function just updates the lore of the item with all the necessary information.
