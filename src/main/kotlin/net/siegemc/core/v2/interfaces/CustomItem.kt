@@ -1,6 +1,7 @@
 package net.siegemc.core.v2.interfaces
 
 import net.siegemc.core.items.Rarity
+import net.siegemc.core.items.setNbtTags
 import net.siegemc.core.items.types.ItemTypes
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -18,4 +19,15 @@ interface CustomItem {
     var item: ItemStack
 
     fun updateMeta(fakeRarity: Boolean): ItemMeta
+
+    fun serialize() {
+        item = item.setNbtTags(
+            "name" to name,
+            "customModelData" to customModelData,
+            "levelRequirement" to levelRequirement,
+            "type" to type.toString(),
+            "quality" to quality,
+            "rarity" to rarity.toString()
+        )
+    }
 }

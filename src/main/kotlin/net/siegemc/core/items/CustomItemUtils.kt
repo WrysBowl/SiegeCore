@@ -133,4 +133,28 @@ object CustomItemUtils {
     }
 
     fun getRarityMultiplier(quality: Int): Double = quality / 100 + 0.5
+
+    fun serializeToItem(nbtItem: NBTItem, hashmap: HashMap<String, Any>) {
+        hashmap.forEach {
+            when (it.value) {
+                is String -> nbtItem.setString(it.key, it.value as String)
+                is Int -> nbtItem.setInteger(it.key, it.value as Int)
+            }
+        }
+    }
+}
+
+fun ItemStack.setNbtTags(vararg pairs: Pair<String, Any?>): ItemStack {
+    val tags = hashMapOf(*pairs)
+    val nbtItem = NBTItem(this)
+    tags.forEach { entry ->
+        entry.value?.let {
+            when (it) {
+                is String -> nbtItem.setString(entry.key, it as String)
+                is Int -> nbtItem.setInteger(entry.key, it as Int)
+            }
+        }
+
+    }
+    return nbtItem.item
 }

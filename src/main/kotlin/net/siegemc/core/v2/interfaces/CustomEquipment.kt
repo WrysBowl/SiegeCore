@@ -1,9 +1,6 @@
 package net.siegemc.core.v2.interfaces
 
-import net.siegemc.core.items.CustomItemUtils
-import net.siegemc.core.items.Rarity
-import net.siegemc.core.items.StatGem
-import net.siegemc.core.items.StatTypes
+import net.siegemc.core.items.*
 import net.siegemc.core.utils.Utils
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.meta.ItemMeta
@@ -48,5 +45,12 @@ interface CustomEquipment : CustomItem {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE)
         item.itemMeta = meta
         return meta
+    }
+
+    override fun serialize() {
+        super.serialize()
+        item = item.setNbtTags(
+            "equipmentStatGem" to if (statGem != null) statGem.toString() else null
+        )
     }
 }
