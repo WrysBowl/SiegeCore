@@ -5,19 +5,30 @@ import net.siegemc.core.items.CustomItem
 import net.siegemc.core.items.Rarity
 import net.siegemc.core.items.StatGem
 import net.siegemc.core.items.StatTypes
+import net.siegemc.core.items.types.ItemTypes
 import net.siegemc.core.utils.Utils
+import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
+
+
 
 abstract class CustomEquipment : CustomItem() {
 
     open var statGem: StatGem? = null
+        set(value) {
+            field = value
+            serialize()
+            updateMeta(false)
+        }
     abstract val baseStats: HashMap<StatTypes, Double>
 
     override fun updateMeta(hideRarity: Boolean): ItemMeta {
         val meta = item.itemMeta
 
         meta.displayName(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$name</rainbow>" else "${rarity.color}$name"))
+
 
         val newLore =
             mutableListOf(Utils.parse(if (rarity == Rarity.SPECIAL) "<rainbow>$rarity</rainbow> <gray>${if (hideRarity) 50 else quality}%" else "${rarity.color}$rarity <gray>$quality%"))
@@ -55,6 +66,13 @@ abstract class CustomEquipment : CustomItem() {
         return nbtItem
     }
 
+    override fun deserialize(): NBTItem {
+        val nbtItem = super.deserialize()
+
+        statGem = if (nbtItem.getString("equipmentStatGem") == "false") null else StatGem.fromString(nbtItem.getString("equipmentStatGem"))
+
+        return nbtItem
+    }
 
     open fun getStats(addGem: Boolean, addRarity: Boolean): HashMap<StatTypes, Double> {
         val map = hashMapOf<StatTypes, Double>()
