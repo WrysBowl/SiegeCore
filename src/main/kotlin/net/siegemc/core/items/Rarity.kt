@@ -19,12 +19,12 @@ enum class Rarity(val id: String, val color: String) {
 
         fun getFromInt(int: Int): Rarity {
             return when (int) {
-                in 0..39 -> COMMON
-                in 40..59 -> UNCOMMON
-                in 60..79 -> RARE
-                in 80..94 -> EPIC
-                in 95..100 -> LEGENDARY
-                in 101..150 -> SPECIAL
+                in 0..40 -> COMMON
+                in 40..60 -> UNCOMMON
+                in 60..80 -> RARE
+                in 80..95 -> EPIC
+                in 95..101 -> LEGENDARY
+                in 100..150 -> SPECIAL
                 else -> DEBUG
             }
         }
