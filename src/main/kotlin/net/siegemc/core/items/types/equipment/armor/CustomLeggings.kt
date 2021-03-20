@@ -1,8 +1,8 @@
 package net.siegemc.core.items.types.equipment.armor
 
-import net.siegemc.core.items.StatTypes
+import net.siegemc.core.v2.enums.StatTypes
 import net.siegemc.core.items.recipes.CustomRecipe
-import net.siegemc.core.items.types.ItemTypes
+import net.siegemc.core.v2.enums.ItemTypes
 import org.bukkit.Material
 
 abstract class CustomLeggings(

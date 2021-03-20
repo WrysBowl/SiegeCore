@@ -1,4 +1,6 @@
-package net.siegemc.core.items
+package net.siegemc.core.v2
+
+import net.siegemc.core.v2.enums.StatTypes
 
 class StatGem(val type: StatTypes, var amount: Double) {
     override fun toString(): String {

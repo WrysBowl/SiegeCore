@@ -1,13 +1,9 @@
 package net.siegemc.core.items.listeners
 
 import net.siegemc.core.Core
-import net.siegemc.core.items.CustomItemUtils
-import net.siegemc.core.items.StatTypes
+import net.siegemc.core.v2.CustomItemUtils
+import net.siegemc.core.v2.enums.StatTypes
 import org.bukkit.Bukkit
-import org.bukkit.entity.Player
-import org.bukkit.plugin.java.JavaPlugin
-import org.bukkit.scheduler.BukkitRunnable
-import org.bukkit.scheduler.BukkitScheduler
 
 class Regeneration : Runnable {
 

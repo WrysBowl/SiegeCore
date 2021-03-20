@@ -1,6 +1,6 @@
 package net.siegemc.core.items.types.equipment.weapons
 
-import net.siegemc.core.items.types.ItemTypes
+import net.siegemc.core.v2.enums.ItemTypes
 import net.siegemc.core.items.types.equipment.CustomEquipment
 
 abstract class CustomWeapon : CustomEquipment() {

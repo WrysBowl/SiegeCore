@@ -1,10 +1,10 @@
 package net.siegemc.core.v2.types
 
-import net.siegemc.core.items.Rarity
-import net.siegemc.core.items.StatGem
-import net.siegemc.core.items.StatTypes
-import net.siegemc.core.items.types.ItemTypes
-import net.siegemc.core.v2.interfaces.CustomEquipment
+import net.siegemc.core.v2.enums.Rarity
+import net.siegemc.core.v2.StatGem
+import net.siegemc.core.v2.enums.StatTypes
+import net.siegemc.core.v2.enums.ItemTypes
+import net.siegemc.core.v2.types.subtypes.CustomEquipment
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 

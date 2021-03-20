@@ -1,4 +1,4 @@
-package net.siegemc.core.items
+package net.siegemc.core.v2
 
 enum class StatTypes(val stylizedName: String) {
     STRENGTH("Strength"),

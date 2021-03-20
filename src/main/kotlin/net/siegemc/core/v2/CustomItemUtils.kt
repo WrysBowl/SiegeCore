@@ -1,12 +1,15 @@
-package net.siegemc.core.items
+package net.siegemc.core.v2
 
 import de.tr7zw.nbtapi.NBTItem
+import net.siegemc.core.items.CustomItem
 import net.siegemc.core.items.types.equipment.armor.CustomBoots
 import net.siegemc.core.items.types.equipment.armor.CustomChestplate
 import net.siegemc.core.items.types.equipment.armor.CustomHelmet
 import net.siegemc.core.items.types.equipment.armor.CustomLeggings
 import net.siegemc.core.items.types.equipment.weapons.CustomWeapon
-import net.siegemc.core.v2.interfaces.CustomEquipment
+import net.siegemc.core.v2.enums.NbtTypes
+import net.siegemc.core.v2.enums.StatTypes
+import net.siegemc.core.v2.types.subtypes.CustomEquipment
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import java.lang.reflect.Constructor
@@ -106,7 +109,7 @@ object CustomItemUtils {
         return (player.health/player.maxHealth) * healthStat
     }
     fun getCurrentHealth(player: Player) : Double {
-        return (getHealth(player)/getPlayerStat(player, StatTypes.HEALTH)) * player.maxHealth
+        return (getHealth(player) / getPlayerStat(player, StatTypes.HEALTH)) * player.maxHealth
     }
 
     fun getStats(item: CustomEquipment, addGem: Boolean, addRarity: Boolean): HashMap<StatTypes, Double> {
@@ -132,6 +135,7 @@ object CustomItemUtils {
         return map
     }
 
+    @JvmStatic
     fun getRarityMultiplier(quality: Int): Double = quality / 100 + 0.5
 
     fun serializeToItem(nbtItem: NBTItem, hashmap: HashMap<String, Any>) {
@@ -150,11 +154,25 @@ fun ItemStack.setNbtTags(vararg pairs: Pair<String, Any?>): ItemStack {
     tags.forEach { entry ->
         entry.value?.let {
             when (it) {
-                is String -> nbtItem.setString(entry.key, it as String)
-                is Int -> nbtItem.setInteger(entry.key, it as Int)
+                is String -> nbtItem.setString(entry.key, it)
+                is Int -> nbtItem.setInteger(entry.key, it)
+                else -> nbtItem.setObject(entry.key, it)
             }
         }
 
     }
     return nbtItem.item
+}
+
+fun ItemStack.getNbtTags(vararg pairs: Pair<String, NbtTypes>): HashMap<String, Any> {
+    val nbtItem = NBTItem(this)
+    val output = hashMapOf<String, Any>()
+    pairs.forEach {
+        val value = when (it.second) {
+            NbtTypes.STRING -> nbtItem.getString(it.first)
+            NbtTypes.INT -> nbtItem.getInteger(it.first)
+        }
+        output[it.first] = value
+    }
+    return output
 }

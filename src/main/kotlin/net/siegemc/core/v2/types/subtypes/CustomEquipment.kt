@@ -1,7 +1,9 @@
-package net.siegemc.core.v2.interfaces
+package net.siegemc.core.v2.types.subtypes
 
-import net.siegemc.core.items.*
 import net.siegemc.core.utils.Utils
+import net.siegemc.core.v2.*
+import net.siegemc.core.v2.enums.Rarity
+import net.siegemc.core.v2.enums.StatTypes
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.meta.ItemMeta
 
@@ -52,5 +54,9 @@ interface CustomEquipment : CustomItem {
         item = item.setNbtTags(
             "equipmentStatGem" to if (statGem != null) statGem.toString() else null
         )
+    }
+
+    override fun deserialize() {
+        // TODO()
     }
 }

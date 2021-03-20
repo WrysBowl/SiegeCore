@@ -1,9 +1,9 @@
 package net.siegemc.core.items.types.equipment.weapons
 
-import net.siegemc.core.items.CustomItemUtils
-import net.siegemc.core.items.StatTypes
+import net.siegemc.core.v2.CustomItemUtils
+import net.siegemc.core.v2.enums.StatTypes
 import net.siegemc.core.items.recipes.CustomRecipe
-import net.siegemc.core.items.types.ItemTypes
+import net.siegemc.core.v2.enums.ItemTypes
 import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier

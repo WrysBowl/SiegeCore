@@ -1,8 +1,8 @@
 package net.siegemc.core.items.types.equipment.armor
 
-import net.siegemc.core.items.CustomItemUtils
-import net.siegemc.core.items.StatTypes
-import net.siegemc.core.items.types.ItemTypes
+import net.siegemc.core.v2.CustomItemUtils
+import net.siegemc.core.v2.enums.StatTypes
+import net.siegemc.core.v2.enums.ItemTypes
 import net.siegemc.core.items.types.equipment.CustomEquipment
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent

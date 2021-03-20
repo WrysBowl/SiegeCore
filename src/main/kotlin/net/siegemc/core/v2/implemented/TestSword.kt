@@ -1,7 +1,7 @@
 package net.siegemc.core.v2.implemented
 
-import net.siegemc.core.items.CustomItemUtils
-import net.siegemc.core.items.Rarity
+import net.siegemc.core.v2.CustomItemUtils
+import net.siegemc.core.v2.enums.Rarity
 import net.siegemc.core.v2.types.CustomMeleeWeapon
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
