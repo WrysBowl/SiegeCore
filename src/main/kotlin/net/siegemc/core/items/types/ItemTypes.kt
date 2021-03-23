@@ -1,15 +1,13 @@
 package net.siegemc.core.items.types
 
-import net.siegemc.core.v2.interfaces.CustomItem
+import net.siegemc.core.items.CustomItem
 import net.siegemc.core.items.types.equipment.CustomWand
 import net.siegemc.core.items.types.equipment.armor.*
 import net.siegemc.core.items.types.equipment.weapons.CustomWeapon
-import net.siegemc.core.v2.types.CustomMeleeWeapon
 import kotlin.reflect.KClass
 
 enum class ItemTypes(val stylizedName: String, val clazz: KClass<out CustomItem>) {
     WEAPON("Weapon", CustomWeapon::class),
-    MELEEWEAPON("Melee Weapon", CustomMeleeWeapon::class),
     ARMOR("Armor", CustomArmor::class),
     HELMET("Helmet", CustomHelmet::class),
     CHESTPLATE("Chestplate", CustomChestplate::class),

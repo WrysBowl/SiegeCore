@@ -1,12 +1,14 @@
 package net.siegemc.core.items
 
 import de.tr7zw.nbtapi.NBTItem
+import net.siegemc.core.items.implemented.equipment.weapons.melee.TestSword
+import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.equipment.armor.CustomBoots
 import net.siegemc.core.items.types.equipment.armor.CustomChestplate
 import net.siegemc.core.items.types.equipment.armor.CustomHelmet
 import net.siegemc.core.items.types.equipment.armor.CustomLeggings
 import net.siegemc.core.items.types.equipment.weapons.CustomWeapon
-import net.siegemc.core.v2.interfaces.CustomEquipment
+import org.bukkit.entity.Item
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import java.lang.reflect.Constructor
@@ -108,29 +110,4 @@ object CustomItemUtils {
     fun getCurrentHealth(player: Player) : Double {
         return (getHealth(player)/getPlayerStat(player, StatTypes.HEALTH)) * player.maxHealth
     }
-
-    fun getStats(item: CustomEquipment, addGem: Boolean, addRarity: Boolean): HashMap<StatTypes, Double> {
-        val map = hashMapOf<StatTypes, Double>()
-        StatTypes.values().forEach {
-            var totalAmount = 0.0
-            if (item.baseStats.containsKey(it)) {
-                totalAmount += item.baseStats[it]!!
-            }
-            if (addGem) {
-                item.statGem?.let { gem ->
-                    if (gem.type == it) {
-                        totalAmount += gem.amount
-                    }
-                }
-            }
-            if (addRarity) {
-                totalAmount *= getRarityMultiplier(item.quality)
-            }
-
-            map[it] = totalAmount
-        }
-        return map
-    }
-
-    fun getRarityMultiplier(quality: Int): Double = quality / 100 + 0.5
 }
