@@ -1,6 +1,7 @@
 package net.siegemc.core.items.implemented.statgems
 
-import net.siegemc.core.v2.enums.StatTypes
+import net.siegemc.core.items.StatTypes
+import net.siegemc.core.items.implemented.equipment.armor.chestplates.TestChestplate
 import net.siegemc.core.items.implemented.materials.TestMaterial
 import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.StatGemType

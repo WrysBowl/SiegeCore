@@ -2,11 +2,14 @@ package net.siegemc.core.items.types.equipment
 
 import de.tr7zw.nbtapi.NBTItem
 import net.siegemc.core.items.CustomItem
-import net.siegemc.core.v2.enums.Rarity
-import net.siegemc.core.v2.StatGem
-import net.siegemc.core.v2.enums.StatTypes
+import net.siegemc.core.items.Rarity
+import net.siegemc.core.items.StatGem
+import net.siegemc.core.items.StatTypes
+import net.siegemc.core.items.types.ItemTypes
 import net.siegemc.core.utils.Utils
+import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 
 

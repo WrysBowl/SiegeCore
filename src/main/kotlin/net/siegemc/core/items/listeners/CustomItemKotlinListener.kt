@@ -2,14 +2,15 @@ package net.siegemc.core.items.listeners
 
 import net.siegemc.core.Core
 import net.siegemc.core.items.CustomItem
-import net.siegemc.core.v2.CustomItemUtils
-import net.siegemc.core.v2.enums.StatTypes
+import net.siegemc.core.items.CustomItemUtils
+import net.siegemc.core.items.StatTypes
 import net.siegemc.core.items.types.CustomFood
 import net.siegemc.core.items.types.equipment.CustomWand
 import net.siegemc.core.items.types.equipment.armor.CustomArmor
 import net.siegemc.core.items.types.equipment.weapons.CustomMeleeWeapon
 import net.siegemc.core.listeners.DamageIndicators
 import net.siegemc.core.utils.NBT
+import org.bukkit.Bukkit
 import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Particle
@@ -23,6 +24,7 @@ import org.bukkit.event.entity.EntityRegainHealthEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.scheduler.BukkitRunnable
+import kotlin.math.roundToInt
 
 class CustomItemKotlinListener : Listener {
 

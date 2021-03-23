@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack
 import java.lang.reflect.Constructor
 import kotlin.reflect.KClass
 
-class CustomRecipe(val items: List<CustomItem?>, private val shaped: Boolean = true, val createItem: (Player, Boolean) -> CustomItem) {
+class CustomRecipe(val items: List<CustomItem?>, val shaped: Boolean = true, val createItem: (Player, Boolean) -> CustomItem) {
 
     fun matches(matrix: List<CustomItem?>): Boolean {
         return if (shaped) {

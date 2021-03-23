@@ -1,6 +1,7 @@
 package net.siegemc.core.items.implemented.equipment.armor.helmets
 
-import net.siegemc.core.v2.CustomItemUtils
+import net.siegemc.core.items.CustomItemUtils
+import net.siegemc.core.items.implemented.equipment.armor.chestplates.TestChestplate
 import net.siegemc.core.items.implemented.materials.TestMaterial
 import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.types.equipment.armor.CustomHelmet

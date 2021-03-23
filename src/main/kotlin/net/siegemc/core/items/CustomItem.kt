@@ -1,7 +1,6 @@
 package net.siegemc.core.items
 
-import net.siegemc.core.v2.enums.ItemTypes
-import net.siegemc.core.v2.enums.Rarity
+import net.siegemc.core.items.types.ItemTypes
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 

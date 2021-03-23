@@ -1,7 +1,8 @@
 package net.siegemc.core;
 
-import net.siegemc.core.v2.CustomItemUtils;
+import net.siegemc.core.items.CustomItemUtils;
 import net.siegemc.core.items.implemented.equipment.weapons.melee.TestSword;
+import net.siegemc.core.utils.Utils;
 import org.junit.Test;
 
 public class Testing {
