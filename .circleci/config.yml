@@ -49,7 +49,7 @@ jobs:
           only_for_branches: master
           webhook: ${DISCORD_WEBHOOK}
       - store_artifacts:
-          path: ~/repo/build/libs
+          path: ~/repo/build/libs/SiegeMC.jar
           
 #workflows:
 #  version: 2
