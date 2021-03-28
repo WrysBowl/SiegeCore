@@ -15,10 +15,12 @@ class Regeneration : Runnable {
                 val healthStat = CustomItemUtils.getPlayerStat(player, StatTypes.HEALTH)
                 val currentCustomHealth = CustomItemUtils.getHealth(player)
                 val regen = ((regenStat + currentCustomHealth)/healthStat) * player.maxHealth
+                var health = player.health
 
-                if (!regen.isNaN()) player.health += regen
-                else if (player.health < player.maxHealth) player.health += 1
-                if (player.health > player.maxHealth) player.health = player.maxHealth
+                if (!regen.isNaN()) health += regen
+                else if (health < player.maxHealth) health += 1
+                if (health > player.maxHealth) player.health = player.maxHealth
+                else player.health = health
             }
         }, 100, 100);
     }
