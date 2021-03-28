@@ -57,7 +57,7 @@ jobs:
             - run: sudo apt-get update
             - run: sudo apt-get install sshpass
             - run: echo '[cas.humbleservers.com]:2022,[51.222.10.2]:2022 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCuV/OqeTbjGnpqSj8Fg7V4RnfKQ+n+D/5GmCEXJYWapaqYHhqGHu8dOdPvw8fv4nflbzF8BzmyYH7N6KJt0J4zIIIr/c4NsOpESLVIM7dyxlwK424LQGMiJoO4In3LsI5CaV4XaUdvVeApcCO5fYmKxUdiapPvG1xz/nfGFP5oR+weVYM9MBLwwJs8o4iYUI1wFhSyvDDJlSYxbou6DnrbIbM4OfTPjJTjeeSCsMxETeMqeuDXUB1HspFHOu9JdEQwKxGgI6wYFPwa2Q3XB6WJHIdhowD1lmhPBKTee01fTKsI0dmNEXnnBm7SXShKy6Ka7X7fImNXd3yvdTbVTDpn' >> ~/.ssh/known_hosts
-            - run: sshpass -p ${SSH_PASSWORD} scp -P ${SSH_PORT} ~/repo/build/libs/SiegeMC.jar ${SSH_USER}@${SSH_HOSTNAME}:/
+            - run: sshpass -p ${SSH_PASSWORD} scp -v -P ${SSH_PORT} ~/repo/build/libs/SiegeMC.jar ${SSH_USER}@${SSH_HOSTNAME}:/
           
           
 #workflows:
