@@ -56,7 +56,7 @@ jobs:
           steps:
             - run: sudo apt-get update
             - run: sudo apt-get install sshpass
-            - run: sshpass -p ${SSH_PASSWORD} scp -P ${SSH_PORT} ~/repo/build/libs/SiegeMC.jar ${SSH_USER}@${SSH_HOST}:/
+            - run: sshpass -p ${SSH_PASSWORD} scp -P ${SSH_PORT} ~/repo/build/libs/SiegeMC.jar ${SSH_USER}@${SSH_HOSTNAME}:/
           
           
 #workflows:
