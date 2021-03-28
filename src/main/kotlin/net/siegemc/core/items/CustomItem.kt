@@ -37,7 +37,7 @@ abstract class CustomItem {
         nbtItem.setBoolean("customItem", true)
         nbtItem.setString("itemName", name)
         nbtItem.setString("itemType", type.toString())
-        nbtItem.setInteger("itemQuality", quality)
+        nbtItem.setInteger("itemQualiity", quality)
         nbtItem.setInteger("custom", quality)
         nbtItem.setString("itemRarity", rarity.toString())
         nbtItem.setInteger("itemLevelRequirement", levelRequirement)
