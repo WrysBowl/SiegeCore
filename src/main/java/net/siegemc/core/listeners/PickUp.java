@@ -5,6 +5,7 @@ import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +17,7 @@ public class PickUp implements Listener{
     @EventHandler
     public void entityPickUp(EntityPickupItemEvent e) {
         ItemStack eGetItem = e.getItem().getItemStack();
+        if (e.isCancelled()) return;
         if (!(e.getEntity() instanceof Player)) return;
         if (!eGetItem.getType().equals(Material.SUNFLOWER)) return;
         if (!Utils.strip(eGetItem.getItemMeta().getDisplayName()).equals("Gold Coin")) return;
@@ -23,6 +25,10 @@ public class PickUp implements Listener{
         int goldAmount = e.getItem().getItemStack().getAmount();
         VaultHook.econ.depositPlayer((OfflinePlayer) e.getEntity(), goldAmount);
         e.getItem().remove();
+        ((Player) e.getEntity()).getPlayer().playSound(
+                ((Player) e.getEntity()).getPlayer().getLocation(),
+                Sound.ENTITY_EXPERIENCE_ORB_PICKUP
+                , 1.0f, 1.0f);
         new Scoreboard().updateScoreboard((Player) e.getEntity());
     }
 }
