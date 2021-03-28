@@ -50,6 +50,13 @@ jobs:
           webhook: ${DISCORD_WEBHOOK}
       - store_artifacts:
           path: ~/repo/build/libs/SiegeMC.jar
+      - when:
+          condition:
+              equal: ["master", ${CIRCLE_BRANCH}]
+          steps:
+            - run: sudo apt-get install sshpass
+            - run: sshpass -p ${SSH_PASSWORD} scp -P ${SSH_PORT} ~/repo/build/libs/SiegeMC.jar ${SSH_USER}@${SSH_HOST}:/
+          
           
 #workflows:
 #  version: 2
