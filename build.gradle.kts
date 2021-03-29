@@ -43,7 +43,7 @@ dependencies {
     testImplementation("junit:junit:4.12")
     compileOnly("org.projectlombok:lombok:1.18.16")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.5.0")
-    compileOnly("io.lumine.xikage:MythicMobs:4.11.0-BETA") // MythicMobs API
+    compileOnly("io.lumine.xikage:MythicMobs:4.11.2") // MythicMobs API
     compileOnly("com.vexsoftware:nuvotifier-universal:2.6.0") // NuVotifier API
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") // Vault API
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.1-SNAPSHOT")
