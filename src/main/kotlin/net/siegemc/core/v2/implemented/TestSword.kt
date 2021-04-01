@@ -2,6 +2,7 @@ package net.siegemc.core.v2.implemented
 
 import net.siegemc.core.v2.CustomItemUtils
 import net.siegemc.core.v2.enums.Rarity
+import net.siegemc.core.v2.recipes.recipes
 import net.siegemc.core.v2.types.CustomMeleeWeapon
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -13,6 +14,9 @@ class TestSword() : CustomMeleeWeapon(
     levelRequirement = 0,
     material = Material.DIAMOND_SWORD,
     baseStats = CustomItemUtils.statMap(strength = 10.0),
+    recipeList = recipes {
+
+    },
     attackSpeed = 1.7
 ) {
 
@@ -23,6 +27,7 @@ class TestSword() : CustomMeleeWeapon(
 
     constructor(item: ItemStack): this() {
         this.item = item
+        deserialize()
     }
 
 }

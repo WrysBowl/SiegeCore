@@ -1,4 +1,4 @@
-package net.siegemc.core.v2
+package net.siegemc.core.v2.enums
 
 enum class Rarity(val id: String, val color: String) {
     COMMON("Common", "<gray>"),

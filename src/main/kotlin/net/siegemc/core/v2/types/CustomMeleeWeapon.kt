@@ -4,6 +4,7 @@ import net.siegemc.core.v2.enums.Rarity
 import net.siegemc.core.v2.StatGem
 import net.siegemc.core.v2.enums.StatTypes
 import net.siegemc.core.v2.enums.ItemTypes
+import net.siegemc.core.v2.recipes.CustomRecipeList
 import net.siegemc.core.v2.types.subtypes.CustomEquipment
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -18,6 +19,7 @@ abstract class CustomMeleeWeapon(
     override var item: ItemStack = ItemStack(material),
     override val baseStats: HashMap<StatTypes, Double>,
     override val type: ItemTypes = ItemTypes.MELEEWEAPON,
+    override val recipeList: CustomRecipeList,
     val attackSpeed: Double,
     override var statGem: StatGem? = null
 ) : CustomEquipment {

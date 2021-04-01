@@ -2,6 +2,7 @@ package net.siegemc.core.v2.types.subtypes
 
 import net.siegemc.core.utils.Utils
 import net.siegemc.core.v2.*
+import net.siegemc.core.v2.enums.NbtTypes
 import net.siegemc.core.v2.enums.Rarity
 import net.siegemc.core.v2.enums.StatTypes
 import org.bukkit.inventory.ItemFlag
@@ -57,6 +58,10 @@ interface CustomEquipment : CustomItem {
     }
 
     override fun deserialize() {
-        // TODO()
+        super.deserialize()
+        val nbtTags = item.getNbtTags("equipmentStatGem" to NbtTypes.STRING)
+        nbtTags["equipmentStatGem"]?.let {
+            statGem = StatGem.fromString(it as String)
+        }
     }
 }
