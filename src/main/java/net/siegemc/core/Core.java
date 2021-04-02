@@ -1,5 +1,6 @@
 package net.siegemc.core;
 
+import co.aikar.commands.PaperCommandManager;
 import lombok.Getter;
 import net.siegemc.core.dungeons.DungeonConfig;
 import net.siegemc.core.listeners.*;
@@ -12,13 +13,13 @@ import net.siegemc.core.utils.DbManager;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public final class Core extends JavaPlugin {
     @Getter private static final HashMap<UUID, Party> parties = new HashMap<>();
@@ -65,6 +66,55 @@ public final class Core extends JavaPlugin {
         new RegenerationTask().startRegenTask();
 
         // Register Commands
+//        PaperCommandManager manager = new PaperCommandManager(this);
+//        //manager.registerCommand(new PartyCommand()); TODO(GET RID OF OTHER PARTY CMD CLASS)
+//        manager.getCommandCompletions().registerCompletion("partyMembers", c -> {
+//            Party party = getParty(c.getPlayer().getUniqueId());
+//            List<UUID> members = party.getMembersRaw();
+//            List<String> names = new ArrayList<String>();
+//            for (UUID member : members) {
+//                names.add(Bukkit.getPlayer(member).getName());
+//            }
+//            return names;
+//        });
+//
+//        manager.getCommandCompletions().registerCompletion("partyMembersExcludingSelf", c -> {
+//            Party party = getParty(c.getPlayer().getUniqueId());
+//            List<UUID> members = party.getMembersRaw();
+//            List<String> names = new ArrayList<String>();
+//            for (UUID member : members) {
+//                if (member != c.getPlayer().getUniqueId()) names.add(Bukkit.getPlayer(member).getName());
+//            }
+//            return names;
+//        });
+//
+//        manager.getCommandCompletions().registerCompletion("nonPartyMembers", c -> {
+//            Party party = getParty(c.getPlayer().getUniqueId());
+//            List<UUID> members = party.getMembersRaw();
+//            List<String> names = new ArrayList<String>();
+//            for (UUID member : members) {
+//                names.add(Bukkit.getPlayer(member).getName());
+//            }
+//            List<String> allPlayerNames = Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName)
+//                    .collect(Collectors.toList());
+//
+//            return allPlayerNames.stream().filter(p -> !(names.contains(p))).collect(Collectors.toList());
+//        });
+//
+//        manager.getCommandCompletions().registerCompletion("openToInvite", c -> {
+//            Party party = getParty(c.getPlayer().getUniqueId());
+//            List<UUID> members = party.getMembersRaw();
+//            List<String> names = new ArrayList<String>();
+//            for (UUID member : members) {
+//                names.add(Bukkit.getPlayer(member).getName());
+//            }
+//            List<OfflinePlayer> notInParty = Bukkit.getOnlinePlayers().stream().filter(p -> getParty(p.getUniqueId()) == null).collect(Collectors.toList());
+//            List<String> allPlayerNames = notInParty.stream().map(OfflinePlayer::getName)
+//                    .collect(Collectors.toList());
+//
+//            return allPlayerNames;
+//        });
+
         PartyCommand partyCommand = new PartyCommand();
         Bukkit.getPluginCommand("party").setExecutor(partyCommand);
         Bukkit.getPluginCommand("party").setTabCompleter(partyCommand);

@@ -1,6 +1,13 @@
 package net.siegemc.core.party;
 
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandCompletion;
+import co.aikar.commands.annotation.Default;
+import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import net.siegemc.core.Core;
+import net.siegemc.core.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -14,6 +21,45 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+//@CommandAlias("p|party")
+//class ACFPartyCommand extends BaseCommand {
+//
+//    @Default
+//    @Subcommand("help")
+//    public void onHelp(Player player) {
+//        player.sendMessage(Utils.parse("<dark_aqua>Party Help" +
+//                "<aqua>/p help\n" +
+//                "<aqua>/p list\n" +
+//                "<aqua>/p invite <player>\n" +
+//                "<aqua>/p accept <player>\n" +
+//                "<aqua>/p kick <player>\n" +
+//                "<aqua>/p promote <player>\n" +
+//                "<aqua>/p leave\n"));
+//        if (player.hasPermission("siege.party.admin")) {
+//            player.sendMessage(Utils.parse("<red>/p forceleader [player]\n" +
+//                    "<red>/p forcejoin <player>"));
+//        }
+//    }
+//
+//    @Subcommand("list")
+//    public void onList(Player player) {
+//        Party party = Core.getParty(player.getUniqueId());
+//        if (party == null) {
+//            player.sendMessage(Utils.parse("<red>You are not in a party!"));
+//            return;
+//        }
+//        player.sendMessage(Utils.parse("<gray>All players in the party:\n" +
+//                "<dark_gray>- <aqua>\" + party.getLeader().getName() + \" <gray><i>(Leader)"));
+//        for (OfflinePlayer member : party.getMembers()) if (party.getLeader() != member) player.sendMessage("<gray>- <aqua>" + member.getName());
+//    }
+//
+//    @Subcommand("invite")
+//    @CommandCompletion("@openToInvite")
+//    public void onInvite(Player player, OnlinePlayer target) {
+//    }
+//
+//}
 
 public class PartyCommand implements CommandExecutor, TabCompleter {
 
