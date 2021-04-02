@@ -1,11 +1,8 @@
 package net.siegemc.core.items.recipes
 
-import net.siegemc.core.v2.implemented.TestSword
+import net.siegemc.core.items.CustomItem
+import net.siegemc.core.items.implemented.weapons.melee.TestSword
 import org.bukkit.entity.Player
-import net.siegemc.core.v2.CustomItem
-import org.bukkit.inventory.ItemStack
-import java.lang.reflect.Constructor
-import kotlin.reflect.KClass
 
 class CustomRecipe(var items: MutableList<CustomItem?>, var shaped: Boolean = true, var createItem: (Player, Boolean) -> CustomItem) {
 

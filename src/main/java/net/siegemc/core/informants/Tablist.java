@@ -10,6 +10,8 @@ public class Tablist {
     public void tablistUpdate() {
         for (Player p : Bukkit.getOnlinePlayers()) {
 
+            // TODO(CHANGE TO MINIMESSAGE)
+
             String header = Utils.tacc("\n" +
                     "&6&lSiegeRPG\n" +
                     "&6&oplay.SiegeRPG.net" +

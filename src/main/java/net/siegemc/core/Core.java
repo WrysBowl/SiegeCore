@@ -2,11 +2,9 @@ package net.siegemc.core;
 
 import lombok.Getter;
 import net.siegemc.core.dungeons.DungeonConfig;
-import net.siegemc.core.items.Recipes.CustomShapedRecipe;
-import net.siegemc.core.items.Recipes.CustomShapelessRecipe;
-import net.siegemc.core.items.listeners.CustomItemKotlinListener;
-import net.siegemc.core.items.listeners.Regeneration;
 import net.siegemc.core.listeners.*;
+import net.siegemc.core.olditems.recipes.CustomShapedRecipe;
+import net.siegemc.core.olditems.recipes.CustomShapelessRecipe;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartyCommand;
 import net.siegemc.core.party.PartyConfig;
@@ -52,19 +50,19 @@ public final class Core extends JavaPlugin {
         }
 
         // Register Events
-        Bukkit.getPluginManager().registerEvents(new Join(), this);
-        Bukkit.getPluginManager().registerEvents(new WorldProtection(), this);
-        Bukkit.getPluginManager().registerEvents(new PickUp(), this);
-        Bukkit.getPluginManager().registerEvents(new Chat(), this);
-        Bukkit.getPluginManager().registerEvents(new Quit(), this);
-        Bukkit.getPluginManager().registerEvents(new Food(), this);
-        Bukkit.getPluginManager().registerEvents(new ToolChange(), this);
-        Bukkit.getPluginManager().registerEvents(new Break(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new WorldProtectionListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ItemPickupListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
+        Bukkit.getPluginManager().registerEvents(new FoodListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ToolChangeListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
         Bukkit.getPluginManager().registerEvents(new CustomCraftingEvents(), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryClose(), this);
-        Bukkit.getPluginManager().registerEvents(new StatGems(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
+        Bukkit.getPluginManager().registerEvents(new StatGemListener(), this);
         Bukkit.getPluginManager().registerEvents(new CustomItemKotlinListener(), this);
-        new Regeneration().startRegenTask();
+        new RegenerationTask().startRegenTask();
 
         // Register Commands
         PartyCommand partyCommand = new PartyCommand();

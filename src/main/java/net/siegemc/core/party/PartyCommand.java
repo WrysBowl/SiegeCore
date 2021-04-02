@@ -16,6 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PartyCommand implements CommandExecutor, TabCompleter {
+
+    // TODO(CONVERT TO ACF!!!!!!!!!)
     
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String cmd, @NotNull String[] args) {
