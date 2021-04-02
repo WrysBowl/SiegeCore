@@ -49,7 +49,7 @@ abstract class CustomMaterial(
         }
     }
 
-    override fun updateMeta(hideRarity: Boolean): ItemMeta {
+    override fun updateMeta(hideRarity: Boolean) {
 
         val meta = item.itemMeta
 
@@ -63,7 +63,6 @@ abstract class CustomMaterial(
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE)
         item.itemMeta = meta
-        return meta
     }
 
 }

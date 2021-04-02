@@ -20,7 +20,7 @@ interface CustomItem {
     var rarity: Rarity
     var item: ItemStack
 
-    fun updateMeta(hideRarity: Boolean): ItemMeta
+    fun updateMeta(hideRarity: Boolean)
 
     fun serialize() {
         item = item.setNbtTags(

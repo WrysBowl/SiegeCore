@@ -33,15 +33,14 @@ abstract class CustomMeleeWeapon(
         rarity = Rarity.getFromInt(quality)
     }
 
-    override fun updateMeta(hideRarity: Boolean): ItemMeta {
-        val meta = super.updateMeta(hideRarity)
+    override fun updateMeta(hideRarity: Boolean) {
+        val meta = item.itemMeta
         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED)
         meta.addAttributeModifier(
             Attribute.GENERIC_ATTACK_SPEED,
             AttributeModifier("Attack Speed", attackSpeed, AttributeModifier.Operation.ADD_NUMBER)
         )
         item.itemMeta = meta
-        return meta
     }
 
 }

@@ -38,7 +38,7 @@ abstract class CustomFood(
         e.player.health = health
     }
 
-    override fun updateMeta(hideRarity: Boolean): ItemMeta {
+    override fun updateMeta(hideRarity: Boolean) {
 
         val meta = item.itemMeta
 
@@ -60,7 +60,6 @@ abstract class CustomFood(
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE)
         item.itemMeta = meta
-        return meta
     }
 
     private fun getRarityMultiplier(quality: Int): Double = quality / 100 + 0.5

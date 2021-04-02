@@ -15,7 +15,9 @@ fun test() {
             s1(TestSword(25))
             s2(TestSword(25))
             item { player, b ->
-                TestSword(50)
+                val customItem = TestSword(50)
+                customItem.updateMeta(b)
+                customItem
             }
         }
         recipe {
@@ -23,7 +25,9 @@ fun test() {
             s3(TestSword(50))
             s4(TestSword(50))
             item { player, b ->
-                TestSword(100)
+                val customItem = TestSword(50)
+                customItem.updateMeta(b)
+                customItem
             }
         }
     }
