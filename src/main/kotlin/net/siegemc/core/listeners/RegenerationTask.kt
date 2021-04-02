@@ -8,7 +8,7 @@ import org.bukkit.Bukkit
 class RegenerationTask : Runnable {
 
     fun startRegenTask() {
-        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Core.plugin(), {
+        Bukkit.getServer().scheduler.scheduleSyncRepeatingTask(Core.plugin(), {
 
             for (player in Bukkit.getOnlinePlayers()) {
                 val regenStat = CustomItemUtils.getPlayerStat(player, StatTypes.REGENERATION)
@@ -19,7 +19,7 @@ class RegenerationTask : Runnable {
                     player.health = player.maxHealth
                 }
             }
-        }, 100, 100);
+        }, 100, 100)
     }
 
     override fun run() {

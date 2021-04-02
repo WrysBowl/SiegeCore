@@ -1,12 +1,5 @@
 package net.siegemc.core.olditems.recipes.Weapons;
 
-import net.siegemc.core.olditems.recipes.CustomShapedRecipe;
-import net.siegemc.core.olditems.recipes.Recipes;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
-
 //public class Swords extends Recipes {
 //
 //    List<ItemStack> craftingGrid = new ArrayList();

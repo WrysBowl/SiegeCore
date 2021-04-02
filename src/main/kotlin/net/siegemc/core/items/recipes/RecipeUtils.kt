@@ -34,7 +34,7 @@ fun test() {
 
 }
 
-class CustomRecipeList() {
+class CustomRecipeList {
     var recipeList = mutableListOf<CustomRecipe>()
     fun recipe(init: CustomRecipe.() -> Unit): CustomRecipe {
         val customRecipe = CustomRecipe()

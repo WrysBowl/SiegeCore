@@ -1,3 +1,12 @@
+@file:Suppress("unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
+    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
+    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
+    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
+    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
+    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
+    "unused"
+)
+
 package net.siegemc.core.items
 
 import de.tr7zw.nbtapi.NBTItem
@@ -104,7 +113,7 @@ object CustomItemUtils {
     }
 
     fun getHealth(player: Player): Double {
-        var healthStat: Double = getPlayerStat(player, StatTypes.HEALTH)
+        val healthStat: Double = getPlayerStat(player, StatTypes.HEALTH)
         return (player.health/player.maxHealth) * healthStat
     }
     fun getCurrentHealth(player: Player) : Double {
