@@ -50,6 +50,7 @@ dependencies {
     implementation("co.aikar:acf-paper:0.5.0-SNAPSHOT")
     implementation("com.github.stefvanschie.inventoryframework:IF:0.9.0")
     implementation("de.tr7zw:item-nbt-api-plugin:2.7.1")
+    implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
     annotationProcessor("org.projectlombok:lombok:1.18.16")
     //compile(fileTree(include(["*.jar"]), dir("libs")))
 }
@@ -66,6 +67,7 @@ tasks {
             exclude(dependency("com.google.code.gson:.*"))
             exclude(dependency("org.checkerframework:.*"))
             include(dependency("org.jetbrains.kotlin:kotlin-stdlib:1.4.0"))
+            include(dependency("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT"))
 
         }
     }
