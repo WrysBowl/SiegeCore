@@ -1,6 +1,5 @@
 package net.siegemc.core;
 
-import co.aikar.commands.PaperCommandManager;
 import lombok.Getter;
 import net.siegemc.core.dungeons.DungeonConfig;
 import net.siegemc.core.listeners.*;
@@ -13,13 +12,13 @@ import net.siegemc.core.utils.DbManager;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.Array;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public final class Core extends JavaPlugin {
     @Getter private static final HashMap<UUID, Party> parties = new HashMap<>();

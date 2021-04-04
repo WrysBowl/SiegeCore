@@ -6,7 +6,6 @@ import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.items.recipes.CustomRecipeList
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.ItemMeta
 
 interface CustomItem {
     val name: String

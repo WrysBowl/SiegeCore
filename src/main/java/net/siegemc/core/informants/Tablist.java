@@ -4,7 +4,6 @@ import net.kyori.adventure.text.Component;
 import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Tablist {

@@ -10,7 +10,6 @@ import net.siegemc.core.utils.Utils
 import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.ItemMeta
 
 abstract class CustomMaterial(
     override val name: String,

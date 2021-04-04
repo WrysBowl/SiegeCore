@@ -1,12 +1,10 @@
 package net.siegemc.core.items.types.subtypes
 
 import net.siegemc.core.items.*
-import net.siegemc.core.items.enums.NbtTypes
 import net.siegemc.core.items.enums.Rarity
 import net.siegemc.core.items.enums.StatTypes
 import net.siegemc.core.utils.Utils
 import org.bukkit.inventory.ItemFlag
-import org.bukkit.inventory.meta.ItemMeta
 
 interface CustomEquipment : CustomItem {
 
@@ -58,9 +56,8 @@ interface CustomEquipment : CustomItem {
 
     override fun deserialize() {
         super.deserialize()
-        val nbtTags = item.getNbtTags("equipmentStatGem" to NbtTypes.STRING)
-        nbtTags["equipmentStatGem"]?.let {
-            statGem = StatGem.fromString(it as String)
+        item.getNbtTag<String>("equipmentStatGem")?.let {
+            statGem = StatGem.fromString(it)
         }
     }
 }
