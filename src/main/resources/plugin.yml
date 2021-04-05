@@ -12,3 +12,6 @@ commands:
   party:
     description: Create a party with friends
     aliases: [ p ]
+  portal:
+    description: Create a portal
+    permission: op
