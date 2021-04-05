@@ -2,8 +2,6 @@ package net.siegemc.core.dungeons;
 
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 import net.siegemc.core.Core;
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
@@ -43,10 +41,10 @@ public class DungeonType {
     public Location spawnLocation;
     public int dungeonLevel;
     public ArrayList<Dungeon> dungeons;
-    public Location bossLocation;
-    public MythicMob boss;
+    //public Location bossLocation;
+    //public MythicMob boss;
 
-    public static HashSet<DungeonType> dungeonTypes;
+    public static HashSet<DungeonType> dungeonTypes = new HashSet<>();
     public static World world = Bukkit.getWorld("dungeons");
 
     public String name;
@@ -56,14 +54,15 @@ public class DungeonType {
         ConfigurationSection spawnOffset = section.getConfigurationSection("spawnOffset");
         ConfigurationSection boss = section.getConfigurationSection("boss");
         Location relSpawnLoc = new Location(world, spawnOffset.getInt("x"), spawnOffset.getInt("y"), spawnOffset.getInt("z"));
-        if (boss == null) {
-            return new DungeonType(name, section.getString("schemPath"), section.getInt("level"), (short) section.getInt("distance"),
-                    relSpawnLoc, null, null);
-        }
+        /*if (boss == null) {*/
+        return new DungeonType(name, section.getString("schemPath"), section.getInt("level"), (short) section.getInt("distance"),
+                relSpawnLoc, null, null);
+        /*}
         Location relBossLoc = new Location(world, boss.getInt("x"), boss.getInt("y"), boss.getInt("z"));
         DungeonType type = new DungeonType(name, section.getString("schemPath"), section.getInt("level"), (short) section.getInt("distance"),
                 relSpawnLoc, relBossLoc, boss.getString("name"));
         return type;
+         */
     }
 
     /**
@@ -79,9 +78,9 @@ public class DungeonType {
         this.dungeonLevel = dungeonLevel;
         this.index = dungeonTypes.size();
         dungeonTypes.add(this);
-        this.boss = MythicMobs.inst().getMobManager().getMythicMob(bossName);
+        //this.boss = MythicMobs.inst().getMobManager().getMythicMob(bossName);
         this.spawnLocation = relSpawnLoc;
-        this.bossLocation = relBossLoc;
+        //this.bossLocation = relBossLoc;
         this.name = name;
         try {
             schematic = SchematicPaster.loadSchematic(new FileInputStream(new File(Core.plugin().getDataFolder().getAbsolutePath(), schemPath)), ClipboardFormats.findByAlias("SPONGE")); // Sponge schematics as they're the latest ones
