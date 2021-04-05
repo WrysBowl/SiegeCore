@@ -106,7 +106,7 @@ public class DungeonType {
             });
             world = creator.createWorld(); // Creates the world
         }
-        ConfigurationSection dungeonCfg = DungeonConfig.getDungeons(this);
+        ConfigurationSection dungeonCfg = Core.plugin().dungeonConfig.getDungeons(this);
         dungeonCfg.getKeys(false).forEach(key -> {
             if (dungeonCfg.isConfigurationSection(key)) {
                 ConfigurationSection section = dungeonCfg.getConfigurationSection(key);

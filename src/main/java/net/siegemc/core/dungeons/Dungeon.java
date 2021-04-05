@@ -51,7 +51,7 @@ public class Dungeon {
     public void addPlayer(Player player) {
         if (!currentPlayers.contains(player)) {
             currentPlayers.add(player);
-            ConfigurationSection dungeon = DungeonConfig.getDungeon(type, index);
+            ConfigurationSection dungeon = Core.plugin().dungeonConfig.getDungeon(type, index);
             if (dungeon.contains("players"))
                 dungeon.getStringList("players").add(player.getUniqueId().toString());
             else
@@ -68,7 +68,7 @@ public class Dungeon {
     public void removePlayer(OfflinePlayer player) {
         if (currentPlayers.contains(player)) {
             currentPlayers.remove(player);
-            ConfigurationSection dungeon = DungeonConfig.getDungeon(type, index);
+            ConfigurationSection dungeon = Core.plugin().dungeonConfig.getDungeon(type, index);
             if (dungeon.contains("players"))
                 dungeon.getStringList("players").remove(player.getUniqueId().toString());
         }
@@ -92,7 +92,7 @@ public class Dungeon {
         type.dungeons.remove(this);
         for (OfflinePlayer currentPlayer : currentPlayers)
             removePlayer(currentPlayer);
-        DungeonConfig.getDungeons(type).set(String.valueOf(index), null);
+        Core.plugin().dungeonConfig.getDungeons(type).set(String.valueOf(index), null);
     }
 
     /**
@@ -120,6 +120,7 @@ public class Dungeon {
         type.boss.spawn(new AbstractLocation(new BukkitWorld(DungeonType.world), bossLoc.getX(), bossLoc.getY(), bossLoc.getZ()), 1 /*TODO Wrys what is the level*//*);
     }
     */
+
     /**
      * Convert the selected configuration, index and type into a dungeon
      *
