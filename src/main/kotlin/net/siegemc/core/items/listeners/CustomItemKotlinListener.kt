@@ -15,6 +15,8 @@ import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.entity.ArmorStand
+import org.bukkit.entity.Entity
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -34,6 +36,9 @@ class CustomItemKotlinListener : Listener {
 
     @EventHandler
     fun onHit(e: EntityDamageByEntityEvent) {
+
+        e.damage = getCustomDamage(e.entity, e.damager, 0.0)
+
         if (e.damager is Player) {
             val item = (e.damager as Player).inventory.itemInMainHand
             val customItem: CustomItem? = CustomItemUtils.getCustomItem(item)
@@ -55,6 +60,21 @@ class CustomItemKotlinListener : Listener {
                 }
             }
         }
+    }
+
+    fun getCustomDamage(attacker: Entity, victim: Entity, damage: Double): Double {
+        val victim = victim as LivingEntity
+        val vicHealthStat =
+            if (victim is Player) CustomItemUtils.getPlayerStat(victim, StatTypes.HEALTH)
+            else victim.health
+        val vicToughness =
+            if (victim is Player) CustomItemUtils.getPlayerStat(victim, StatTypes.TOUGHNESS)
+            else 0.0
+        val attStrengthStat =
+            if (attacker is Player && damage == 0.0) CustomItemUtils.getPlayerStat(attacker, StatTypes.STRENGTH)
+            else damage
+        val reducedDamage = attStrengthStat * (1 - (vicToughness/1000)) //custom attack damage with toughness considered
+        return reducedDamage/(vicHealthStat/victim.health) //scaled down to damage player by vanilla damage
     }
 
     @EventHandler
@@ -97,7 +117,11 @@ class CustomItemKotlinListener : Listener {
                         e,
                         it.baseStats.get(StatTypes.STRENGTH)!!, false
                     )
+<<<<<<< Updated upstream:src/main/kotlin/net/siegemc/core/items/listeners/CustomItemKotlinListener.kt
                     e.damage(it.baseStats.get(StatTypes.STRENGTH)!!)
+=======
+                    e.damage(getCustomDamage(e, player, 0.0))
+>>>>>>> Stashed changes:src/main/kotlin/net/siegemc/core/listeners/CustomItemKotlinListener.kt
                     NBT.addString(e, "attacker", NBT.serializePlayer(player))
                 }
                 object : BukkitRunnable() {

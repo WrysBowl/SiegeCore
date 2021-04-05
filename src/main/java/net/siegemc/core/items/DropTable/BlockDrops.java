@@ -20,7 +20,6 @@ public class BlockDrops {
     }
 
     public void giveBlockDrops(Material blockType, Player player) {
-        //this.luckChance = Stats.getLuck(player);
         switch(blockType.toString()) {
             case "GRASS_BLOCK":
                 calcDrop(Items.searchMaterialLibrary("DIRT_CLUMP", 1, 1),30);

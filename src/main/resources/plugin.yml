@@ -5,13 +5,24 @@ api-version: 1.16
 description: The main Siege plugin
 prefix: Siege
 depend: [ Vault, ProtocolLib, Votifier, MythicMobs, NBTAPI, Kotlin ]
+<<<<<<< HEAD
 load: POSTWORLD
 authors: [ Wrys, DeltaRays, Ghqst, Bagelll ]
+=======
+load: STARTUP
+authors: [ Wrys, DeltaRays, Ghqst, Tony, Itayg ]
+>>>>>>> parent of 5f48f84 (Revert "Abstract drop table & Stat listeners")
 
 commands:
   party:
     description: Create a party with friends
     aliases: [ p ]
+<<<<<<< HEAD
   portal:
     description: Create a portal
     permission: op
+=======
+  test:
+    description: Testing
+    aliases: [ t ]
+>>>>>>> parent of 5f48f84 (Revert "Abstract drop table & Stat listeners")
