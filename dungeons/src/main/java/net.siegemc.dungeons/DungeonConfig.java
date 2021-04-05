@@ -1,4 +1,4 @@
-package net.siegemc.core.dungeons;
+package net.siegemc.dungeons;
 
 import net.siegemc.core.Core;
 import org.bukkit.configuration.ConfigurationSection;

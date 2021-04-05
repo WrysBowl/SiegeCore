@@ -1,4 +1,4 @@
-package net.siegemc.core.dungeons;
+package net.siegemc.dungeons;
 
 import com.sk89q.worldedit.WorldEditException;
 import net.siegemc.core.Core;
