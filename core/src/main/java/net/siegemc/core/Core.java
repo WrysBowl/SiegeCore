@@ -1,7 +1,6 @@
 package net.siegemc.core;
 
 import lombok.Getter;
-import net.siegemc.core.dungeons.DungeonConfig;
 import net.siegemc.core.listeners.*;
 import net.siegemc.core.olditems.recipes.CustomShapedRecipe;
 import net.siegemc.core.olditems.recipes.CustomShapelessRecipe;
@@ -30,13 +29,14 @@ public final class Core extends JavaPlugin {
     @Override
     public void onEnable() {
 
+
         // Initialize
         spawnLocation = new Location(Bukkit.getWorld("SiegeHub"), 70.5, 71, 3.5, 90, 0);
         
         // Create Configs
         if (!getDataFolder().exists()) getDataFolder().mkdir();
         PartyConfig.createConfig();
-        DungeonConfig.createConfig();
+
 
         // Create Hooks / Connections
         (new VaultHook()).createHooks(); // Add the hooks to the vault plugin

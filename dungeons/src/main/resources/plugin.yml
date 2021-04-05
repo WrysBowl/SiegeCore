@@ -1,0 +1,9 @@
+name: SiegeDungeons
+version: 0.0.1
+main: net.siegemc.dungeons.DungeonsPlugin
+version: 1.16
+description: Siege Dungeons plugin
+prefix: Siege
+depend: [ Vault, ProtocolLib, Votifier, MythicMobs, NBTAPI, Kotlin ]
+load: STARTUP
+authors: [ Wrys, DeltaRays, Ghqst, Bagelll ]

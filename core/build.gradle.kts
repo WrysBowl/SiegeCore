@@ -28,7 +28,6 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":dungeons"))
     implementation("us.mcdevs.library.kotlin:Kotlin:1.4.0")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
     testImplementation("junit:junit:4.12")
