@@ -27,6 +27,10 @@ java {
 repositories {
     mavenCentral()
     maven { url = uri("https://nexus.mcdevs.us/repository/mcdevs/") }
+    maven {
+        name = "sonatype-oss-snapshots"
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
     maven { url = uri("https://repo.aikar.co/content/groups/aikar/") }
     maven { url = uri("https://repo.codemc.org/repository/maven-public/") }
     maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
@@ -51,6 +55,8 @@ dependencies {
     implementation("com.github.stefvanschie.inventoryframework:IF:0.9.0")
     implementation("de.tr7zw:item-nbt-api-plugin:2.7.1")
     annotationProcessor("org.projectlombok:lombok:1.18.16")
+    implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
+    implementation("net.kyori:adventure-platform-bukkit:4.0.0-SNAPSHOT")
     //compile(fileTree(include(["*.jar"]), dir("libs")))
 }
 
