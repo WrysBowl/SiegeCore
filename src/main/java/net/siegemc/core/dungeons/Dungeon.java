@@ -1,22 +1,39 @@
 package net.siegemc.core.dungeons;
 
 import com.sk89q.worldedit.WorldEditException;
+import io.lumine.xikage.mythicmobs.adapters.AbstractLocation;
+import io.lumine.xikage.mythicmobs.adapters.bukkit.BukkitWorld;
 import net.siegemc.core.Core;
+import net.siegemc.core.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.UUID;
-/*
+
+/* The dungeons.yml file
+   dungeons:
+     exampleType: # type of dungeon
+       0: # index of the dungeon
+         players: [] #the list of players, mapped by uuis
        1: # index of the dungeon
          players: []
 
  */
 
+/* The player's persistentdatacontainer
+
+    dungeon:
+        type: exampleType # type of dungeon the player is currently in
+        index: 0 # index of the dungeon the player is currently in
+
+ */
 
 /**
  * The Dungeon class.
@@ -51,13 +68,20 @@ public class Dungeon {
     public void addPlayer(Player player) {
         if (!currentPlayers.contains(player)) {
             currentPlayers.add(player);
-            ConfigurationSection dungeon = Core.plugin().dungeonConfig.getDungeon(type, index);
+            PersistentDataContainer container = player.getPersistentDataContainer();
+            PersistentDataContainer dungeonContainer = container.get(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER);
+            if (dungeonContainer == null)
+                player.getPersistentDataContainer().set(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER, container.getAdapterContext().newPersistentDataContainer());
+            dungeonContainer.set(Utils.namespacedKey("type"), PersistentDataType.STRING, type.name);
+            dungeonContainer.set(Utils.namespacedKey("index"), PersistentDataType.INTEGER, index);
+            container.set(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER, dungeonContainer);
+            ConfigurationSection dungeon = DungeonConfig.getDungeon(type, index);
             if (dungeon.contains("players"))
                 dungeon.getStringList("players").add(player.getUniqueId().toString());
             else
                 dungeon.set("players", new String[]{player.getUniqueId().toString()});
         } else
-            player.teleport(location.clone().add(type.spawnLocation));
+            player.teleport(location.add(type.spawnLocation));
     }
 
     /**
@@ -68,13 +92,15 @@ public class Dungeon {
     public void removePlayer(OfflinePlayer player) {
         if (currentPlayers.contains(player)) {
             currentPlayers.remove(player);
-            ConfigurationSection dungeon = Core.plugin().dungeonConfig.getDungeon(type, index);
+            ConfigurationSection dungeon = DungeonConfig.getDungeon(type, index);
             if (dungeon.contains("players"))
                 dungeon.getStringList("players").remove(player.getUniqueId().toString());
         }
         if (player.isOnline()) {
             Player p = (Player) player;
             p.teleport(Core.spawnLocation);
+            PersistentDataContainer container = p.getPersistentDataContainer();
+            container.set(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER, container.getAdapterContext().newPersistentDataContainer());
         }
     }
 
@@ -92,7 +118,7 @@ public class Dungeon {
         type.dungeons.remove(this);
         for (OfflinePlayer currentPlayer : currentPlayers)
             removePlayer(currentPlayer);
-        Core.plugin().dungeonConfig.getDungeons(type).set(String.valueOf(index), null);
+        DungeonConfig.getDungeons(type).set(String.valueOf(index), null);
     }
 
     /**
@@ -108,18 +134,17 @@ public class Dungeon {
             e.printStackTrace();
         }
         type.dungeons.add(this);
-        // this.spawnBoss();
+        this.spawnBoss();
     }
-    /*
+
     public void spawnBoss() {
         if (type.bossLocation == null || type.boss == null) {
             Core.plugin().getLogger().warning("The boss can't be spawned in a dungeon with no boss! Dungeon type: " + type.name);
             return;
         }
-        Location bossLoc = location.clone().add(type.bossLocation);
-        type.boss.spawn(new AbstractLocation(new BukkitWorld(DungeonType.world), bossLoc.getX(), bossLoc.getY(), bossLoc.getZ()), 1 /*TODO Wrys what is the level*//*);
+        Location bossLoc = location.add(type.bossLocation);
+        type.boss.spawn(new AbstractLocation(new BukkitWorld(DungeonType.world), bossLoc.getX(), bossLoc.getY(), bossLoc.getZ()), 1 /*TODO Wrys what is the level*/);
     }
-    */
 
     /**
      * Convert the selected configuration, index and type into a dungeon

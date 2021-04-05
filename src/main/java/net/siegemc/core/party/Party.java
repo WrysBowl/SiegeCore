@@ -19,8 +19,6 @@ public class Party {
     private HashSet<UUID> members = new HashSet<>();
     private UUID leader = null;
 
-
-
     /**
      * Create a new party
      *
@@ -29,11 +27,8 @@ public class Party {
     public Party(Player leader) {
         this.setLeader(leader.getUniqueId());
         save();
-        parties.add(this);
     }
-
-    public static HashSet<Party> parties = new HashSet<>();
-
+    
     /**
      * Create a new party
      *
@@ -55,7 +50,6 @@ public class Party {
         this.partyID = partyID;
         this.setLeader(partyLeader);
         for (UUID uuid : membersConverted) addMember(uuid);
-        parties.add(this);
     }
 
     /**

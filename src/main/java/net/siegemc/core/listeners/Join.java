@@ -6,12 +6,15 @@ import net.siegemc.core.dungeons.DungeonType;
 import net.siegemc.core.informants.Scoreboard;
 import net.siegemc.core.informants.Tablist;
 import net.siegemc.core.utils.DbManager;
+import net.siegemc.core.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.Connection;
@@ -53,10 +56,31 @@ public class Join implements Listener {
     @EventHandler
     public void joinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        for (DungeonType dungeonType : DungeonType.dungeonTypes) {
-            for (Dungeon dungeon : dungeonType.dungeons) {
-                if (dungeon.listPlayers().contains(player) && player.getLocation().distanceSquared(dungeon.location) > dungeonType.dungeonDistance * dungeonType.dungeonDistance) {
-                    player.teleport(dungeon.location.clone().add(dungeonType.spawnLocation));
+        PersistentDataContainer container = player.getPersistentDataContainer();
+        PersistentDataContainer dungeonContainer = container.get(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER);
+        if (dungeonContainer != null) {
+            String dungeonType = dungeonContainer.get(Utils.namespacedKey("type"), PersistentDataType.STRING);
+            if (dungeonType != null) {
+                DungeonType type = null;
+                for (DungeonType typ : DungeonType.dungeonTypes) {
+                    if (typ.name == dungeonType) type = typ;
+                }
+                if (type == null) {
+                    container.set(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER, container.getAdapterContext().newPersistentDataContainer());
+                    player.teleport(Core.spawnLocation);
+                }
+                Integer index = dungeonContainer.get(Utils.namespacedKey("index"), PersistentDataType.INTEGER);
+                if (type.dungeons.contains(index)) {
+                    Dungeon dungeon = type.dungeons.get(index);
+
+                    if (!dungeon.listPlayers().contains(player)) {
+                        container.set(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER, container.getAdapterContext().newPersistentDataContainer());
+                        player.teleport(Core.spawnLocation);
+                    } else if (player.getWorld().getName() != "dungeons" || player.getLocation().distance(dungeon.location) > type.dungeonDistance)
+                        player.teleport(dungeon.location.add(type.spawnLocation));
+
+                } else {
+                    container.set(Utils.namespacedKey("dungeon"), PersistentDataType.TAG_CONTAINER, container.getAdapterContext().newPersistentDataContainer());
                 }
             }
         }

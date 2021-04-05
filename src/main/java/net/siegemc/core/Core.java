@@ -10,8 +10,6 @@ import net.siegemc.core.listeners.*;
 import net.siegemc.core.party.Party;
 import net.siegemc.core.party.PartyCommand;
 import net.siegemc.core.party.PartyConfig;
-import net.siegemc.core.portals.PortalCommand;
-import net.siegemc.core.portals.PortalConfig;
 import net.siegemc.core.utils.DbManager;
 import net.siegemc.core.utils.VaultHook;
 import org.bukkit.Bukkit;
@@ -25,15 +23,10 @@ import java.util.List;
 import java.util.UUID;
 
 public final class Core extends JavaPlugin {
-    @Getter
-    private static final HashMap<UUID, Party> parties = new HashMap<>();
+    @Getter private static final HashMap<UUID, Party> parties = new HashMap<>();
     public static Location spawnLocation;
     private List<CustomShapelessRecipe> shapelessRecipes = new ArrayList<>();
     private List<CustomShapedRecipe> shapedRecipes = new ArrayList<>();
-
-    public PortalConfig portalConfig = new PortalConfig(this);
-    public DungeonConfig dungeonConfig = new DungeonConfig(this);
-
 
     @SuppressWarnings({"ResultOfMethodCallIgnored", "ConstantConditions"})
     @Override
@@ -41,15 +34,16 @@ public final class Core extends JavaPlugin {
 
         // Initialize
         spawnLocation = new Location(Bukkit.getWorld("SiegeHub"), 70.5, 71, 3.5, 90, 0);
-
+        
         // Create Configs
         if (!getDataFolder().exists()) getDataFolder().mkdir();
         PartyConfig.createConfig();
+        DungeonConfig.createConfig();
 
         // Create Hooks / Connections
         (new VaultHook()).createHooks(); // Add the hooks to the vault plugin
         DbManager.create(); // Create the initial connections
-
+        
         // Recover any parties from before shutdown
         ConfigurationSection parties = PartyConfig.getConfiguration().getConfigurationSection("party");
         if (parties != null) for (String party : parties.getKeys(false)) {
@@ -70,14 +64,12 @@ public final class Core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InventoryClose(), this);
         Bukkit.getPluginManager().registerEvents(new StatGems(), this);
         Bukkit.getPluginManager().registerEvents(new CustomItemKotlinListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PortalTeleport(), this);
         new Regeneration().startRegenTask();
 
         // Register Commands
         PartyCommand partyCommand = new PartyCommand();
         Bukkit.getPluginCommand("party").setExecutor(partyCommand);
         Bukkit.getPluginCommand("party").setTabCompleter(partyCommand);
-        Bukkit.getPluginCommand("portal").setExecutor(new PortalCommand());
 
         // Register Recipes
         /*
@@ -95,12 +87,6 @@ public final class Core extends JavaPlugin {
     @Override
     public void onDisable() {
         for (Party party : getParties().values()) party.save(true);
-        try {
-            dungeonConfig.save();
-            portalConfig.save();
-        } catch(Exception e){
-            e.printStackTrace();
-        }
     }
 
 
@@ -125,8 +111,7 @@ public final class Core extends JavaPlugin {
     public List<CustomShapedRecipe> getShapedRecipes() {
         return shapedRecipes;
     }
-
-    public List<CustomShapelessRecipe> getShapelessRecipes() {
+    public List<CustomShapelessRecipe> getShapelessRecipes(){
         return shapelessRecipes;
     }
 
