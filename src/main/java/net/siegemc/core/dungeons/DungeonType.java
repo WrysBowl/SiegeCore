@@ -40,7 +40,7 @@ public class DungeonType {
     public short dungeonDistance;
     public Location spawnLocation;
     public int dungeonLevel;
-    public ArrayList<Dungeon> dungeons;
+    public ArrayList<Dungeon> dungeons = new ArrayList<>();
     //public Location bossLocation;
     //public MythicMob boss;
 
