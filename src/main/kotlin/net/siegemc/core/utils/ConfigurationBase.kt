@@ -15,9 +15,15 @@ open class ConfigurationBase(file: File) {
     protected var configFile: File = file
     protected lateinit var configuration: FileConfiguration
 
+    init {
+        createConfig()
+    }
 
+    /**
+     * Creates the config
+     */
     @Throws(IOException::class, InvalidConfigurationException::class)
-    fun createConfig() {
+    open fun createConfig() {
         if (!configFile.exists()) configFile.parentFile.mkdirs()
         configuration = YamlConfiguration()
         try {

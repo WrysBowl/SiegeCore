@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -50,13 +49,13 @@ public class DungeonType {
     public String name;
     public Integer index;
 
-    public static DungeonType deserialize(ConfigurationSection section, String name) {
+    public static DungeonType deserialize(ConfigurationSection section, String name, Core plugin) {
         ConfigurationSection spawnOffset = section.getConfigurationSection("spawnOffset");
         ConfigurationSection boss = section.getConfigurationSection("boss");
         Location relSpawnLoc = new Location(world, spawnOffset.getInt("x"), spawnOffset.getInt("y"), spawnOffset.getInt("z"));
         /*if (boss == null) {*/
         return new DungeonType(name, section.getString("schemPath"), section.getInt("level"), (short) section.getInt("distance"),
-                relSpawnLoc, null, null);
+                relSpawnLoc, null, null, plugin);
         /*}
         Location relBossLoc = new Location(world, boss.getInt("x"), boss.getInt("y"), boss.getInt("z"));
         DungeonType type = new DungeonType(name, section.getString("schemPath"), section.getInt("level"), (short) section.getInt("distance"),
@@ -74,7 +73,7 @@ public class DungeonType {
      * @param relSpawnLoc  The relative player spawn location, relative to the dungeon schematic copy position and the location of the spawn point.
      * @param name         The dungeon's name
      */
-    DungeonType(String name, String schemPath /*The file path of the schematic, relative to the resources folder */, int dungeonLevel, short distance /* Distance between each dungeon */, Location relSpawnLoc, Location relBossLoc, String bossName) {
+    DungeonType(String name, String schemPath /*The file path of the schematic, relative to the resources folder */, int dungeonLevel, short distance /* Distance between each dungeon */, Location relSpawnLoc, Location relBossLoc, String bossName, Core plugin) {
         this.dungeonLevel = dungeonLevel;
         this.index = dungeonTypes.size();
         dungeonTypes.add(this);
@@ -83,9 +82,10 @@ public class DungeonType {
         //this.bossLocation = relBossLoc;
         this.name = name;
         try {
-            schematic = SchematicPaster.loadSchematic(new FileInputStream(new File(Core.plugin().getDataFolder().getAbsolutePath(), schemPath)), ClipboardFormats.findByAlias("SPONGE")); // Sponge schematics as they're the latest ones
-        } catch (IOException e) {
-            Core.plugin().getLogger().severe("The dungeon schematic file wasn't loadable!");
+            System.out.println(String.join(",", ClipboardFormats.getAll().stream().toArray(String[]::new)));
+            schematic = SchematicPaster.loadSchematic(new FileInputStream(new File(plugin.getDataFolder().getAbsolutePath(), schemPath)), ClipboardFormats.findByAlias("SPONGE")); // Sponge schematics as they're the latest ones
+        } catch (Exception e) {
+            plugin.getLogger().severe("The dungeon schematic file wasn't loadable!");
             e.printStackTrace();
         }
         this.dungeonDistance = distance;
@@ -106,7 +106,7 @@ public class DungeonType {
             });
             world = creator.createWorld(); // Creates the world
         }
-        ConfigurationSection dungeonCfg = Core.plugin().dungeonConfig.getDungeons(this);
+        ConfigurationSection dungeonCfg = plugin.dungeonConfig.getDungeons(this);
         dungeonCfg.getKeys(false).forEach(key -> {
             if (dungeonCfg.isConfigurationSection(key)) {
                 ConfigurationSection section = dungeonCfg.getConfigurationSection(key);

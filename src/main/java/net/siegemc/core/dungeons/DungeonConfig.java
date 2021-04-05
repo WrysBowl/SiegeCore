@@ -3,21 +3,26 @@ package net.siegemc.core.dungeons;
 import net.siegemc.core.Core;
 import net.siegemc.core.utils.ConfigurationBase;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.InvalidConfigurationException;
 
 import java.io.File;
+import java.io.IOException;
 
 public class DungeonConfig extends ConfigurationBase { //How to delete schematics?
-    private static File configFile;
-    private static FileConfiguration configuration;
-
+    Core plugin;
     public DungeonConfig(Core plugin) {
         super(new File(plugin.getDataFolder(), "dungeons.yml"));
+        this.plugin = plugin;
         try {
             createConfig();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void createConfig() throws IOException, InvalidConfigurationException {
+        super.createConfig();
+        deserializeDungeonTypes();
     }
 
 
@@ -57,7 +62,7 @@ public class DungeonConfig extends ConfigurationBase { //How to delete schematic
 
     public void deserializeDungeonTypes() {
         configuration.getKeys(false).forEach(key -> {
-            DungeonType.dungeonTypes.add(DungeonType.deserialize(configuration.getConfigurationSection(key), key));
+            DungeonType.dungeonTypes.add(DungeonType.deserialize(configuration.getConfigurationSection(key), key, plugin));
         });
     }
 
