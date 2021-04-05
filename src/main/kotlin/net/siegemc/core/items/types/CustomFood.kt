@@ -7,6 +7,7 @@ import net.siegemc.core.items.Rarity
 import net.siegemc.core.items.recipes.CustomRecipe
 import net.siegemc.core.utils.Utils
 import org.bukkit.Material
+import org.bukkit.attribute.Attribute
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.meta.ItemMeta
@@ -34,11 +35,12 @@ abstract class CustomFood(
     open fun onEat(e: PlayerItemConsumeEvent) {
         CustomItemUtils.getCustomItem(e.item)?.let {
             if (it !is CustomFood) return
+            val maxHealth = e.player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
             e.isCancelled = true
             e.player.inventory.itemInMainHand.amount = item.amount - 1
             e.player.foodLevel = e.player.foodLevel + it.hunger
             var health: Double = e.player.health + it.health
-            if (health > e.player.maxHealth) health = e.player.maxHealth
+            if (health > maxHealth) health = maxHealth
             e.player.health = health
         }
     }
