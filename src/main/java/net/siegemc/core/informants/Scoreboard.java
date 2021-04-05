@@ -1,7 +1,5 @@
 package net.siegemc.core.informants;
 
-import net.siegemc.core.items.CustomItemUtils;
-import net.siegemc.core.items.enums.StatTypes;
 import net.siegemc.core.utils.Levels;
 import net.siegemc.core.utils.Utils;
 import net.siegemc.core.utils.VaultHook;
@@ -21,14 +19,6 @@ public class Scoreboard {
         o.getScore(Utils.tacc("&7╠ Level &5" + Levels.getLevel(p) + "&7(&d" + levelPercent + "%" + "&7)")).setScore(13);
         o.getScore(Utils.tacc("&7╠ &7Gold &e" + (int) VaultHook.econ.getBalance(p))).setScore(12);
         o.getScore("  ").setScore(11);
-        CustomItemUtils r = CustomItemUtils.INSTANCE;
-        o.getScore(Utils.tacc("&7╠ &7Stats &e"
-                + r.getPlayerStat(p, StatTypes.STRENGTH)
-                + r.getPlayerStat(p, StatTypes.REGENERATION)
-                + r.getPlayerStat(p, StatTypes.LUCK)
-                + r.getPlayerStat(p, StatTypes.TOUGHNESS)
-                + r.getPlayerStat(p, StatTypes.HEALTH)
-        )).setScore(10);
         p.setScoreboard(b);
 
         /*if (Core.getParty(p.getUniqueId()) == null) { // if player is not in dungeon or party

@@ -6,12 +6,9 @@ description: The main Siege plugin
 prefix: Siege
 depend: [ Vault, ProtocolLib, Votifier, MythicMobs, NBTAPI, Kotlin ]
 load: STARTUP
-authors: [ Wrys, DeltaRays, Ghqst, Tony, Itayg ]
+authors: [ Wrys, DeltaRays, Ghqst, Bagelll ]
 
 commands:
   party:
     description: Create a party with friends
     aliases: [ p ]
-  test:
-    description: Testing
-    aliases: [ t ]

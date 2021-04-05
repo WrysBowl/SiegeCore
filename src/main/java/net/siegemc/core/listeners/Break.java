@@ -1,13 +1,7 @@
 package net.siegemc.core.listeners;
 
 import net.siegemc.core.Core;
-<<<<<<< Updated upstream:src/main/java/net/siegemc/core/listeners/Break.java
 import net.siegemc.core.items.DropTable.BlockDrops;
-=======
-import net.siegemc.core.items.implemented.misc.materials.*;
-import net.siegemc.core.olditems.droptable.BlockDrops;
-import net.siegemc.core.olditems.itemlibrary.Items;
->>>>>>> Stashed changes:src/main/java/net/siegemc/core/listeners/BlockBreakListener.java
 import net.siegemc.core.utils.Levels;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -20,9 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class Break implements Listener {
 
@@ -35,7 +27,7 @@ public class Break implements Listener {
 
         if (player.getGameMode() == GameMode.CREATIVE) { return; }
 
-        if (blockDrops.get(block) == null) { //if block doesn't have a drop table, cancel the event
+        if (BlockDrops.checkAllDrops(block) == null) {
             e.setCancelled(true);
             return;
         }
@@ -61,87 +53,4 @@ public class Break implements Listener {
             loc.getBlock().setBlockData(blockData);
         }, dropTable.getBlockRegenDelay()); //Need to recheck to make sure regen time is properly made as a delay
     }
-
-
-    /**
-     The code below was a failed attempt to create an abstract drop table using Ghost's item classes.
-     I'll just stick to switch cases I guess
-     **/
-
-    short expReward = 0; //Won't give exp
-    ArrayList<ItemStack> itemRewards = new ArrayList<>(); //List of items that will be dropped
-    short blockRegenDelay = 20; //1 second block regeneration
-    double luckChance = 0.0;
-    double extraDropChance = 0.0;
-
-
-    public static HashMap<String, Object[]> grassBlock = new HashMap<String, Object[]>() {{
-        put("Dirt Clump", new Object[]{ new DirtClump().getItem(), 30.0 });
-        put("Seed", new Object[]{ new Seed().getItem(), 10.0 });
-        put("Turf", new Number[]{ 1, 1, 5 });
-        put("Moss", new Number[]{ 1, 1, 1 });
-        put("Mossy Dirt", new Number[]{ 1, 1, 0.5 });
-    }};
-
-    public static HashMap<String, Object[]> dirt = new HashMap<String, Object[]>() {{
-        put("Dirt Clump", new Object[]{ new DirtClump().getItem(), 30.0 });
-        put("Pebble", new Number[]{ 1, 1, 25 });
-    }};
-
-    public static HashMap<String, Object[]> podzol = new HashMap<String, Object[]>() {{
-        put("Dirt Clump", new Object[]{ new DirtClump().getItem(), 80.0 });
-    }};
-
-    public static HashMap<String, Object[]> stone = new HashMap<String, Object[]>() {{
-        put("Pebble", new Number[]{ 1, 1, 75 });
-        put("Stone", new Number[]{ 1, 1, 1 });
-    }};
-
-    public static HashMap<String, Object[]> vine = new HashMap<String, Object[]>() {{
-        put("Vine", new Number[]{ 1, 1, 100 });
-    }};
-
-    public static HashMap<String, Object[]> wood = new HashMap<String, Object[]>() {{
-        put("Wood", new Number[]{ 1, 1, 100 });
-    }};
-
-    public static HashMap<String, Object[]> ironOre = new HashMap<String, Object[]>() {{
-        put("Metal Scrap", new Number[]{ 1, 1, 100 });
-    }};
-
-    public static HashMap<Material, HashMap<String, Object[]>> blockDrops = new HashMap<Material, HashMap<String, Object[]>>() {{
-        put(Material.GRASS_BLOCK, grassBlock);
-        put(Material.DIRT, dirt);
-        put(Material.COARSE_DIRT, dirt);
-        put(Material.PODZOL, podzol);
-        put(Material.STONE, stone);
-        put(Material.LIGHT_GRAY_CONCRETE, stone);
-        put(Material.ANDESITE, stone);
-        put(Material.VINE, vine);
-        put(Material.SPRUCE_WOOD, wood);
-        put(Material.SPRUCE_LOG, wood);
-        put(Material.OAK_WOOD, wood);
-        put(Material.OAK_PLANKS, wood);
-        put(Material.IRON_ORE, ironOre);
-    }};
-
-
-
-    public void giveBlockDrops(Material blockType, Player player) {
-        HashMap<String, Object[]> drops = blockDrops.get(blockType);          //Get the drop table for the block mined
-        for (String mapElem : blockDrops.get(blockType).keySet()) {           //Loop through all drops that the block can drop
-            Object[] blockDropInfo = drops.get(mapElem);                      //Get the item stack and the drop chance of the item in an array of objects
-            calcDrop((ItemStack) blockDropInfo[0], (Double) blockDropInfo[1]);//Use drop chance to see if block will be added to rewards array
-        }
-    }
-    private void calcDrop(ItemStack item, double dropChance) {
-
-        if (((Math.random() * 100) + 1) <= (dropChance + extraDropChance)) { //Default chance to get a grass block
-            if (((Math.random() * 100) + 1) <= (luckChance/2)) { //Adds another item if player is lucky
-                itemRewards.add(item);
-            }
-            itemRewards.add(item);
-        }
-    }
-
 }
